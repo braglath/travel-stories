@@ -1,0 +1,42 @@
+name: travel_diaries
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment:
+  sdk: ">=2.15.0-142.0.dev <3.0.0"
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  get: 4.5.1
+  flutter:
+    sdk: flutter
+  font_awesome_flutter: ^9.2.0
+  # persistent_bottom_nav_bar: ^4.0.2
+  get_storage: ^2.0.3
+  intl: ^0.17.0
+  introduction_screen: ^2.1.0
+
+dev_dependencies:
+  flutter_lints: ^1.0.0
+  lints: 1.0.1
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - images/
+
+fonts:
+  - family: Noto_Sans
+    fonts:
+      - asset: assets/fonts/NotoSans-Bold.ttf
+        style: bold
+      - asset: assets/fonts/NotoSans-BoldItalic.ttf
+        style: bolditalic
+      - asset: assets/fonts/NotoSans-Italic.ttf
+        style: italic
+      - asset: assets/fonts/NotoSans-Regular.ttf
+        style: regular
