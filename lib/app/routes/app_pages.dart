@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:travel_diaries/app/modules/app_bar/bindings/app_bar_binding.dart';
@@ -21,45 +22,63 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.INTRODUCTION;
+  static const NEWUSER = Routes.INTRODUCTION;
+  static const OLDUSER = Routes.SUBMIT_STORY;
 
   static final routes = [
     GetPage(
-      name: _Paths.INTRODUCTION,
-      page: () => IntroductioScreensView(),
-      // binding: HomeBinding(),
-    ),
+        name: _Paths.INTRODUCTION,
+        page: () => IntroductioScreensView(),
+        transition: Transition.leftToRight,
+        transitionDuration: Duration(milliseconds: 600),
+        curve: Curves.easeInOutCubic
+
+        // binding: HomeBinding(),
+        ),
     GetPage(
-      name: _Paths.HOME,
-      page: () => HomeView(),
-      binding: HomeBinding(),
-    ),
+        name: _Paths.HOME,
+        page: () => HomeView(),
+        binding: HomeBinding(),
+        transition: Transition.rightToLeftWithFade,
+        transitionDuration: Duration(milliseconds: 600),
+        curve: Curves.fastOutSlowIn),
     GetPage(
-      name: _Paths.SUBMIT_STORY,
-      page: () => SubmitStoryView(),
-      binding: SubmitStoryBinding(),
-    ),
+        name: _Paths.SUBMIT_STORY,
+        page: () => SubmitStoryView(),
+        binding: SubmitStoryBinding(),
+        transition: Transition.rightToLeftWithFade,
+        popGesture: true,
+        transitionDuration: Duration(milliseconds: 600),
+        curve: Curves.fastOutSlowIn),
     GetPage(
-      name: _Paths.PROFILE,
-      page: () => ProfileView(),
-      binding: ProfileBinding(),
-    ),
+        name: _Paths.PROFILE,
+        page: () => ProfileView(),
+        binding: ProfileBinding(),
+        transition: Transition.rightToLeftWithFade,
+        transitionDuration: Duration(milliseconds: 600),
+        curve: Curves.fastOutSlowIn),
     GetPage(
-      name: _Paths.APP_BAR,
-      page: () => AppBarView(
-        title: '',
-      ),
-      binding: AppBarBinding(),
-    ),
+        name: _Paths.APP_BAR,
+        page: () => AppBarView(
+              title: '',
+            ),
+        binding: AppBarBinding(),
+        transition: Transition.fadeIn,
+        transitionDuration: Duration(milliseconds: 600),
+        curve: Curves.fastOutSlowIn),
     GetPage(
-      name: _Paths.POST_STORY,
-      page: () => PostStoryView(),
-      binding: PostStoryBinding(),
-    ),
+        name: _Paths.POST_STORY,
+        page: () => PostStoryView(),
+        binding: PostStoryBinding(),
+        transition: Transition.rightToLeftWithFade,
+        transitionDuration: Duration(milliseconds: 600),
+        curve: Curves.fastOutSlowIn),
     GetPage(
-      name: _Paths.SIGNUP,
-      page: () => SignupView(),
-      binding: SignupBinding(),
-    ),
+        name: _Paths.SIGNUP,
+        page: () => SignupView(),
+        binding: SignupBinding(),
+        transition: Transition.rightToLeft,
+        transitionDuration: Duration(milliseconds: 600),
+        curve: Curves.fastOutSlowIn),
   ];
 }

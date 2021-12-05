@@ -99,6 +99,7 @@ class PostStoryController extends GetxController {
       );
 
   Widget firstSteptitleFormField(title) => TextFormField(
+      style: TextStyle(color: ColorResourcesLight.mainTextHEADINGColor),
       cursorColor: ThemeService().theme == ThemeMode.light
           ? ColorResourcesLight.mainTextHEADINGColor
           : ColorResourcesDark.mainDARKTEXTICONcolor,
@@ -137,6 +138,7 @@ class PostStoryController extends GetxController {
       );
 
   Widget secondSteptitleFormField(title) => TextFormField(
+      style: TextStyle(color: ColorResourcesLight.mainTextHEADINGColor),
       cursorColor: ThemeService().theme == ThemeMode.light
           ? ColorResourcesLight.mainTextHEADINGColor
           : ColorResourcesDark.mainDARKTEXTICONcolor,

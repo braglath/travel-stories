@@ -53,6 +53,7 @@ class Themes {
 
 // ! input decoration
     inputDecorationTheme: InputDecorationTheme(
+      
       labelStyle: const TextStyle(
           color: ColorResourcesLight.mainTextHEADINGColor,
           fontWeight: FontWeight.bold,

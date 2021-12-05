@@ -3,7 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
+import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/top_to_bottom_animation.dart';
+import 'package:travel_diaries/app/routes/app_pages.dart';
 
 import '../controllers/app_bar_controller.dart';
 
@@ -34,19 +36,21 @@ class AppBarView extends GetView<AppBarController>
       // line weight
       // clear_all_rounded
       actions: <Widget>[
-        IconButton(
-          splashRadius: 20,
-          onPressed: () => ThemeService().switchTheme(),
-          icon: ThemeService().theme == ThemeMode.light
-              ? FaIcon(
-                  FontAwesomeIcons.lightbulb,
-                  color: Colors.amber,
-                )
-              : FaIcon(
-                  FontAwesomeIcons.moon,
-                  color: Colors.deepPurpleAccent,
-                ),
-        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: InkWell(
+            radius: 15,
+            onTap: () => Get.toNamed(Routes.PROFILE),
+            child: CircleAvatar(
+              radius: 15,
+              backgroundColor: ThemeService().theme == ThemeMode.light
+                  ? ColorResourcesLight.mainLIGHTColor
+                  : ColorResourcesDark.mainDARKColor,
+              child: Icon(
+                  Icons.person), // todo if no profile image implement default
+            ),
+          ),
+        )
       ],
     );
   }

@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
+import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
+import 'package:travel_diaries/app/modules/animations/left_to_right_animation.dart';
+import 'package:travel_diaries/app/routes/app_pages.dart';
 
-class NavBar extends StatelessWidget {
-  const NavBar({Key? key}) : super(key: key);
+class NavBar extends GetView {
+  NavBar({Key? key}) : super(key: key);
+  final String name = UserDetails().readUserNamefromBox().toString();
+  final String phoneorEmail =
+      UserDetails().readUserPhoneorEmailfromBox().toString();
 
   @override
   Widget build(BuildContext context) {
@@ -18,18 +27,24 @@ class NavBar extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
             UserAccountsDrawerHeader(
-              accountName: Text(
-                'this is my name',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
+              accountName: LefttoRightAnimation(
+                duration: Duration(milliseconds: 500),
+                child: Text(
+                  name,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
                 ),
               ),
-              accountEmail: Text(
-                'this is my email',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
+              accountEmail: LefttoRightAnimation(
+                duration: Duration(milliseconds: 500),
+                child: Text(
+                  phoneorEmail,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
                 ),
               ),
               currentAccountPicture: CircleAvatar(
@@ -46,6 +61,16 @@ class NavBar extends StatelessWidget {
                 color: ThemeService().theme == ThemeMode.light
                     ? ColorResourcesLight.mainLIGHTColor
                     : ColorResourcesDark.mainDARKColor,
+              ),
+            ),
+            ListTile(
+              title: Text(
+                'Main pages',
+                style: TextStyle(
+                  color: Colors.grey.shade400,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
             ),
             ListTile(
@@ -83,6 +108,7 @@ class NavBar extends StatelessWidget {
                   fontSize: 15,
                 ),
               ),
+              onTap: () => Get.toNamed(Routes.POST_STORY),
             ),
             ListTile(
               leading: Icon(
@@ -104,6 +130,16 @@ class NavBar extends StatelessWidget {
             ),
             Divider(),
             ListTile(
+              title: Text(
+                'Settings',
+                style: TextStyle(
+                  color: Colors.grey.shade400,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+              ),
+            ),
+            ListTile(
               leading: Icon(
                 Icons.language,
                 color: ThemeService().theme == ThemeMode.light
@@ -123,13 +159,17 @@ class NavBar extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(
-                Icons.edit,
+                ThemeService().theme == ThemeMode.light
+                    ? Icons.light_mode_sharp
+                    : FontAwesomeIcons.moon,
                 color: ThemeService().theme == ThemeMode.light
                     ? ColorResourcesLight.mainLIGHTColor2
                     : ColorResourcesDark.mainDARKColor2,
               ),
               title: Text(
-                'Edit profile',
+                ThemeService().theme == ThemeMode.light
+                    ? 'Toggle dark mode'
+                    : 'Toggle light mode',
                 style: TextStyle(
                   color: ThemeService().theme == ThemeMode.light
                       ? ColorResourcesLight.mainTextHEADINGColor
@@ -138,62 +178,30 @@ class NavBar extends StatelessWidget {
                   fontSize: 15,
                 ),
               ),
+              onTap: () => ThemeService().switchTheme(),
             ),
             ListTile(
-              leading: Icon(
-                Icons.notifications,
-                color: ThemeService().theme == ThemeMode.light
-                    ? ColorResourcesLight.mainLIGHTColor2
-                    : ColorResourcesDark.mainDARKColor2,
-              ),
-              title: Text(
-                'Notification',
-                style: TextStyle(
+                leading: Icon(
+                  Icons.logout,
                   color: ThemeService().theme == ThemeMode.light
-                      ? ColorResourcesLight.mainTextHEADINGColor
-                      : ColorResourcesDark.mainDARKTEXTICONcolor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
+                      ? ColorResourcesLight.mainLIGHTColor2
+                      : ColorResourcesDark.mainDARKColor2,
                 ),
-              ),
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(
-                Icons.sync,
-                color: ThemeService().theme == ThemeMode.light
-                    ? ColorResourcesLight.mainLIGHTColor2
-                    : ColorResourcesDark.mainDARKColor2,
-              ),
-              title: Text(
-                'Restart',
-                style: TextStyle(
-                  color: ThemeService().theme == ThemeMode.light
-                      ? ColorResourcesLight.mainTextHEADINGColor
-                      : ColorResourcesDark.mainDARKTEXTICONcolor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
+                title: Text(
+                  'Logout',
+                  style: TextStyle(
+                    color: ThemeService().theme == ThemeMode.light
+                        ? ColorResourcesLight.mainTextHEADINGColor
+                        : ColorResourcesDark.mainDARKTEXTICONcolor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
                 ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.logout,
-                color: ThemeService().theme == ThemeMode.light
-                    ? ColorResourcesLight.mainLIGHTColor2
-                    : ColorResourcesDark.mainDARKColor2,
-              ),
-              title: Text(
-                'Logout',
-                style: TextStyle(
-                  color: ThemeService().theme == ThemeMode.light
-                      ? ColorResourcesLight.mainTextHEADINGColor
-                      : ColorResourcesDark.mainDARKTEXTICONcolor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                ),
-              ),
-            ),
+                onTap: () {
+                  Get.reloadAll(force: true);
+                  UserDetails().deleteUserDetailsfromBox();
+                  Get.offAllNamed(Routes.HOME);
+                }),
           ],
         ),
       ),

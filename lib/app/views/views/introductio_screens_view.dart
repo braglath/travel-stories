@@ -24,16 +24,12 @@ class IntroductioScreensView extends GetView {
               titleTextStyle: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: ThemeService().theme == ThemeMode.light
-                    ? ColorResourcesLight.mainLIGHTColor
-                    : ColorResourcesDark.mainDARKColor,
+                color: ColorResourcesLight.mainLIGHTColor,
               ),
               bodyTextStyle: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: ThemeService().theme == ThemeMode.light
-                    ? ColorResourcesLight.mainLIGHTColor
-                    : ColorResourcesDark.mainDARKColor,
+                color: ColorResourcesLight.mainLIGHTColor,
               )),
           image: Container(
               child: Image.asset('images/intro2.png', fit: BoxFit.cover)),
@@ -45,16 +41,12 @@ class IntroductioScreensView extends GetView {
               titleTextStyle: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: ThemeService().theme == ThemeMode.light
-                    ? ColorResourcesLight.mainLIGHTColor
-                    : ColorResourcesDark.mainDARKColor,
+                color: ColorResourcesLight.mainLIGHTColor,
               ),
               bodyTextStyle: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: ThemeService().theme == ThemeMode.light
-                    ? ColorResourcesLight.mainLIGHTColor
-                    : ColorResourcesDark.mainDARKColor,
+                color: ColorResourcesLight.mainLIGHTColor,
               )),
           image: Container(
               child: Padding(
@@ -92,16 +84,12 @@ class IntroductioScreensView extends GetView {
               titleTextStyle: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: ThemeService().theme == ThemeMode.light
-                    ? ColorResourcesLight.mainLIGHTColor
-                    : ColorResourcesDark.mainDARKColor,
+                color: ColorResourcesLight.mainLIGHTColor,
               ),
               bodyTextStyle: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: ThemeService().theme == ThemeMode.light
-                    ? ColorResourcesLight.mainLIGHTColor
-                    : ColorResourcesDark.mainDARKColor,
+                color: ColorResourcesLight.mainLIGHTColor,
               )),
           image: Container(
               child: Image.asset('images/introfinal.png', fit: BoxFit.cover)),
@@ -119,46 +107,32 @@ class IntroductioScreensView extends GetView {
         activeSize: const Size(20.0, 10.0),
         activeShape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-        activeColor: ThemeService().theme == ThemeMode.light
-            ? ColorResourcesLight.mainLIGHTColor
-            : ColorResourcesDark.mainDARKColor,
+        activeColor: ColorResourcesLight.mainLIGHTColor,
       ),
       dotsFlex: 2,
       done: Text(
         'Done',
         style: context.theme.textTheme.headline3?.copyWith(
-          color: ThemeService().theme == ThemeMode.light
-              ? ColorResourcesLight.mainLIGHTColor
-              : ColorResourcesDark.mainDARKColor,
+          color: ColorResourcesLight.mainLIGHTColor,
         ),
       ),
       onDone: () {
         Get.offAllNamed(Routes.HOME);
       },
-      skipColor: ThemeService().theme == ThemeMode.light
-          ? ColorResourcesLight.mainLIGHTColor
-          : ColorResourcesDark.mainDARKColor,
-      nextColor: ThemeService().theme == ThemeMode.light
-          ? ColorResourcesLight.mainLIGHTColor
-          : ColorResourcesDark.mainDARKColor,
-      doneColor: ThemeService().theme == ThemeMode.light
-          ? ColorResourcesLight.mainLIGHTColor
-          : ColorResourcesDark.mainDARKColor,
+      skipColor: ColorResourcesLight.mainLIGHTColor,
+      nextColor: ColorResourcesLight.mainLIGHTColor,
+      doneColor: ColorResourcesLight.mainLIGHTColor,
       next: Text(
         'next',
         style: context.theme.textTheme.headline3?.copyWith(
-          color: ThemeService().theme == ThemeMode.light
-              ? ColorResourcesLight.mainLIGHTColor
-              : ColorResourcesDark.mainDARKColor,
+          color: ColorResourcesLight.mainLIGHTColor,
         ),
       ),
       showNextButton: true,
       skip: Text(
         'skip',
         style: context.theme.textTheme.headline3?.copyWith(
-          color: ThemeService().theme == ThemeMode.light
-              ? ColorResourcesLight.mainLIGHTColor
-              : ColorResourcesDark.mainDARKColor,
+          color: ColorResourcesLight.mainLIGHTColor,
         ),
       ),
       showSkipButton: true,

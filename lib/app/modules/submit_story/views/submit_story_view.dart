@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
+import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
+import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/top_to_bottom_animation.dart';
@@ -53,6 +55,13 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
               'Caption',
               style: context.theme.textTheme.caption,
             ),
+            ElevatedButton(
+                onPressed: () {
+                  Get.reloadAll(force: true);
+                  UserDetails().deleteUserDetailsfromBox();
+                  Get.offAllNamed(Routes.HOME);
+                },
+                child: Text('Logout'))
           ],
         ),
       ),
