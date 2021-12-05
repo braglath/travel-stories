@@ -89,4 +89,21 @@ class HomeController extends GetxController {
       throw Exception();
     }
   }
+
+  void anonymousLogin() {
+    isLoading.value = false;
+    UserDetails().saveUserDetailstoBox(
+        'Anonymous user',
+        'Anonymous phone number',
+        'Anonymous password',
+        'bike',
+        'profilepicture',
+        'id');
+    UserLoginLogout().userLoggedIn(true);
+    CustomSnackbar(
+            title: 'Anonymous login Successfull',
+            message: 'Hello, ${UserDetails().readUserNamefromBox()}')
+        .showSuccess();
+    Get.offAllNamed(Routes.SUBMIT_STORY);
+  }
 }

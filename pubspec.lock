@@ -294,6 +294,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  snap_scroll_physics:
+    dependency: "direct main"
+    description:
+      name: snap_scroll_physics
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1+2"
   source_span:
     dependency: transitive
     description:

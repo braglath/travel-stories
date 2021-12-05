@@ -5,6 +5,7 @@ import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
+import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
 import 'package:travel_diaries/app/modules/animations/left_to_right_animation.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 
@@ -47,13 +48,15 @@ class NavBar extends GetView {
                   ),
                 ),
               ),
-              currentAccountPicture: CircleAvatar(
-                child: ClipOval(
-                  child: Image.network(
-                    'https://mobirise.com/bootstrap-template/profile-template/assets/images/timothy-paul-smith-256424-1200x800.jpg',
-                    width: 90,
-                    height: 90,
-                    fit: BoxFit.cover,
+              currentAccountPicture: FadedScaleAnimation(
+                CircleAvatar(
+                  child: ClipOval(
+                    child: Image.network(
+                      'https://mobirise.com/bootstrap-template/profile-template/assets/images/timothy-paul-smith-256424-1200x800.jpg',
+                      width: 90,
+                      height: 90,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
@@ -90,6 +93,7 @@ class NavBar extends GetView {
                   fontSize: 15,
                 ),
               ),
+              onTap: () => Get.back(),
             ),
             ListTile(
               leading: Icon(
@@ -111,23 +115,25 @@ class NavBar extends GetView {
               onTap: () => Get.toNamed(Routes.POST_STORY),
             ),
             ListTile(
-              leading: Icon(
-                Icons.person,
-                color: ThemeService().theme == ThemeMode.light
-                    ? ColorResourcesLight.mainLIGHTColor2
-                    : ColorResourcesDark.mainDARKColor2,
-              ),
-              title: Text(
-                'Profile',
-                style: TextStyle(
+                leading: Icon(
+                  Icons.person,
                   color: ThemeService().theme == ThemeMode.light
-                      ? ColorResourcesLight.mainTextHEADINGColor
-                      : ColorResourcesDark.mainDARKTEXTICONcolor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
+                      ? ColorResourcesLight.mainLIGHTColor2
+                      : ColorResourcesDark.mainDARKColor2,
                 ),
-              ),
-            ),
+                title: Text(
+                  'Profile',
+                  style: TextStyle(
+                    color: ThemeService().theme == ThemeMode.light
+                        ? ColorResourcesLight.mainTextHEADINGColor
+                        : ColorResourcesDark.mainDARKTEXTICONcolor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+                onTap: () {
+                  Get.toNamed(Routes.PROFILE);
+                }),
             Divider(),
             ListTile(
               title: Text(

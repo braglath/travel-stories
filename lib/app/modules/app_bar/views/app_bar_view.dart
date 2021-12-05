@@ -35,23 +35,34 @@ class AppBarView extends GetView<AppBarController>
 
       // line weight
       // clear_all_rounded
-      actions: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: InkWell(
-            radius: 15,
-            onTap: () => Get.toNamed(Routes.PROFILE),
-            child: CircleAvatar(
-              radius: 15,
-              backgroundColor: ThemeService().theme == ThemeMode.light
-                  ? ColorResourcesLight.mainLIGHTColor
-                  : ColorResourcesDark.mainDARKColor,
-              child: Icon(
-                  Icons.person), // todo if no profile image implement default
-            ),
-          ),
-        )
-      ],
+      actions: ModalRoute.of(context)!.settings.name!.contains('/profile')
+          ? null
+          : <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: InkWell(
+                  radius: 5,
+                  borderRadius: BorderRadius.circular(50),
+                  onTap: () => ModalRoute.of(context)!
+                          .settings
+                          .name!
+                          .contains('/profile')
+                      ? null
+                      : Get.toNamed(Routes.PROFILE),
+                  child: Hero(
+                    tag: 'profileicon',
+                    child: CircleAvatar(
+                      radius: 15,
+                      backgroundColor: ThemeService().theme == ThemeMode.light
+                          ? ColorResourcesLight.mainLIGHTColor
+                          : ColorResourcesDark.mainDARKColor,
+                      child: Icon(Icons
+                          .person), // todo if no profile image implement default
+                    ),
+                  ),
+                ),
+              )
+            ],
     );
   }
 }

@@ -16,6 +16,7 @@ dependencies:
   image_picker: ^0.8.4+4
   intl: ^0.17.0
   introduction_screen: ^2.1.0
+  snap_scroll_physics: ^0.0.1+2
 
 dev_dependencies:
   flutter_lints: ^1.0.0

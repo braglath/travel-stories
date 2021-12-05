@@ -6,6 +6,7 @@ import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
+import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
 import 'package:travel_diaries/app/modules/animations/top_to_bottom_animation.dart';
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
 import 'package:travel_diaries/app/modules/submit_story/views/navbar.dart';
@@ -23,7 +24,9 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
       appBar: AppBarView(
         title: 'Submit Page',
       ),
-      floatingActionButton: _floatingActionButton(context),
+      floatingActionButton: FadedScaleAnimation(
+        _floatingActionButton(context),
+      ),
       body: SingleChildScrollView(
         child: Column(
           // mainAxisSize: MainAxisSize.min,

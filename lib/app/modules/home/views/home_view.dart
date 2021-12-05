@@ -1,10 +1,10 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
-import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 import '../controllers/home_controller.dart';
 
@@ -61,9 +61,13 @@ class HomeView extends GetView<HomeController> {
                                   onPressed: () => controller.loginUser(
                                       _nameController.text,
                                       _passwordController.text),
-                                  child: Text(
-                                    'Login',
-                                    style: context.theme.textTheme.headline6,
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 12),
+                                    child: Text(
+                                      'Login',
+                                      style: context.theme.textTheme.headline6,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -83,6 +87,99 @@ class HomeView extends GetView<HomeController> {
                                 children: <TextSpan>[
                                   TextSpan(
                                       text: 'Sign up',
+                                      style: context.theme.textTheme.headline4
+                                          ?.copyWith(
+                                        color:
+                                            ColorResourcesLight.mainLIGHTColor,
+                                      )),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(child: Divider()),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            child: Text('Other options',
+                                style: context.theme.textTheme.headline4
+                                    ?.copyWith(fontSize: 15)),
+                          ),
+                          Expanded(child: Divider()),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                              onPressed: () {},
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  FaIcon(
+                                    FontAwesomeIcons.google,
+                                    size: 15,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    'Google',
+                                    style: context.theme.textTheme.headline4
+                                        ?.copyWith(
+                                            color: ColorResourcesLight
+                                                .mainLIGHTAPPBARcolor,
+                                            fontSize: 15),
+                                  )
+                                ],
+                              )),
+                          ElevatedButton(
+                              onPressed: () {},
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  FaIcon(
+                                    FontAwesomeIcons.facebook,
+                                    size: 15,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    'Facebook',
+                                    style: context.theme.textTheme.headline4
+                                        ?.copyWith(
+                                            color: ColorResourcesLight
+                                                .mainLIGHTAPPBARcolor,
+                                            fontSize: 15),
+                                  )
+                                ],
+                              )),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Center(
+                          child: InkWell(
+                            onTap: () => controller.anonymousLogin(),
+                            child: RichText(
+                              text: TextSpan(
+                                text: 'Test the app! ',
+                                style: context.theme.textTheme.headline4,
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: 'Go anonymous',
                                       style: context.theme.textTheme.headline4
                                           ?.copyWith(
                                         color:
