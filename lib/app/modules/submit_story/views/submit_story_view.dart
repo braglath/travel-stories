@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:readmore/readmore.dart';
+
 import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
@@ -17,6 +19,7 @@ import '../controllers/submit_story_controller.dart';
 class SubmitStoryView extends GetView<SubmitStoryController> {
   @override
   final controller = Get.find(tag: 'submitstorycontroller');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,33 +41,120 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
                     : Color(0xFF8F260F),
                 height: 50,
                 child: customchips()),
-            Text(
-              'Travel Stories',
-              style: context.theme.textTheme.headline1?.copyWith(
-                height: 1,
+            Obx(() {
+              return ListView.builder(
+                physics: BouncingScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: controller.story.length,
+                itemBuilder: (context, index) {
+                  var story = controller.story[index];
+                  return mainbody(index);
+                },
+              );
+            })
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget mainbody(int index) {
+    var dateTime = DateTime.parse(controller.story[index].dateadded.toString());
+    var formate1 = "${dateTime.day}-${dateTime.month}-${dateTime.year}";
+    var story = controller.story[index];
+    print(story.personprofilepic);
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          color: ThemeService().theme == ThemeMode.light
+              ? ColorResourcesLight.mainLIGHTAPPBARcolor
+              : ColorResourcesDark.mainDARKAPPBARcolor,
+          boxShadow: [
+            BoxShadow(
+              color: ColorResourcesLight.mainTextHEADINGColor.withOpacity(0.2),
+              offset: const Offset(
+                5.0,
+                2.0,
+              ),
+              blurRadius: 5.0,
+              spreadRadius: 0.0,
+            ), //BoxShadow
+            //BoxShadow
+          ],
+        ),
+        child: Column(
+          children: [
+            ListTile(
+              // isThreeLine: true,
+              leading: Stack(
+                children: [
+                  CircleAvatar(
+                    child: story.personprofilepic.isNotEmpty
+                        ? null
+                        : Icon(
+                            Icons.person,
+                            color: Colors.white,
+                          ),
+                    backgroundColor: story.personprofilepic.isNotEmpty
+                        ? null
+                        : ThemeService().theme == ThemeMode.light
+                            ? ColorResourcesLight.mainLIGHTColor
+                            : ColorResourcesDark.mainDARKColor,
+                    backgroundImage: story.personprofilepic.isNotEmpty
+                        ? NetworkImage(
+                            "http://ubermensch.studio/travel_stories/profileimages/${story.personprofilepic}")
+                        : null,
+                  )
+                ],
+              ),
+              title: Text(
+                story.title,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: ThemeService().theme == ThemeMode.light
+                      ? ColorResourcesLight.mainTextHEADINGColor
+                      : ColorResourcesDark.mainDARKTEXTICONcolor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              subtitle: IntrinsicHeight(
+                  child: Row(
+                children: [
+                  Text(
+                    story.category,
+                  ),
+                  VerticalDivider(),
+                  Text(
+                    formate1,
+                  ),
+                ],
+              )),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: ReadMoreText(
+                controller.story[index].body,
+                trimLines: 2,
+                colorClickableText: ThemeService().theme == ThemeMode.light
+                    ? ColorResourcesLight.mainLIGHTColor
+                    : ColorResourcesDark.mainDARKColor,
+                trimMode: TrimMode.Line,
+                trimCollapsedText: 'Interested',
+                trimExpandedText: 'Show less',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: ThemeService().theme == ThemeMode.light
+                      ? ColorResourcesLight.mainTextHEADINGColor
+                      : ColorResourcesDark.mainDARKTEXTICONcolor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
             ),
-            Text('Headline 2', style: context.theme.textTheme.headline2),
-            Text(
-              'Headline 3',
-              style: context.theme.textTheme.headline3,
-            ),
-            Text(
-              'Headline 4',
-              style: context.theme.textTheme.headline4,
-            ),
-            Divider(),
-            Text(
-              'Caption',
-              style: context.theme.textTheme.caption,
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  Get.reloadAll(force: true);
-                  UserDetails().deleteUserDetailsfromBox();
-                  Get.offAllNamed(Routes.HOME);
-                },
-                child: Text('Logout'))
           ],
         ),
       ),

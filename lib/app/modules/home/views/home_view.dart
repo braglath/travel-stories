@@ -1,12 +1,15 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
+
 import '../controllers/home_controller.dart';
+
+// ignore_for_file: must_be_immutable
 
 class HomeView extends GetView<HomeController> {
   // final PersistentTabController _controller =

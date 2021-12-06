@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+
 import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
@@ -49,15 +51,30 @@ class NavBar extends GetView {
                 ),
               ),
               currentAccountPicture: FadedScaleAnimation(
-                CircleAvatar(
-                  child: ClipOval(
-                    child: Image.network(
-                      'https://mobirise.com/bootstrap-template/profile-template/assets/images/timothy-paul-smith-256424-1200x800.jpg',
-                      width: 90,
-                      height: 90,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                Stack(
+                  children: [
+                    CircleAvatar(
+                        radius: 40.0,
+                        child:
+                            UserDetails().readUserProfilePicfromBox().isNotEmpty
+                                ? null
+                                : Icon(
+                                    Icons.person,
+                                    color: Colors.white,
+                                  ),
+                        backgroundColor:
+                            UserDetails().readUserProfilePicfromBox().isNotEmpty
+                                ? ThemeService().theme == ThemeMode.light
+                                    ? ColorResourcesLight.mainLIGHTColor
+                                    : ColorResourcesDark.mainDARKColor
+                                : null,
+                        backgroundImage: UserDetails()
+                                .readUserProfilePicfromBox()
+                                .isNotEmpty
+                            ? NetworkImage(
+                                "http://ubermensch.studio/travel_stories/profileimages/${UserDetails().readUserProfilePicfromBox()}")
+                            : null),
+                  ],
                 ),
               ),
               decoration: BoxDecoration(

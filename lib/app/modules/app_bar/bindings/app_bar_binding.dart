@@ -6,7 +6,7 @@ class AppBarBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<AppBarController>(
-      () => AppBarController(),
+      () => AppBarController(), tag: 'appbarcontroller'
     );
   }
 }

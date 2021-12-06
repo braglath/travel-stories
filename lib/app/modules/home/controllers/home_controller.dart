@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
 import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
@@ -64,6 +66,7 @@ class HomeController extends GetxController {
             .showWarning();
       } else {
         final List list = json.decode(res.body);
+        print('login user details list - $list');
 
         print('login main - Success');
         isLoading.value = false;
@@ -76,7 +79,7 @@ class HomeController extends GetxController {
             list[0]['id']);
         UserLoginLogout().userLoggedIn(true);
         CustomSnackbar(
-                title: 'Login Successfull',
+                title: 'Login Successful',
                 message: 'Hello, ${UserDetails().readUserNamefromBox()}')
             .showSuccess();
         Get.offAllNamed(Routes.SUBMIT_STORY);
@@ -101,7 +104,7 @@ class HomeController extends GetxController {
         'id');
     UserLoginLogout().userLoggedIn(true);
     CustomSnackbar(
-            title: 'Anonymous login Successfull',
+            title: 'Anonymous login Successful',
             message: 'Hello, ${UserDetails().readUserNamefromBox()}')
         .showSuccess();
     Get.offAllNamed(Routes.SUBMIT_STORY);

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:get/get.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
+import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
 import 'package:travel_diaries/app/modules/animations/top_to_bottom_animation.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 
@@ -19,6 +18,8 @@ class AppBarView extends GetView<AppBarController>
         super(key: key);
 
   // final bool args = Get.arguments;
+  @override
+  final controller = Get.find(tag: 'appbarcontroller');
   @override
   Widget build(BuildContext context) {
     print('${ModalRoute.of(context)?.settings.name}');
@@ -51,17 +52,39 @@ class AppBarView extends GetView<AppBarController>
                       : Get.toNamed(Routes.PROFILE),
                   child: Hero(
                     tag: 'profileicon',
-                    child: CircleAvatar(
-                      radius: 15,
-                      backgroundColor: ThemeService().theme == ThemeMode.light
-                          ? ColorResourcesLight.mainLIGHTColor
-                          : ColorResourcesDark.mainDARKColor,
-                      child: Icon(Icons
-                          .person), // todo if no profile image implement default
+                    child: Obx(
+                      () {
+                        return Center(
+                          child: Stack(
+                            children: [
+                              CircleAvatar(
+                                  radius: 15.0,
+                                  child:
+                                      controller.profilePicture.value.isNotEmpty
+                                          ? null
+                                          : Icon(
+                                              Icons.person,
+                                              color: Colors.white,
+                                            ),
+                                  backgroundColor: controller
+                                          .profilePicture.value.isNotEmpty
+                                      ? ThemeService().theme == ThemeMode.light
+                                          ? ColorResourcesLight.mainLIGHTColor
+                                          : ColorResourcesDark.mainDARKColor
+                                      : null,
+                                  backgroundImage: controller
+                                          .profilePicture.value.isNotEmpty
+                                      ? NetworkImage(
+                                          "http://ubermensch.studio/travel_stories/profileimages/${controller.profilePicture.value}")
+                                      : null),
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),
-              )
+              ),
             ],
     );
   }

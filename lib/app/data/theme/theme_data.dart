@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter/material.dart';
+
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 
 class Themes {
@@ -8,6 +8,7 @@ class Themes {
   static final light = ThemeData.light().copyWith(
     scaffoldBackgroundColor: ColorResourcesLight.mainLIGHTScaffoldBG,
     backgroundColor: ColorResourcesLight.mainLIGHTScaffoldBG,
+    primaryColor: ColorResourcesLight.mainLIGHTColor,
     primaryColorLight: ColorResourcesLight.mainLIGHTColor,
     splashColor: ColorResourcesLight.mainLIGHTSplashColor,
     disabledColor: Colors.grey[500],
@@ -53,7 +54,6 @@ class Themes {
 
 // ! input decoration
     inputDecorationTheme: InputDecorationTheme(
-      
       labelStyle: const TextStyle(
           color: ColorResourcesLight.mainTextHEADINGColor,
           fontWeight: FontWeight.bold,

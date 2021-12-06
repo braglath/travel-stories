@@ -1,16 +1,27 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/post_story/views/post_story_view.dart';
-import 'package:travel_diaries/app/modules/profile/views/profile_view.dart';
+import 'package:travel_diaries/app/modules/submit_story/controllers/submit_story_controller.dart';
+import 'package:travel_diaries/app/routes/app_pages.dart';
+import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 
 class PostStoryController extends GetxController {
   //TODO: Implement PostStoryController
   final currentStep = 0.obs;
   final count = 0.obs;
   RxString dropdownVal = 'Pick a category'.obs;
+  RxBool isloading = false.obs;
+  // ? to get the current date
+  var now = DateTime.now();
+  var formatter = DateFormat('yyyy-MM-dd');
+  // ?
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
@@ -48,7 +59,10 @@ class PostStoryController extends GetxController {
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+    SubmitStoryController().fetchStories();
+  }
+
   void increment() => count.value++;
   void onStepCanceled() {
     print('stepper canceled');
@@ -60,8 +74,9 @@ class PostStoryController extends GetxController {
   void onStepContinued() {
     final isLastStep = currentStep.value == getSteps().length - 1;
     if (isLastStep) {
-      print('stepper completed');
-      // ! send data to server
+      print('is last step $isLastStep');
+      isloading.value = true;
+      addStory();
     } else {
       currentStep.value += 1;
     }
@@ -98,20 +113,24 @@ class PostStoryController extends GetxController {
         ),
       );
 
-  Widget firstSteptitleFormField(title) => TextFormField(
-      style: TextStyle(color: ColorResourcesLight.mainTextHEADINGColor),
-      cursorColor: ThemeService().theme == ThemeMode.light
-          ? ColorResourcesLight.mainTextHEADINGColor
-          : ColorResourcesDark.mainDARKTEXTICONcolor,
-      keyboardType: TextInputType.name,
-      maxLines: 3,
-      maxLength: 80,
-      controller: _titleController,
-      // autovalidate: true,
-      validator: (val) {},
-      decoration: InputDecoration(
-        labelText: title,
-      ));
+  Widget firstSteptitleFormField(title) => IntrinsicHeight(
+        child: TextFormField(
+            style: TextStyle(color: ColorResourcesLight.mainTextHEADINGColor),
+            cursorColor: ThemeService().theme == ThemeMode.light
+                ? ColorResourcesLight.mainTextHEADINGColor
+                : ColorResourcesDark.mainDARKTEXTICONcolor,
+            keyboardType: TextInputType.multiline,
+            textInputAction: TextInputAction.newline,
+            maxLines: null,
+            maxLength: null,
+            expands: true,
+            controller: _titleController,
+            // autovalidate: true,
+            validator: (val) {},
+            decoration: InputDecoration(
+              labelText: title,
+            )),
+      );
 
   Widget stepperTwo() => SingleChildScrollView(
         reverse: true,
@@ -137,19 +156,22 @@ class PostStoryController extends GetxController {
         ),
       );
 
-  Widget secondSteptitleFormField(title) => TextFormField(
-      style: TextStyle(color: ColorResourcesLight.mainTextHEADINGColor),
-      cursorColor: ThemeService().theme == ThemeMode.light
-          ? ColorResourcesLight.mainTextHEADINGColor
-          : ColorResourcesDark.mainDARKTEXTICONcolor,
-      keyboardType: TextInputType.name,
-      maxLines: 15,
-      controller: _bodyController,
-      // autovalidate: true,
-      validator: (val) {},
-      decoration: InputDecoration(
-        labelText: title,
-      ));
+  Widget secondSteptitleFormField(title) => IntrinsicHeight(
+        child: TextFormField(
+            style: TextStyle(color: ColorResourcesLight.mainTextHEADINGColor),
+            cursorColor: ThemeService().theme == ThemeMode.light
+                ? ColorResourcesLight.mainTextHEADINGColor
+                : ColorResourcesDark.mainDARKTEXTICONcolor,
+            maxLines: 15,
+            controller: _bodyController,
+            keyboardType: TextInputType.multiline,
+            textInputAction: TextInputAction.newline,
+            // autovalidate: true,
+            validator: (val) {},
+            decoration: InputDecoration(
+              labelText: title,
+            )),
+      );
 
   Widget stepperThree() => SingleChildScrollView(
         reverse: true,
@@ -179,8 +201,32 @@ class PostStoryController extends GetxController {
                   children: [
                     ListTile(
                       // isThreeLine: true,
-                      leading: CircleAvatar(
-                        child: Icon(Icons.person),
+                      leading: Stack(
+                        children: [
+                          CircleAvatar(
+                            child: UserDetails()
+                                    .readUserProfilePicfromBox()
+                                    .isNotEmpty
+                                ? null
+                                : Icon(
+                                    Icons.person,
+                                    color: Colors.white,
+                                  ),
+                            backgroundColor: UserDetails()
+                                    .readUserProfilePicfromBox()
+                                    .isNotEmpty
+                                ? null
+                                : ThemeService().theme == ThemeMode.light
+                                    ? ColorResourcesLight.mainLIGHTColor
+                                    : ColorResourcesDark.mainDARKColor,
+                            backgroundImage: UserDetails()
+                                    .readUserProfilePicfromBox()
+                                    .isNotEmpty
+                                ? NetworkImage(
+                                    "http://ubermensch.studio/travel_stories/profileimages/${UserDetails().readUserProfilePicfromBox()}")
+                                : null,
+                          )
+                        ],
                       ),
                       title: Text(
                         _titleController.text.isEmpty
@@ -224,4 +270,53 @@ class PostStoryController extends GetxController {
           ),
         ),
       );
+
+  void addStory() async {
+    String formattedDate = formatter.format(now);
+    var url = 'http://ubermensch.studio/travel_stories/addstory.php';
+    var uri = Uri.parse(url);
+    var data = {
+      'title': _titleController.text,
+      'category': dropdownVal.value,
+      'body': _bodyController.text,
+      'personid': UserDetails().readUserIDfromBox(),
+      'personname': UserDetails().readUserNamefromBox(),
+      'personprofilepic': UserDetails().readUserProfilePicfromBox(),
+      'dateadded': formattedDate
+    };
+
+    http.Response res = await http.post(Uri.parse(url), body: data);
+    var details = json.decode(json.encode(res.body));
+    if (details.toString().contains("titleexists")) {
+      print('story title exists');
+      isloading.value = false;
+      CustomSnackbar(
+              title: 'Error',
+              message:
+                  'The title of this story already exists! Kindly change the title')
+          .showWarning();
+    } else {
+      if (details.toString().contains("true")) {
+        print('story added');
+        isloading.value = false;
+        CustomSnackbar(title: 'Success', message: 'Story added successfully')
+            .showSuccess();
+        currentStep.value = 0;
+        _titleController.clear();
+        dropdownVal.value = 'Pick a category';
+        _bodyController.clear();
+        Get.toNamed(Routes.SUBMIT_STORY);
+        // Get.back();
+      } else if (details.toString().contains("false")) {
+        print('story error');
+        isloading.value = false;
+        CustomSnackbar(
+                title: 'Error',
+                message: 'An error occured while adding the story! Try again')
+            .showWarning();
+      } else {
+        isloading.value = false;
+      }
+    }
+  }
 }

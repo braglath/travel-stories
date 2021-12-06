@@ -1,4 +1,5 @@
 import 'package:get_storage/get_storage.dart';
+
 import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 
 class UserDetails {
@@ -25,7 +26,7 @@ class UserDetails {
       _userPhoneorEmailBox.write(_userPhoneorEmailkey, userPhoneorEmail);
 
   saveUserPasswordtoBox(String userPassword) =>
-      _userPasswordBox.write(_userPasswordkey, _userPasswordkey);
+      _userPasswordBox.write(_userPasswordkey, userPassword);
 
   saveUserFavtoBox(String userFav) => _userFavBox.write(_userFavkey, userFav);
 
@@ -62,6 +63,6 @@ class UserDetails {
     saveUserPasswordtoBox(password);
     saveUserFavtoBox(fav);
     saveUserProfilePictoBox(profilepic);
-    saveUserIDtoBox(profilepic);
+    saveUserIDtoBox(id);
   }
 }

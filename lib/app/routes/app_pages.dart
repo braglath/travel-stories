@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
 import 'package:travel_diaries/app/modules/app_bar/bindings/app_bar_binding.dart';
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
+import 'package:travel_diaries/app/modules/contact_us/bindings/contact_us_binding.dart';
+import 'package:travel_diaries/app/modules/contact_us/views/contact_us_view.dart';
 import 'package:travel_diaries/app/modules/home/bindings/home_binding.dart';
 import 'package:travel_diaries/app/modules/home/views/home_view.dart';
 import 'package:travel_diaries/app/modules/post_story/bindings/post_story_binding.dart';
@@ -84,6 +87,11 @@ class AppPages {
       // transition: Transition.rightToLeft,
       // transitionDuration: Duration(milliseconds: 600),
       // curve: Curves.fastOutSlowIn
+    ),
+    GetPage(
+      name: _Paths.CONTACT_US,
+      page: () => ContactUsView(),
+      binding: ContactUsBinding(),
     ),
   ];
 }

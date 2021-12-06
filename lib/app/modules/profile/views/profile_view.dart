@@ -1,13 +1,17 @@
+import 'package:avatar_view/avatar_view.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
+import 'package:travel_diaries/app/modules/animations/top_to_bottom_animation.dart';
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
+
 import '../controllers/profile_controller.dart';
 
 class MenuTile {
@@ -27,11 +31,14 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     List<MenuTile> _menu = [
       MenuTile('Profile', 'Edit your profile', FontAwesomeIcons.edit, () {}),
+      MenuTile('My stories', 'Stories that you have posted',
+          FontAwesomeIcons.edit, () {}),
       MenuTile('Favorites', 'Stories which you liked', FontAwesomeIcons.heart,
           () {}),
       MenuTile(
           'Localization', 'Set app language', FontAwesomeIcons.globe, () {}),
-      MenuTile('Contact us', 'Submit your query', Icons.email, () {}),
+      MenuTile('Contact us', 'Submit your query', Icons.email,
+          () => Get.toNamed(Routes.CONTACT_US)),
       MenuTile(
           'Toggle modes',
           'Toggle between dark and light mode',
@@ -67,18 +74,43 @@ class ProfileView extends GetView<ProfileController> {
             borderRadius: BorderRadius.circular(50),
             onTap: () => {},
             child: Hero(
-              tag: 'profileicon',
-              child: CircleAvatar(
-                radius: 40,
-                backgroundColor: ThemeService().theme == ThemeMode.light
-                    ? ColorResourcesLight.mainLIGHTColor
-                    : ColorResourcesDark.mainDARKColor,
-                child: Icon(
-                  Icons.person,
-                  size: 50,
-                ), // todo if no profile image implement default
-              ),
-            ),
+                tag: 'profileicon',
+                child: Obx(() {
+                  return controller.profilePicture.value.isEmpty
+                      ? CircleAvatar(
+                          radius: 50,
+                          backgroundColor:
+                              ThemeService().theme == ThemeMode.light
+                                  ? ColorResourcesLight.mainLIGHTColor
+                                  : ColorResourcesDark.mainDARKColor,
+                          child: Icon(Icons.person))
+                      : Center(
+                          child: Stack(
+                            children: [
+                              CircleAvatar(
+                                  radius: 50.0,
+                                  child:
+                                      controller.profilePicture.value.isNotEmpty
+                                          ? null
+                                          : Icon(
+                                              Icons.person,
+                                              color: Colors.white,
+                                            ),
+                                  backgroundColor: controller
+                                          .profilePicture.value.isNotEmpty
+                                      ? ThemeService().theme == ThemeMode.light
+                                          ? ColorResourcesLight.mainLIGHTColor
+                                          : ColorResourcesDark.mainDARKColor
+                                      : null,
+                                  backgroundImage: controller
+                                          .profilePicture.value.isNotEmpty
+                                      ? NetworkImage(
+                                          "http://ubermensch.studio/travel_stories/profileimages/${controller.profilePicture.value}")
+                                      : null),
+                            ],
+                          ),
+                        );
+                })),
           ),
         ),
         Container(

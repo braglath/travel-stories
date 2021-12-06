@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
@@ -34,11 +35,24 @@ class PostStoryView extends GetView<PostStoryController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarView(
-        title: 'Post Story',
-      ),
-      body: _customStepperWidget(context),
-    );
+        appBar: AppBarView(
+          title: 'Post Story',
+        ),
+        body: Obx(() {
+          return Stack(
+            children: [
+              _customStepperWidget(context),
+              controller.isloading.value
+                  ? Positioned.fill(
+                      child: Center(
+                          child: CircularProgressIndicator(
+                      backgroundColor: ColorResourcesLight.mainLIGHTAPPBARcolor,
+                      color: ColorResourcesLight.mainLIGHTColor,
+                    )))
+                  : SizedBox.shrink()
+            ],
+          );
+        }));
   }
 
   Widget _customStepperWidget(context) => Obx(() {
