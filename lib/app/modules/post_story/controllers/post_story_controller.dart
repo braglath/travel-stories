@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:travel_diaries/app/data/Services/api_services.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
@@ -59,9 +60,7 @@ class PostStoryController extends GetxController {
   }
 
   @override
-  void onClose() {
-    SubmitStoryController().fetchStories();
-  }
+  void onClose() {}
 
   void increment() => count.value++;
   void onStepCanceled() {
@@ -162,7 +161,7 @@ class PostStoryController extends GetxController {
             cursorColor: ThemeService().theme == ThemeMode.light
                 ? ColorResourcesLight.mainTextHEADINGColor
                 : ColorResourcesDark.mainDARKTEXTICONcolor,
-            maxLines: 15,
+            maxLines: 10,
             controller: _bodyController,
             keyboardType: TextInputType.multiline,
             textInputAction: TextInputAction.newline,
@@ -272,7 +271,7 @@ class PostStoryController extends GetxController {
       );
 
   void addStory() async {
-    String formattedDate = formatter.format(now);
+    print('body - ${_bodyController.text}');
     var url = 'http://ubermensch.studio/travel_stories/addstory.php';
     var uri = Uri.parse(url);
     var data = {
@@ -281,12 +280,14 @@ class PostStoryController extends GetxController {
       'body': _bodyController.text,
       'personid': UserDetails().readUserIDfromBox(),
       'personname': UserDetails().readUserNamefromBox(),
-      'personprofilepic': UserDetails().readUserProfilePicfromBox(),
-      'dateadded': formattedDate
+      'personprofilepic': UserDetails().readUserProfilePicfromBox()
     };
+
+    print('data - $data');
 
     http.Response res = await http.post(Uri.parse(url), body: data);
     var details = json.decode(json.encode(res.body));
+    print('details - $details');
     if (details.toString().contains("titleexists")) {
       print('story title exists');
       isloading.value = false;
@@ -305,8 +306,7 @@ class PostStoryController extends GetxController {
         _titleController.clear();
         dropdownVal.value = 'Pick a category';
         _bodyController.clear();
-        Get.toNamed(Routes.SUBMIT_STORY);
-        // Get.back();
+        Get.offAllNamed(Routes.SUBMIT_STORY);
       } else if (details.toString().contains("false")) {
         print('story error');
         isloading.value = false;

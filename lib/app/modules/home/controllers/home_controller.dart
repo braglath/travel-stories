@@ -12,14 +12,19 @@ import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
+  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  late TextEditingController nameController, passwordController;
+  var name;
+  var password;
 
-  final count = 0.obs;
   RxBool obscured = true.obs;
   RxBool isLoading = false.obs;
 
   @override
   void onInit() {
     super.onInit();
+    nameController = TextEditingController();
+    passwordController = TextEditingController();
   }
 
   @override
@@ -28,11 +33,40 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onClose() {}
-  void increment() => count.value++;
+  void onClose() {
+    nameController.dispose();
+    passwordController.dispose();
+  }
 
   void toggleObscured() {
     obscured.value = !obscured.value;
+  }
+
+  String? validateName(String value) {
+    if (value.isEmpty) {
+      return 'Name cannot empty';
+    }
+    return null;
+  }
+
+  String? validatePassword(String value) {
+    if (value.isEmpty) {
+      return 'Password cannot empty';
+    }
+    if (value.length < 4) {
+      return 'Password cannot be less than 4 characters';
+    }
+    return null;
+  }
+
+  void checkLogin() {
+    final isValid = loginFormKey.currentState!.validate();
+    if (!isValid) {
+      return;
+    } else {
+      loginFormKey.currentState?.save();
+      loginUser(name, password);
+    }
   }
 
   void loginUser(String name, String password) async {

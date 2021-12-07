@@ -15,6 +15,7 @@ abstract class Routes {
   static const POST_STORY = _Paths.POST_STORY;
   static const SIGNUP = _Paths.SIGNUP;
   static const CONTACT_US = _Paths.CONTACT_US;
+  static const FULL_SCREEN_STORY = _Paths.FULL_SCREEN_STORY;
 }
 
 abstract class _Paths {
@@ -27,4 +28,5 @@ abstract class _Paths {
   static const POST_STORY = '/post-story';
   static const SIGNUP = '/signup';
   static const CONTACT_US = '/contact-us';
+  static const FULL_SCREEN_STORY = '/full-screen-story';
 }

@@ -2,10 +2,11 @@ import 'package:http/http.dart' as http;
 import 'package:travel_diaries/app/data/Models/stories_model.dart';
 
 class APIservices {
-  static Future<List<StoriesModel>> getStories() async {
+  static Future<List<StoriesModel>> getStories(String category) async {
+    print(category);
     var url = 'http://ubermensch.studio/travel_stories/getstories.php';
     var data = {
-      "category": "All",
+      "category": category,
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);

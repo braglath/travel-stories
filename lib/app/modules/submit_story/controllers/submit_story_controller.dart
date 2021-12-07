@@ -11,9 +11,11 @@ import 'package:travel_diaries/app/data/Services/api_services.dart';
 class SubmitStoryController extends GetxController {
   //TODO: Implement SubmitStoryController
 
-  final count = 0.obs;
   final defaultChoiceIndex = 0.obs;
   RxBool isSelected = false.obs;
+  RxBool isLiked = false.obs;
+  RxBool isEmpty = false.obs;
+  RxBool isLoading = false.obs;
 
   List<String> travelmodes =
       ['All', 'Cycle', 'Bike', 'Car', 'Bus', 'Train', 'Flight'].obs;
@@ -27,36 +29,56 @@ class SubmitStoryController extends GetxController {
     Icons.flight_takeoff,
   ].obs;
 
-  final List<StoriesModel> story = <StoriesModel>[].obs;
-  get taskList => this.story;
-
-  bool isSelectedLabel() => isSelected.value = true;
+  List<StoriesModel> story = <StoriesModel>[].obs;
 
   @override
   void onInit() {
-    fetchStories();
+    fetchStories(travelmodes[defaultChoiceIndex.value]);
     super.onInit();
   }
 
   @override
   void onReady() {
-    fetchStories();
-
     super.onReady();
   }
 
   @override
-  void onClose() {
-    fetchStories();
+  void onClose() {}
+
+  void fetchStories(String category) async {
+    isLoading.value = true;
+    print('i am here');
+    var stories = await refreshStories(category);
+
+    if (stories.isNotEmpty) {
+      story.add(stories[0]);
+      print('fetch stories length - ${stories.length}');
+      isLoading.value = false;
+      isEmpty.value = false;
+    } else {
+      isEmpty.value = true;
+      isLoading.value = false;
+    }
   }
 
-  void increment() => count.value++;
+  Future<List<StoriesModel>> refreshStories(String category) async {
+    print(category);
+    var url = 'http://ubermensch.studio/travel_stories/getstories.php';
+    var data = {
+      "category": category,
+    };
 
-  void fetchStories() async {
-    print('i am here');
-    var stories = await APIservices.getStories();
-    if (stories.isNotEmpty) {
-      story.assignAll(stories);
+    http.Response res = await http.post(Uri.parse(url), body: data);
+    print(res.statusCode);
+    if (res.statusCode == 200) {
+      var jsonString = res.body;
+      print(jsonString);
+      final totalmodel = storiesModelFromJson(jsonString);
+      story.assignAll(totalmodel);
+      List jsonResponse = json.decode(res.body);
+      return jsonResponse.map((e) => StoriesModel.fromJson(e)).toList();
+    } else {
+      return [];
     }
   }
 }

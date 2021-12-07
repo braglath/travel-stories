@@ -25,7 +25,10 @@ class AppBarView extends GetView<AppBarController>
     print('${ModalRoute.of(context)?.settings.name}');
     return AppBar(
       title: ToptoBottomAnimation(
-          duration: Duration(milliseconds: 800), child: Text(title)),
+          duration: Duration(milliseconds: 800),
+          child: Text(title,
+              style:
+                  context.theme.textTheme.headline3?.copyWith(fontSize: 22))),
       leading: ModalRoute.of(context)!.settings.name!.contains('/submit-story')
           ? null
           : IconButton(
@@ -58,25 +61,33 @@ class AppBarView extends GetView<AppBarController>
                           child: Stack(
                             children: [
                               CircleAvatar(
-                                  radius: 15.0,
-                                  child:
-                                      controller.profilePicture.value.isNotEmpty
-                                          ? null
-                                          : Icon(
-                                              Icons.person,
-                                              color: Colors.white,
-                                            ),
-                                  backgroundColor: controller
-                                          .profilePicture.value.isNotEmpty
-                                      ? ThemeService().theme == ThemeMode.light
-                                          ? ColorResourcesLight.mainLIGHTColor
-                                          : ColorResourcesDark.mainDARKColor
-                                      : null,
-                                  backgroundImage: controller
-                                          .profilePicture.value.isNotEmpty
-                                      ? NetworkImage(
-                                          "http://ubermensch.studio/travel_stories/profileimages/${controller.profilePicture.value}")
-                                      : null),
+                                backgroundColor:
+                                    ThemeService().theme == ThemeMode.light
+                                        ? ColorResourcesLight.mainLIGHTColor
+                                        : ColorResourcesDark.mainDARKColor,
+                                radius: 15,
+                                child: CircleAvatar(
+                                    radius: 13.0,
+                                    child: controller
+                                            .profilePicture.value.isNotEmpty
+                                        ? null
+                                        : Icon(
+                                            Icons.person,
+                                            color: Colors.white,
+                                          ),
+                                    backgroundColor: controller
+                                            .profilePicture.value.isNotEmpty
+                                        ? ThemeService().theme ==
+                                                ThemeMode.light
+                                            ? ColorResourcesLight.mainLIGHTColor
+                                            : ColorResourcesDark.mainDARKColor
+                                        : null,
+                                    backgroundImage: controller
+                                            .profilePicture.value.isNotEmpty
+                                        ? NetworkImage(
+                                            "http://ubermensch.studio/travel_stories/profileimages/${controller.profilePicture.value}")
+                                        : null),
+                              ),
                             ],
                           ),
                         );

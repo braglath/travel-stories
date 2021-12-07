@@ -14,8 +14,6 @@ import '../controllers/home_controller.dart';
 class HomeView extends GetView<HomeController> {
   // final PersistentTabController _controller =
   //     PersistentTabController(initialIndex: 0);
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
   final textFieldFocusNode = FocusNode();
   @override
   final controller = Get.find(tag: 'homecontroller');
@@ -47,35 +45,38 @@ class HomeView extends GetView<HomeController> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: Column(
-                          children: [
-                            name(),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            password(),
-                            SizedBox(
-                              height: 25,
-                            ),
-                            Hero(
-                              tag: 'loginbutton',
-                              child: Center(
-                                child: ElevatedButton(
-                                  onPressed: () => controller.loginUser(
-                                      _nameController.text,
-                                      _passwordController.text),
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 12),
-                                    child: Text(
-                                      'Login',
-                                      style: context.theme.textTheme.headline6,
+                        child: Form(
+                          key: controller.loginFormKey,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          child: Column(
+                            children: [
+                              name(),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              password(),
+                              SizedBox(
+                                height: 25,
+                              ),
+                              Hero(
+                                tag: 'loginbutton',
+                                child: Center(
+                                  child: ElevatedButton(
+                                    onPressed: () => controller.checkLogin(),
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 12),
+                                      child: Text(
+                                        'Login',
+                                        style:
+                                            context.theme.textTheme.headline6,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                       Padding(
@@ -216,13 +217,12 @@ class HomeView extends GetView<HomeController> {
       style: TextStyle(color: ColorResourcesLight.mainTextHEADINGColor),
       cursorColor: ColorResourcesLight.mainTextHEADINGColor,
       keyboardType: TextInputType.name,
-      controller: _nameController,
-      autovalidate: true,
-      validator: (val) {
-        if (val!.length > 25) {
-          return 'Name cannot be more than 25 characters';
-        }
-        return null;
+      controller: controller.nameController,
+      onSaved: (value) {
+        controller.name = value!;
+      },
+      validator: (value) {
+        return controller.validateName(value!);
       },
       decoration: InputDecoration(
         prefixIcon: Icon(
@@ -240,15 +240,14 @@ class HomeView extends GetView<HomeController> {
                 ? ColorResourcesLight.mainTextHEADINGColor
                 : ColorResourcesDark.mainDARKTEXTICONcolor,
             keyboardType: TextInputType.visiblePassword,
-            controller: _passwordController,
-            obscureText: controller.obscured.value,
-            autovalidate: true,
-            validator: (val) {
-              if (val!.length > 15) {
-                return 'Password cannot be more than 15 characters';
-              }
-              return null;
+            controller: controller.passwordController,
+            onSaved: (value) {
+              controller.password = value!;
             },
+            validator: (value) {
+              return controller.validatePassword(value!);
+            },
+            obscureText: controller.obscured.value,
             decoration: InputDecoration(
               prefixIcon: Icon(
                 Icons.lock,

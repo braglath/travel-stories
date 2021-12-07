@@ -6,6 +6,8 @@ import 'package:travel_diaries/app/modules/app_bar/bindings/app_bar_binding.dart
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
 import 'package:travel_diaries/app/modules/contact_us/bindings/contact_us_binding.dart';
 import 'package:travel_diaries/app/modules/contact_us/views/contact_us_view.dart';
+import 'package:travel_diaries/app/modules/full_screen_story/bindings/full_screen_story_binding.dart';
+import 'package:travel_diaries/app/modules/full_screen_story/views/full_screen_story_view.dart';
 import 'package:travel_diaries/app/modules/home/bindings/home_binding.dart';
 import 'package:travel_diaries/app/modules/home/views/home_view.dart';
 import 'package:travel_diaries/app/modules/post_story/bindings/post_story_binding.dart';
@@ -92,6 +94,11 @@ class AppPages {
       name: _Paths.CONTACT_US,
       page: () => ContactUsView(),
       binding: ContactUsBinding(),
+    ),
+    GetPage(
+      name: _Paths.FULL_SCREEN_STORY,
+      page: () => FullScreenStoryView(),
+      binding: FullScreenStoryBinding(),
     ),
   ];
 }
