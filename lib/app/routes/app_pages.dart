@@ -6,6 +6,10 @@ import 'package:travel_diaries/app/modules/app_bar/bindings/app_bar_binding.dart
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
 import 'package:travel_diaries/app/modules/contact_us/bindings/contact_us_binding.dart';
 import 'package:travel_diaries/app/modules/contact_us/views/contact_us_view.dart';
+import 'package:travel_diaries/app/modules/fav_full_screen/bindings/fav_full_screen_binding.dart';
+import 'package:travel_diaries/app/modules/fav_full_screen/views/fav_full_screen_view.dart';
+import 'package:travel_diaries/app/modules/fave_stories/bindings/fave_stories_binding.dart';
+import 'package:travel_diaries/app/modules/fave_stories/views/fave_stories_view.dart';
 import 'package:travel_diaries/app/modules/full_screen_story/bindings/full_screen_story_binding.dart';
 import 'package:travel_diaries/app/modules/full_screen_story/views/full_screen_story_view.dart';
 import 'package:travel_diaries/app/modules/home/bindings/home_binding.dart';
@@ -57,18 +61,22 @@ class AppPages {
       // curve: Curves.fastOutSlowIn
     ),
     GetPage(
-      name: _Paths.PROFILE,
-      page: () => ProfileView(),
-      binding: ProfileBinding(),
-      // transition: Transition.rightToLeftWithFade,
-      // transitionDuration: Duration(milliseconds: 600),
-      // curve: Curves.fastOutSlowIn
-    ),
+        name: _Paths.PROFILE,
+        page: () => ProfileView(),
+        binding: ProfileBinding(),
+        // transition: Transition.rightToLeftWithFade,
+        // transitionDuration: Duration(milliseconds: 600),
+        // curve: Curves.fastOutSlowIn
+        children: <GetPage>[
+          GetPage(
+            name: _Paths.FAVE_STORIES,
+            page: () => FaveStoriesView(),
+            binding: FaveStoriesBinding(),
+          ),
+        ]),
     GetPage(
       name: _Paths.APP_BAR,
-      page: () => AppBarView(
-        title: '',
-      ),
+      page: () => AppBarView(title: ''),
       binding: AppBarBinding(),
       // transition: Transition.fadeIn,
       // transitionDuration: Duration(milliseconds: 600),
@@ -99,6 +107,16 @@ class AppPages {
       name: _Paths.FULL_SCREEN_STORY,
       page: () => FullScreenStoryView(),
       binding: FullScreenStoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.FAVE_STORIES,
+      page: () => FaveStoriesView(),
+      binding: FaveStoriesBinding(),
+    ),
+    GetPage(
+      name: _Paths.FAV_FULL_SCREEN,
+      page: () => FavFullScreenView(),
+      binding: FavFullScreenBinding(),
     ),
   ];
 }

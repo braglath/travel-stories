@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/views/views/custom_bottom_sheet_view.dart';
+
 import '../controllers/signup_controller.dart';
 
 class SignupView extends GetView<SignupController> {

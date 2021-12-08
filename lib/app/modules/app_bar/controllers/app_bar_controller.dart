@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 
 class AppBarController extends GetxController {

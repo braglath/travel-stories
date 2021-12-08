@@ -1,8 +1,8 @@
+import 'dart:convert';
+
 // To parse this JSON data, do
 //
 //     final storiesModel = storiesModelFromJson(jsonString);
-
-import 'dart:convert';
 
 List<StoriesModel> storiesModelFromJson(String str) => List<StoriesModel>.from(
     json.decode(str).map((x) => StoriesModel.fromJson(x)));

@@ -8,14 +8,15 @@ import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
+import 'package:travel_diaries/app/views/views/custom_dialogue_view.dart';
 
-import '../controllers/full_screen_story_controller.dart';
+import '../controllers/fav_full_screen_controller.dart';
 
-class FullScreenStoryView extends GetView<FullScreenStoryController> {
+class FavFullScreenView extends GetView<FavFullScreenController> {
   final data = Get.arguments;
 
   @override
-  final controller = Get.find(tag: 'fullscreenstorycontroller');
+  final controller = Get.find(tag: 'favfullscreencontroller');
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +32,17 @@ class FullScreenStoryView extends GetView<FullScreenStoryController> {
 
     controller.count.value = int.parse(storylikes);
     // ? checking user already like or not
-    controller.checkLikedStories(
-        title: storytitle,
-        authorid: authorid,
-        likedpersonid: UserDetails().readUserIDfromBox(),
-        likedpersonname: UserDetails().readUserNamefromBox());
 
     return Scaffold(
       appBar: AppBarView(
-        title: 'Stories',
+        title: 'Fav stories',
+
+        // ModalRoute.of(context)!
+        //               .settings
+        //               .name!
+        //               .contains('/full-screen-story')
+        //           ? Get.offAllNamed(Routes.SUBMIT_STORY)
+        //           : Get.back(),
       ),
       body: SingleChildScrollView(
         child: FadedScaleAnimation(
@@ -84,43 +87,26 @@ class FullScreenStoryView extends GetView<FullScreenStoryController> {
                             color: Colors.grey.shade300.withOpacity(0.4),
                             shape: BoxShape.rectangle,
                             borderRadius: BorderRadius.all(Radius.circular(6))),
-                        child: InkWell(
-                          splashColor: Colors.red,
-                          onTap: () => controller.liked(storylikes,
-                              authorid: authorid,
-                              authorname: authorName,
-                              authorprofilepic: authorprofilepic,
-                              likedpersonname:
-                                  UserDetails().readUserNamefromBox(),
-                              likedpersonid: UserDetails().readUserIDfromBox(),
-                              title: storytitle,
-                              category: storycategory,
-                              body: storybody,
-                              date: storydate),
-                          child: Obx(
-                            () {
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  FaIcon(
-                                    FontAwesomeIcons.solidHeart,
-                                    size: 15,
-                                    color: controller.isLiked.isFalse
-                                        ? null
-                                        : ThemeService().theme ==
-                                                ThemeMode.light
-                                            ? ColorResourcesLight.mainLIGHTColor
-                                            : ColorResourcesDark.mainDARKColor,
-                                  ),
-                                  Text(
-                                    controller.count.toString(),
-                                    style: TextStyle(
-                                        fontSize: 14, color: Colors.black),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
+                        child: Obx(
+                          () {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                FaIcon(
+                                  FontAwesomeIcons.solidHeart,
+                                  size: 15,
+                                  color: ThemeService().theme == ThemeMode.light
+                                      ? ColorResourcesLight.mainLIGHTColor
+                                      : ColorResourcesDark.mainDARKColor,
+                                ),
+                                Text(
+                                  controller.count.toString(),
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.black),
+                                ),
+                              ],
+                            );
+                          },
                         ),
                       ),
 

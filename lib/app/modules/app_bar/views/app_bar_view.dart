@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
+
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
@@ -13,8 +15,10 @@ class AppBarView extends GetView<AppBarController>
   final Size preferredSize;
   final String title;
 
-  AppBarView({Key? key, required this.title})
-      : preferredSize = const Size.fromHeight(56.0),
+  AppBarView({
+    Key? key,
+    required this.title,
+  })  : preferredSize = const Size.fromHeight(56.0),
         super(key: key);
 
   // final bool args = Get.arguments;
@@ -34,12 +38,31 @@ class AppBarView extends GetView<AppBarController>
           : IconButton(
               splashRadius: 15,
               icon: Icon(Icons.chevron_left_outlined),
-              onPressed: () => Get.back(),
-            ),
+              onPressed: () {
+                if (ModalRoute.of(context)!
+                    .settings
+                    .name!
+                    .contains('/full-screen-story')) {}
+                if (ModalRoute.of(context)!
+                    .settings
+                    .name!
+                    .contains('/fav-full-screen')) {
+                  Get.offAllNamed(Routes.SUBMIT_STORY);
+                }
+                Get.back();
+              }),
 
       // line weight
       // clear_all_rounded
-      actions: ModalRoute.of(context)!.settings.name!.contains('/profile')
+      actions: ModalRoute.of(context)!.settings.name!.contains('/profile') ||
+              ModalRoute.of(context)!
+                  .settings
+                  .name!
+                  .contains('/fave-stories') ||
+              ModalRoute.of(context)!
+                  .settings
+                  .name!
+                  .contains('/full-screen-story')
           ? null
           : <Widget>[
               Padding(

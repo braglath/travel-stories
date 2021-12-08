@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ubermensch.travel_diaries">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="travel_diaries"
         android:icon="@mipmap/ic_launcher">

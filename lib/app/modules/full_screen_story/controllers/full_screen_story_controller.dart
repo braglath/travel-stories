@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
+import 'package:travel_diaries/app/routes/app_pages.dart';
 import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 
 class FullScreenStoryController extends GetxController {
@@ -28,6 +30,7 @@ class FullScreenStoryController extends GetxController {
     String likes, {
     required String authorid,
     required String authorname,
+    required String authorprofilepic,
     required String likedpersonname,
     required String likedpersonid,
     required String title,
@@ -42,6 +45,7 @@ class FullScreenStoryController extends GetxController {
       saveStory(
           authorid: authorid,
           authorname: authorname,
+          authorprofilepic: authorprofilepic,
           likedpersonname: likedpersonname,
           likedpersonid: likedpersonid,
           title: title,
@@ -55,13 +59,15 @@ class FullScreenStoryController extends GetxController {
           title: title,
           authorid: authorid,
           likedpersonid: likedpersonid,
-          likedpersonname: likedpersonname);
+          likedpersonname: likedpersonname,
+          authorName: authorname);
     }
   }
 
   void saveStory({
     required String authorid,
     required String authorname,
+    required String authorprofilepic,
     required String likedpersonname,
     required String likedpersonid,
     required String title,
@@ -74,6 +80,7 @@ class FullScreenStoryController extends GetxController {
     var data = {
       "authorid": authorid,
       "authorname": authorname,
+      "authorprofilepic": authorprofilepic,
       "likedpersonname": likedpersonname,
       "likedpersonid": likedpersonid,
       "title": title,
@@ -99,6 +106,11 @@ class FullScreenStoryController extends GetxController {
       if (details.toString().contains("true")) {
         print('saved to fav');
         // todo change stories table in sql
+        updateStoriesAfterLikes(
+            authorID: authorid,
+            authorName: authorname,
+            title: title,
+            likes: count.value.toString());
         CustomSnackbar(
                 title: 'Saved',
                 message:
@@ -115,13 +127,13 @@ class FullScreenStoryController extends GetxController {
     }
   }
 
-  void removeStory({
-    required String likes,
-    required String title,
-    required String authorid,
-    required String likedpersonid,
-    required String likedpersonname,
-  }) async {
+  void removeStory(
+      {required String likes,
+      required String title,
+      required String authorid,
+      required String likedpersonid,
+      required String likedpersonname,
+      required String authorName}) async {
     var url = 'http://ubermensch.studio/travel_stories/removefavstories.php';
     var uri = Uri.parse(url);
     var data = {
@@ -137,6 +149,11 @@ class FullScreenStoryController extends GetxController {
 
     if (details.toString().contains("Story deleted successfully")) {
       // todo change stories table in sql
+      updateStoriesAfterLikes(
+          authorID: authorid,
+          authorName: authorName,
+          title: title,
+          likes: count.value.toString());
       print('success');
       isLiked.value = false;
       CustomSnackbar(
@@ -161,7 +178,6 @@ class FullScreenStoryController extends GetxController {
     required String likedpersonname,
   }) async {
     var url = 'http://ubermensch.studio/travel_stories/checklikedstories.php';
-    var uri = Uri.parse(url);
     var data = {
       "title": title,
       "authorid": authorid,
@@ -179,6 +195,31 @@ class FullScreenStoryController extends GetxController {
     } else {
       print('not liked before');
       isLiked.value = false;
+    }
+  }
+
+  // ? updating stories after likes or dislikes
+  void updateStoriesAfterLikes({
+    required String authorID,
+    required String authorName,
+    required String title,
+    required String likes,
+  }) async {
+    var url = 'http://ubermensch.studio/travel_stories/updatestorieslikes.php';
+    var data = {
+      "likes": likes,
+      "personid": authorID,
+      "personname": authorName,
+      "title": title
+    };
+
+    http.Response res = await http.post(Uri.parse(url), body: data);
+    print(jsonEncode(data));
+
+    if (res.statusCode == 200) {
+      print('stories updated');
+    } else {
+      print('error updating stories');
     }
   }
 }

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
+
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
-import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
-import 'package:travel_diaries/app/modules/animations/faded_slide_animation.dart';
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
 
 import '../controllers/contact_us_controller.dart';
@@ -20,7 +18,9 @@ class ContactUsView extends GetView<ContactUsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarView(title: 'Contact us'),
+      appBar: AppBarView(
+        title: 'Contact us',
+      ),
       body: emailTab(),
     );
   }

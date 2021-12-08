@@ -16,6 +16,8 @@ abstract class Routes {
   static const SIGNUP = _Paths.SIGNUP;
   static const CONTACT_US = _Paths.CONTACT_US;
   static const FULL_SCREEN_STORY = _Paths.FULL_SCREEN_STORY;
+  static const FAVE_STORIES = _Paths.FAVE_STORIES;
+  static const FAV_FULL_SCREEN = _Paths.FAV_FULL_SCREEN;
 }
 
 abstract class _Paths {
@@ -28,5 +30,7 @@ abstract class _Paths {
   static const POST_STORY = '/post-story';
   static const SIGNUP = '/signup';
   static const CONTACT_US = '/contact-us';
-  static const FULL_SCREEN_STORY = '/full-screen-story';
+  static const FULL_SCREEN_STORY = '/fav-full-screen';
+  static const FAVE_STORIES = '/fave-stories';
+  static const FAV_FULL_SCREEN = '/full-screen-story';
 }

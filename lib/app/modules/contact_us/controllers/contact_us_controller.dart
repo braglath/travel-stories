@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 
