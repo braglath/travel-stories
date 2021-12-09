@@ -14,6 +14,10 @@ import 'package:travel_diaries/app/modules/full_screen_story/bindings/full_scree
 import 'package:travel_diaries/app/modules/full_screen_story/views/full_screen_story_view.dart';
 import 'package:travel_diaries/app/modules/home/bindings/home_binding.dart';
 import 'package:travel_diaries/app/modules/home/views/home_view.dart';
+import 'package:travel_diaries/app/modules/my_stories/bindings/my_stories_binding.dart';
+import 'package:travel_diaries/app/modules/my_stories/views/my_stories_view.dart';
+import 'package:travel_diaries/app/modules/my_stories_full_screen/bindings/my_stories_full_screen_binding.dart';
+import 'package:travel_diaries/app/modules/my_stories_full_screen/views/my_stories_full_screen_view.dart';
 import 'package:travel_diaries/app/modules/post_story/bindings/post_story_binding.dart';
 import 'package:travel_diaries/app/modules/post_story/views/post_story_view.dart';
 import 'package:travel_diaries/app/modules/profile/bindings/profile_binding.dart';
@@ -117,6 +121,16 @@ class AppPages {
       name: _Paths.FAV_FULL_SCREEN,
       page: () => FavFullScreenView(),
       binding: FavFullScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.MY_STORIES,
+      page: () => MyStoriesView(),
+      binding: MyStoriesBinding(),
+    ),
+    GetPage(
+      name: _Paths.MY_STORIES_FULL_SCREEN,
+      page: () => MyStoriesFullScreenView(),
+      binding: MyStoriesFullScreenBinding(),
     ),
   ];
 }

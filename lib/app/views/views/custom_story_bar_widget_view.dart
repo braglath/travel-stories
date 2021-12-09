@@ -20,6 +20,7 @@ class CustomStoryBarWidgetView extends GetView {
   String authorId;
   String storyId;
   Function()? listTileOnTap;
+  Function()? listTileOnLongPressed;
   String storyBody;
   Function()? readmoreOnTap;
   CustomStoryBarWidgetView(
@@ -33,6 +34,7 @@ class CustomStoryBarWidgetView extends GetView {
       required this.authorId,
       required this.storyId,
       required this.listTileOnTap,
+      required this.listTileOnLongPressed,
       required this.storyBody,
       required this.readmoreOnTap});
   @override
@@ -155,6 +157,7 @@ class CustomStoryBarWidgetView extends GetView {
                       Text(storyDate.toString()),
                     ],
                   )),
+                  onLongPress: listTileOnLongPressed,
                   onTap: listTileOnTap),
               Padding(
                 padding: const EdgeInsets.all(12.0),

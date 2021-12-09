@@ -7,7 +7,7 @@ import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 
 class ContactUsController extends GetxController {
-  //TODO: Implement ContactUsController
+
 
   final count = 0.obs;
   @override

@@ -30,7 +30,7 @@ class ProfileView extends GetView<ProfileController> {
     List<MenuTile> _menu = [
       MenuTile('Profile', 'Edit your profile', FontAwesomeIcons.edit, () {}),
       MenuTile('My stories', 'Stories that you have posted',
-          FontAwesomeIcons.book, () {}),
+          FontAwesomeIcons.book, () => Get.toNamed(Routes.MY_STORIES)),
       MenuTile('Favorites', 'Stories which you liked', FontAwesomeIcons.heart,
           () => Get.toNamed(Routes.FAVE_STORIES)),
       MenuTile(

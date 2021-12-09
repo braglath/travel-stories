@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
@@ -15,18 +13,22 @@ import 'package:travel_diaries/app/views/views/custom_story_bar_widget_view.dart
 import '../controllers/submit_story_controller.dart';
 
 class SubmitStoryView extends GetView<SubmitStoryController> {
+  final TextEditingController textController = TextEditingController();
   @override
   final controller = Get.find(tag: 'submitstorycontroller');
 
   @override
   Widget build(BuildContext context) {
+    final isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
         drawer: NavBar(),
         appBar: AppBarView(
           title: 'Travel stories',
         ),
         floatingActionButton: FadedScaleAnimation(
-          _floatingActionButton(context),
+          _floatingActionButton(context, FontAwesomeIcons.plus, 'Post',
+              () => Get.toNamed(Routes.POST_STORY)),
         ),
         body: Obx(() {
           return Stack(
@@ -81,6 +83,7 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
                                     var story = controller.story[index];
 
                                     return CustomStoryBarWidgetView(
+                                      listTileOnLongPressed: () => {},
                                       trailingOnTap: () => CustomSnackbar(
                                               title: 'Warning',
                                               message:
@@ -191,15 +194,17 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
         }));
   }
 
-  Widget _floatingActionButton(context) => FloatingActionButton.extended(
-        onPressed: () => Get.toNamed(Routes.POST_STORY),
+  Widget _floatingActionButton(context, faIcon, title, Function()? onPressed) =>
+      FloatingActionButton.extended(
+        heroTag: null,
+        onPressed: onPressed,
         // extendedPadding: EdgeInsets.zero,
         icon: FaIcon(
-          FontAwesomeIcons.plus,
+          faIcon,
           color: Colors.white,
         ),
         label: Text(
-          'Post Story',
+          title,
           style: Theme.of(context)
               .textTheme
               .subtitle1

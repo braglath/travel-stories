@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
-import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
 import 'package:travel_diaries/app/modules/animations/top_to_bottom_animation.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
-
 import '../controllers/app_bar_controller.dart';
 
 class AppBarView extends GetView<AppBarController>
@@ -62,7 +58,8 @@ class AppBarView extends GetView<AppBarController>
               ModalRoute.of(context)!
                   .settings
                   .name!
-                  .contains('/full-screen-story')
+                  .contains('/full-screen-story') ||
+              ModalRoute.of(context)!.settings.name!.contains('/my-stories')
           ? null
           : <Widget>[
               Padding(

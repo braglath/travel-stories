@@ -150,7 +150,6 @@ class SignupView extends GetView<SignupController> {
           : ColorResourcesDark.mainDARKTEXTICONcolor,
       keyboardType: TextInputType.name,
       controller: _nameController,
-      autovalidate: true,
       validator: (val) {
         if (val!.length > 25) {
           return 'Name cannot be more than 25 characters';
@@ -172,7 +171,6 @@ class SignupView extends GetView<SignupController> {
           : ColorResourcesDark.mainDARKTEXTICONcolor,
       keyboardType: TextInputType.emailAddress,
       controller: _phonenumberController,
-      autovalidate: true,
       validator: (val) {},
       decoration: InputDecoration(
         prefixIcon: Icon(
@@ -191,7 +189,6 @@ class SignupView extends GetView<SignupController> {
             keyboardType: TextInputType.visiblePassword,
             controller: _passwordController,
             obscureText: controller.obscured.value,
-            autovalidate: true,
             validator: (val) {
               if (val!.length > 15) {
                 return 'Password cannot be more than 25 characters';

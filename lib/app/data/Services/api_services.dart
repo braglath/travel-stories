@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 
 import 'package:travel_diaries/app/data/Models/fav_stories_model.dart';
+import 'package:travel_diaries/app/data/Models/my_stories_model.dart';
 import 'package:travel_diaries/app/data/Models/stories_model.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 
@@ -35,6 +36,24 @@ class APIservices {
       var jsonString = res.body;
       print(jsonString);
       return favStoriesModelFromJson(jsonString);
+    } else {
+      return [];
+    }
+  }
+
+    static Future<List<MyStoriesModel>> fetchMyStories() async {
+    var url = 'http://ubermensch.studio/travel_stories/getmystories.php';
+    var data = {
+      "personid": UserDetails().readUserIDfromBox(),
+      "personname": UserDetails().readUserNamefromBox(),
+    };
+
+    http.Response res = await http.post(Uri.parse(url), body: data);
+    print(res.statusCode);
+    if (res.statusCode == 200) {
+      var jsonString = res.body;
+      print(jsonString);
+      return myStoriesModelFromJson(jsonString);
     } else {
       return [];
     }
