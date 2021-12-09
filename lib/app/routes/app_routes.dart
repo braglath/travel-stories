@@ -20,6 +20,8 @@ abstract class Routes {
   static const FAV_FULL_SCREEN = _Paths.FAV_FULL_SCREEN;
   static const MY_STORIES = _Paths.MY_STORIES;
   static const MY_STORIES_FULL_SCREEN = _Paths.MY_STORIES_FULL_SCREEN;
+  static const EDIT_MY_STORIES = _Paths.EDIT_MY_STORIES;
+  static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
 }
 
 abstract class _Paths {
@@ -37,4 +39,6 @@ abstract class _Paths {
   static const FAV_FULL_SCREEN = '/full-screen-story';
   static const MY_STORIES = '/my-stories';
   static const MY_STORIES_FULL_SCREEN = '/my-stories-full-screen';
+  static const EDIT_MY_STORIES = '/edit-my-stories';
+  static const EDIT_PROFILE = '/edit-profile';
 }

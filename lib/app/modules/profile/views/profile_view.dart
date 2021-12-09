@@ -28,7 +28,8 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     List<MenuTile> _menu = [
-      MenuTile('Profile', 'Edit your profile', FontAwesomeIcons.edit, () {}),
+      MenuTile('Profile', 'Edit your profile', FontAwesomeIcons.edit,
+          () => Get.toNamed(Routes.EDIT_PROFILE)),
       MenuTile('My stories', 'Stories that you have posted',
           FontAwesomeIcons.book, () => Get.toNamed(Routes.MY_STORIES)),
       MenuTile('Favorites', 'Stories which you liked', FontAwesomeIcons.heart,
@@ -158,62 +159,59 @@ class ProfileView extends GetView<ProfileController> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: _menu[index].onTap as void Function()?,
-                  child: FadedScaleAnimation(
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 6, horizontal: 6),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        color: ThemeService().theme == ThemeMode.light
-                            ? ColorResourcesLight.mainLIGHTAPPBARcolor
-                            : ColorResourcesDark.mainDARKAPPBARcolor,
-                        boxShadow: [
-                          BoxShadow(
-                            color: ColorResourcesLight.mainTextHEADINGColor
-                                .withOpacity(0.2),
-                            offset: const Offset(
-                              5.0,
-                              2.0,
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 6, horizontal: 6),
+                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: ThemeService().theme == ThemeMode.light
+                          ? ColorResourcesLight.mainLIGHTAPPBARcolor
+                          : ColorResourcesDark.mainDARKAPPBARcolor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: ColorResourcesLight.mainTextHEADINGColor
+                              .withOpacity(0.2),
+                          offset: const Offset(
+                            5.0,
+                            2.0,
+                          ),
+                          blurRadius: 5.0,
+                          spreadRadius: 0.0,
+                        ), //BoxShadow
+                        //BoxShadow
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        FadedScaleAnimation(
+                          Text(_menu[index].title!,
+                              style: context.theme.textTheme.headline4),
+                          durationInMilliseconds: 400,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              _menu[index].subtitle!,
+                              style: context.theme.textTheme.caption,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            blurRadius: 5.0,
-                            spreadRadius: 0.0,
-                          ), //BoxShadow
-                          //BoxShadow
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          FadedScaleAnimation(
-                            Text(_menu[index].title!,
-                                style: context.theme.textTheme.headline4),
-                            durationInMilliseconds: 400,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                _menu[index].subtitle!,
-                                style: context.theme.textTheme.caption,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Icon(
-                                _menu[index].iconData,
-                                size: 25,
-                                color: ThemeService().theme == ThemeMode.light
-                                    ? ColorResourcesLight.mainLIGHTColor
-                                    : ColorResourcesDark.mainDARKColor,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            Icon(
+                              _menu[index].iconData,
+                              size: 25,
+                              color: ThemeService().theme == ThemeMode.light
+                                  ? ColorResourcesLight.mainLIGHTColor
+                                  : ColorResourcesDark.mainDARKColor,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 );

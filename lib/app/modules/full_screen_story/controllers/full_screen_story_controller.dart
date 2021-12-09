@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:travel_diaries/app/routes/app_pages.dart';
+import 'package:travel_diaries/app/views/views/custom_dialogue_view.dart';
 import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 
 class FullScreenStoryController extends GetxController {
@@ -41,17 +42,24 @@ class FullScreenStoryController extends GetxController {
     isLiked.value = !isLiked.value;
     print('is liked - $isLiked');
     if (isLiked.isTrue) {
-      count.value = int.parse(likes) + 1;
-      saveStory(
-          authorid: authorid,
-          authorname: authorname,
-          authorprofilepic: authorprofilepic,
-          likedpersonname: likedpersonname,
-          likedpersonid: likedpersonid,
-          title: title,
-          category: category,
-          body: body,
-          date: date);
+      if (authorid == likedpersonid) {
+        CustomSnackbar(
+                title: 'Warning', message: 'You cannot like your own story')
+            .showWarning();
+        isLiked.value = !isLiked.value;
+      } else {
+        count.value = int.parse(likes) + 1;
+        saveStory(
+            authorid: authorid,
+            authorname: authorname,
+            authorprofilepic: authorprofilepic,
+            likedpersonname: likedpersonname,
+            likedpersonid: likedpersonid,
+            title: title,
+            category: category,
+            body: body,
+            date: date);
+      }
     } else {
       count.value = count.value - 1;
       removeStory(
@@ -96,6 +104,7 @@ class FullScreenStoryController extends GetxController {
 
     if (details.toString().contains("error")) {
       print('already liked');
+
       count.value = count.value - 1;
       isLiked.value = false;
       CustomSnackbar(

@@ -70,6 +70,7 @@ class FavFullScreenController extends GetxController {
 
     if (details.toString().contains("Story deleted successfully")) {
       // todo change stories table in sql
+      Get.back();
       updateStoriesAfterLikes(
           authorID: authorid,
           authorName: authorName,

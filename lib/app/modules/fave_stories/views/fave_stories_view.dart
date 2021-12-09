@@ -91,7 +91,6 @@ class FaveStoriesView extends GetView<FaveStoriesController> {
         return Stack(
           children: [
             CustomStoryBarWidgetView(
-              listTileOnLongPressed: () => {},
               likes: _controller.likes,
               trailingOnTap: () => CustomDialogue(
                 title: 'Remove this story form favorites list?',

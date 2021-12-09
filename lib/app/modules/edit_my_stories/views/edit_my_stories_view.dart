@@ -1,15 +1,15 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 
+import 'package:get/get.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
 
-import '../controllers/post_story_controller.dart';
+import '../controllers/edit_my_stories_controller.dart';
 
-class PostStoryView extends GetView<PostStoryController> {
+class EditMyStoriesView extends GetView<EditMyStoriesController> {
   List<String> travelmodes = [
     'Pick a category',
     'Cycle',
@@ -29,16 +29,25 @@ class PostStoryView extends GetView<PostStoryController> {
     FontAwesomeIcons.train,
     Icons.flight_takeoff,
   ];
-
   @override
-  final controller = Get.find(tag: 'poststorycontroller');
+  final controller = Get.find(tag: 'editmystoriescontroller');
+  final args = Get.arguments;
+  String get title => args['title'];
+  String get category => args['category'];
+  String get body => args['body'];
+  String get id => args['id'];
   @override
   Widget build(BuildContext context) {
+    controller.titleController.text = title;
+    controller.bodyController.text = body;
+    controller.dropdownVal.value = category;
+
     return Scaffold(
-        appBar: AppBarView(
-          title: 'Post Story',
-        ),
-        body: Obx(() {
+      appBar: AppBarView(
+        title: 'Edit story',
+      ),
+      body: Obx(
+        () {
           return Stack(
             children: [
               _customStepperWidget(context),
@@ -52,7 +61,9 @@ class PostStoryView extends GetView<PostStoryController> {
                   : SizedBox.shrink()
             ],
           );
-        }));
+        },
+      ),
+    );
   }
 
   Widget _customStepperWidget(context) => Obx(() {
@@ -68,7 +79,8 @@ class PostStoryView extends GetView<PostStoryController> {
                   steps: controller.getSteps(),
                   type: StepperType.horizontal,
                   currentStep: controller.currentStep.value,
-                  onStepContinue: () => controller.onStepContinued(),
+                  onStepContinue: () =>
+                      controller.onStepContinued(oldtitle: title, id: id),
                   onStepCancel: () => controller.onStepCanceled(),
                 ),
               )
@@ -84,13 +96,13 @@ class PostStoryView extends GetView<PostStoryController> {
                     steps: controller.getSteps(),
                     type: StepperType.horizontal,
                     currentStep: controller.currentStep.value,
-                    onStepContinue: () => controller.onStepContinued(),
+                    onStepContinue: () =>
+                        controller.onStepContinued(oldtitle: title, id: id),
                     onStepCancel: () => controller.onStepCanceled()),
               );
       });
 
   Widget dropDown() => Obx(() {
-    
         return DropdownButton<String>(
           isExpanded: true,
           value: controller.dropdownVal.toString(),

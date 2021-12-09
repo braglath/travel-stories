@@ -81,9 +81,10 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
                                     var formate1 =
                                         "${dateTime.day}-${dateTime.month}-${dateTime.year}";
                                     var story = controller.story[index];
+                                    print(controller
+                                        .story[index].personprofilepic);
 
                                     return CustomStoryBarWidgetView(
-                                      listTileOnLongPressed: () => {},
                                       trailingOnTap: () => CustomSnackbar(
                                               title: 'Warning',
                                               message:

@@ -6,7 +6,7 @@ class MyStoriesFullScreenBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<MyStoriesFullScreenController>(
-      () => MyStoriesFullScreenController(),
-    );
+        () => MyStoriesFullScreenController(),
+        tag: 'mystoriesfullscreenscontroller');
   }
 }

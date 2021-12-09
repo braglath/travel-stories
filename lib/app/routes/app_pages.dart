@@ -6,6 +6,10 @@ import 'package:travel_diaries/app/modules/app_bar/bindings/app_bar_binding.dart
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
 import 'package:travel_diaries/app/modules/contact_us/bindings/contact_us_binding.dart';
 import 'package:travel_diaries/app/modules/contact_us/views/contact_us_view.dart';
+import 'package:travel_diaries/app/modules/edit_my_stories/bindings/edit_my_stories_binding.dart';
+import 'package:travel_diaries/app/modules/edit_my_stories/views/edit_my_stories_view.dart';
+import 'package:travel_diaries/app/modules/edit_profile/bindings/edit_profile_binding.dart';
+import 'package:travel_diaries/app/modules/edit_profile/views/edit_profile_view.dart';
 import 'package:travel_diaries/app/modules/fav_full_screen/bindings/fav_full_screen_binding.dart';
 import 'package:travel_diaries/app/modules/fav_full_screen/views/fav_full_screen_view.dart';
 import 'package:travel_diaries/app/modules/fave_stories/bindings/fave_stories_binding.dart';
@@ -131,6 +135,16 @@ class AppPages {
       name: _Paths.MY_STORIES_FULL_SCREEN,
       page: () => MyStoriesFullScreenView(),
       binding: MyStoriesFullScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_MY_STORIES,
+      page: () => EditMyStoriesView(),
+      binding: EditMyStoriesBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_PROFILE,
+      page: () => EditProfileView(),
+      binding: EditProfileBinding(),
     ),
   ];
 }

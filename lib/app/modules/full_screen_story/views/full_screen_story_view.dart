@@ -84,43 +84,28 @@ class FullScreenStoryView extends GetView<FullScreenStoryController> {
                             color: Colors.grey.shade300.withOpacity(0.4),
                             shape: BoxShape.rectangle,
                             borderRadius: BorderRadius.all(Radius.circular(6))),
-                        child: InkWell(
-                          splashColor: Colors.red,
-                          onTap: () => controller.liked(storylikes,
-                              authorid: authorid,
-                              authorname: authorName,
-                              authorprofilepic: authorprofilepic,
-                              likedpersonname:
-                                  UserDetails().readUserNamefromBox(),
-                              likedpersonid: UserDetails().readUserIDfromBox(),
-                              title: storytitle,
-                              category: storycategory,
-                              body: storybody,
-                              date: storydate),
-                          child: Obx(
-                            () {
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  FaIcon(
-                                    FontAwesomeIcons.solidHeart,
-                                    size: 15,
-                                    color: controller.isLiked.isFalse
-                                        ? null
-                                        : ThemeService().theme ==
-                                                ThemeMode.light
-                                            ? ColorResourcesLight.mainLIGHTColor
-                                            : ColorResourcesDark.mainDARKColor,
-                                  ),
-                                  Text(
-                                    controller.count.toString(),
-                                    style: TextStyle(
-                                        fontSize: 14, color: Colors.black),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
+                        child: Obx(
+                          () {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                FaIcon(
+                                  FontAwesomeIcons.solidHeart,
+                                  size: 15,
+                                  color: controller.isLiked.isFalse
+                                      ? null
+                                      : ThemeService().theme == ThemeMode.light
+                                          ? ColorResourcesLight.mainLIGHTColor
+                                          : ColorResourcesDark.mainDARKColor,
+                                ),
+                                Text(
+                                  controller.count.toString(),
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.black),
+                                ),
+                              ],
+                            );
+                          },
                         ),
                       ),
 
@@ -207,6 +192,49 @@ class FullScreenStoryView extends GetView<FullScreenStoryController> {
                       ),
                     ),
                   ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: ThemeService().theme == ThemeMode.light
+                          ? ColorResourcesLight.mainLIGHTAPPBARcolor
+                          : ColorResourcesDark.mainDARKAPPBARcolor,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                            padding: EdgeInsets.zero,
+                            color: ThemeService().theme == ThemeMode.light
+                                ? ColorResourcesLight.mainLIGHTColor
+                                : ColorResourcesDark.mainDARKColor,
+                            splashRadius: 12,
+                            iconSize: 20,
+                            onPressed: () => controller.liked(storylikes,
+                                authorid: authorid,
+                                authorname: authorName,
+                                authorprofilepic: authorprofilepic,
+                                likedpersonname:
+                                    UserDetails().readUserNamefromBox(),
+                                likedpersonid:
+                                    UserDetails().readUserIDfromBox(),
+                                title: storytitle,
+                                category: storycategory,
+                                body: storybody,
+                                date: storydate),
+                            icon: FaIcon(FontAwesomeIcons.heart)),
+                        IconButton(
+                            padding: EdgeInsets.zero,
+                            color: ThemeService().theme == ThemeMode.light
+                                ? ColorResourcesLight.mainLIGHTColor
+                                : ColorResourcesDark.mainDARKColor,
+                            iconSize: 20,
+                            splashRadius: 12,
+                            onPressed: () {},
+                            icon: FaIcon(FontAwesomeIcons.shareAlt)),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),

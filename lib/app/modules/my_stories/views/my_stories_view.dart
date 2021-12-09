@@ -97,7 +97,7 @@ class MyStoriesView extends GetView<MyStoriesController> {
               authorId: _controller.id,
               storyId: _controller.id,
               listTileOnTap: () =>
-                  Get.toNamed(Routes.FAV_FULL_SCREEN, arguments: [
+                  Get.toNamed(Routes.MY_STORIES_FULL_SCREEN, arguments: [
                 {"authorname": _controller.personname},
                 {"authorprofilepic": _controller.personprofilepic},
                 {"authorid": _controller.id},
@@ -108,23 +108,9 @@ class MyStoriesView extends GetView<MyStoriesController> {
                 {"storyid": _controller.id},
                 {"storydate": formatedDate}
               ]),
-              listTileOnLongPressed: () => CustomBottomSheet(
-                  icon1: FontAwesomeIcons.edit,
-                  icon2: FontAwesomeIcons.times,
-                  title1: 'Edit',
-                  titile2: 'Remove',
-                  onTap1: () {},
-                  onTap2: () {
-                    Get.back();
-                    controller.removeStory(
-                        id: _controller.id,
-                        personid: _controller.personid,
-                        personname: _controller.personname,
-                        storiesIndex: _controller);
-                  }).show(),
               storyBody: _controller.body,
               readmoreOnTap: () =>
-                  Get.toNamed(Routes.FAV_FULL_SCREEN, arguments: [
+                  Get.toNamed(Routes.MY_STORIES_FULL_SCREEN, arguments: [
                 {"authorname": _controller.personname},
                 {"authorprofilepic": _controller.personprofilepic},
                 {"authorid": _controller.id},

@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
-import 'package:travel_diaries/app/views/views/custom_dialogue_view.dart';
-
 import '../controllers/fav_full_screen_controller.dart';
 
 class FavFullScreenView extends GetView<FavFullScreenController> {
@@ -193,6 +189,29 @@ class FavFullScreenView extends GetView<FavFullScreenController> {
                       ),
                     ),
                   ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: ThemeService().theme == ThemeMode.light
+                          ? ColorResourcesLight.mainLIGHTAPPBARcolor
+                          : ColorResourcesDark.mainDARKAPPBARcolor,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                            padding: EdgeInsets.zero,
+                            color: ThemeService().theme == ThemeMode.light
+                                ? ColorResourcesLight.mainLIGHTColor
+                                : ColorResourcesDark.mainDARKColor,
+                            iconSize: 20,
+                            splashRadius: 12,
+                            onPressed: () {},
+                            icon: FaIcon(FontAwesomeIcons.shareAlt)),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
