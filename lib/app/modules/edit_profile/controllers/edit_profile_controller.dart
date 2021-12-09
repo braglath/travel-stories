@@ -187,6 +187,23 @@ class EditProfileController extends GetxController {
     print(data);
     http.Response res = await http.post(Uri.parse(url), body: data);
     if (res.statusCode == 200) {
+      saveUserDetailsToStories();
+    } else {
+      isLoading.value = false;
+      throw Exception();
+    }
+  }
+
+  Future saveUserDetailsToStories() async {
+    isLoading.value = true;
+    var url = 'http://ubermensch.studio/travel_stories/storiesuserdetails.php';
+    var data = {
+      "personid": UserDetails().readUserIDfromBox(),
+      "personname": nameController.text,
+    };
+    print(data);
+    http.Response res = await http.post(Uri.parse(url), body: data);
+    if (res.statusCode == 200) {
       getUserDetails2(nameController.text, passwordController.text);
     } else {
       isLoading.value = false;
