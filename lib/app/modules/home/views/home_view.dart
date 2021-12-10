@@ -47,7 +47,7 @@ class HomeView extends GetView<HomeController> {
                         padding: const EdgeInsets.all(12.0),
                         child: Form(
                           key: controller.loginFormKey,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          // autovalidateMode: AutovalidateMode.onUserInteraction,
                           child: Column(
                             children: [
                               name(),
@@ -124,7 +124,7 @@ class HomeView extends GetView<HomeController> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () => controller.loginGoogleSignIn(),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -146,7 +146,7 @@ class HomeView extends GetView<HomeController> {
                                 ],
                               )),
                           ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () => controller.logoutGoogleSingIn(),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -213,24 +213,25 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  Widget name() => TextFormField(
-      style: TextStyle(color: ColorResourcesLight.mainTextHEADINGColor),
-      cursorColor: ColorResourcesLight.mainTextHEADINGColor,
-      keyboardType: TextInputType.name,
-      controller: controller.nameController,
-      onSaved: (value) {
-        controller.name = value!;
-      },
-      validator: (value) {
-        return controller.validateName(value!);
-      },
-      decoration: InputDecoration(
-        prefixIcon: Icon(
-          Icons.person,
-          color: ColorResourcesLight.mainLIGHTColor,
-        ),
-        labelText: 'Name',
-      ));
+  Widget name() {
+    controller.nameController.text = controller.name.value;
+    return TextFormField(
+        style: TextStyle(color: ColorResourcesLight.mainTextHEADINGColor),
+        cursorColor: ColorResourcesLight.mainTextHEADINGColor,
+        keyboardType: TextInputType.name,
+        controller: controller.nameController,
+        onSaved: (value) {
+          controller.name.value = value!;
+        },
+        validator: (value) {},
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            Icons.person,
+            color: ColorResourcesLight.mainLIGHTColor,
+          ),
+          labelText: 'Name',
+        ));
+  }
 
   Widget password() => Obx(() {
         return TextFormField(
@@ -242,10 +243,10 @@ class HomeView extends GetView<HomeController> {
             keyboardType: TextInputType.visiblePassword,
             controller: controller.passwordController,
             onSaved: (value) {
-              controller.password = value!;
+              controller.password.value = value!;
             },
             validator: (value) {
-              return controller.validatePassword(value!);
+              // return controller.validatePassword(value!);
             },
             obscureText: controller.obscured.value,
             decoration: InputDecoration(

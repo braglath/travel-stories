@@ -41,7 +41,7 @@ class TopStoriesView extends GetView<TopStoriesController> {
                         enableInfiniteScroll: true,
                         reverse: false,
                         autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 4),
+                      autoPlayInterval: Duration(seconds: 4),
                         autoPlayAnimationDuration: Duration(milliseconds: 800),
                         autoPlayCurve: Curves.fastOutSlowIn,
                         enlargeCenterPage: false,

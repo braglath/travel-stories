@@ -9,6 +9,7 @@ import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
 import 'package:travel_diaries/app/modules/animations/left_to_right_animation.dart';
+import 'package:travel_diaries/app/modules/home/controllers/home_controller.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 
 class NavBar extends GetView {
@@ -19,6 +20,7 @@ class NavBar extends GetView {
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut<HomeController>(() => HomeController());
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(30.0), bottomRight: Radius.circular(30.0)),
@@ -221,6 +223,9 @@ class NavBar extends GetView {
                   ),
                 ),
                 onTap: () {
+                  final controller = Get.find<HomeController>();
+                  controller.logoutGoogleSingIn();
+                  UserLoginLogout().userLoggedIn(false);
                   Get.reloadAll(force: true);
                   UserDetails().deleteUserDetailsfromBox();
                   Get.offAllNamed(Routes.HOME);

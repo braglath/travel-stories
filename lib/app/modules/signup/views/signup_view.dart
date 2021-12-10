@@ -97,6 +97,74 @@ class SignupView extends GetView<SignupController> {
                           ),
                         ],
                       ),
+                      SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Expanded(child: Divider()),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            child: Text('Other options',
+                                style: context.theme.textTheme.headline4
+                                    ?.copyWith(fontSize: 15)),
+                          ),
+                          Expanded(child: Divider()),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                              onPressed: () => controller.loginGoogleSignIn(),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  FaIcon(
+                                    FontAwesomeIcons.google,
+                                    size: 15,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    'Google',
+                                    style: context.theme.textTheme.headline4
+                                        ?.copyWith(
+                                            color: ColorResourcesLight
+                                                .mainLIGHTAPPBARcolor,
+                                            fontSize: 15),
+                                  )
+                                ],
+                              )),
+                          ElevatedButton(
+                              onPressed: () => controller.logoutGoogleSingIn(),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  FaIcon(
+                                    FontAwesomeIcons.facebook,
+                                    size: 15,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    'Facebook',
+                                    style: context.theme.textTheme.headline4
+                                        ?.copyWith(
+                                            color: ColorResourcesLight
+                                                .mainLIGHTAPPBARcolor,
+                                            fontSize: 15),
+                                  )
+                                ],
+                              )),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       SizedBox(
                         height: 10,
                       ),
@@ -143,42 +211,48 @@ class SignupView extends GetView<SignupController> {
     );
   }
 
-  Widget name() => TextFormField(
-      style: TextStyle(color: ColorResourcesLight.mainTextHEADINGColor),
-      cursorColor: ThemeService().theme == ThemeMode.light
-          ? ColorResourcesLight.mainTextHEADINGColor
-          : ColorResourcesDark.mainDARKTEXTICONcolor,
-      keyboardType: TextInputType.name,
-      controller: _nameController,
-      validator: (val) {
-        if (val!.length > 25) {
-          return 'Name cannot be more than 25 characters';
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        prefixIcon: Icon(
-          Icons.person,
-          color: ColorResourcesLight.mainLIGHTColor,
-        ),
-        labelText: 'Name',
-      ));
+  Widget name() {
+    _nameController.text = controller.name.value;
+    return TextFormField(
+        style: TextStyle(color: ColorResourcesLight.mainTextHEADINGColor),
+        cursorColor: ThemeService().theme == ThemeMode.light
+            ? ColorResourcesLight.mainTextHEADINGColor
+            : ColorResourcesDark.mainDARKTEXTICONcolor,
+        keyboardType: TextInputType.name,
+        controller: _nameController,
+        validator: (val) {
+          if (val!.length > 25) {
+            return 'Name cannot be more than 25 characters';
+          }
+          return null;
+        },
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            Icons.person,
+            color: ColorResourcesLight.mainLIGHTColor,
+          ),
+          labelText: 'Name',
+        ));
+  }
 
-  Widget phoneNumber() => TextFormField(
-      style: TextStyle(color: ColorResourcesLight.mainTextHEADINGColor),
-      cursorColor: ThemeService().theme == ThemeMode.light
-          ? ColorResourcesLight.mainTextHEADINGColor
-          : ColorResourcesDark.mainDARKTEXTICONcolor,
-      keyboardType: TextInputType.emailAddress,
-      controller: _phonenumberController,
-      validator: (val) {},
-      decoration: InputDecoration(
-        prefixIcon: Icon(
-          Icons.phone,
-          color: ColorResourcesLight.mainLIGHTColor,
-        ),
-        labelText: 'Phone number or Email',
-      ));
+  Widget phoneNumber() {
+    _phonenumberController.text = controller.email.value;
+    return TextFormField(
+        style: TextStyle(color: ColorResourcesLight.mainTextHEADINGColor),
+        cursorColor: ThemeService().theme == ThemeMode.light
+            ? ColorResourcesLight.mainTextHEADINGColor
+            : ColorResourcesDark.mainDARKTEXTICONcolor,
+        keyboardType: TextInputType.emailAddress,
+        controller: _phonenumberController,
+        validator: (val) {},
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            Icons.phone,
+            color: ColorResourcesLight.mainLIGHTColor,
+          ),
+          labelText: 'Phone number or Email',
+        ));
+  }
 
   Widget password() => Obx(() {
         return TextFormField(

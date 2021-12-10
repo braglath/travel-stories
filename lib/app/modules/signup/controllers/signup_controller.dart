@@ -1,17 +1,20 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
 import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
+import 'package:travel_diaries/app/modules/home/controllers/home_controller.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 import 'package:travel_diaries/app/views/views/custom_bottom_sheet_view.dart';
 import 'package:travel_diaries/app/views/views/custom_dialogue_view.dart';
@@ -19,6 +22,13 @@ import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 
 class SignupController extends GetxController {
   //TODO: Implement SignupController
+  // todo find the controller where the google signin method ever is listening
+
+  late GoogleSignIn googleSign;
+  var isSignIn = false.obs;
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  var name = ''.obs;
+  var email = ''.obs;
 
   final count = 0.obs;
   final defaultChoiceIndex = 0.obs;
@@ -42,17 +52,63 @@ class SignupController extends GetxController {
   bool isSelectedLabel() => isSelected.value = true;
   @override
   void onInit() {
+    googleSign = GoogleSignIn();
     super.onInit();
   }
 
   @override
-  void onReady() {
+  void onReady() async {
+    // ? using ever to keep looking for changes
+    ever(isSignIn, handleAuthStateChanged);
+    isSignIn.value = await firebaseAuth.currentUser != null;
+    firebaseAuth.authStateChanges().listen((event) {
+      // ? this event will contain the firebase user
+      isSignIn.value = event != null;
+    });
     super.onReady();
   }
 
   @override
   void onClose() {}
+
   void increment() => count.value++;
+
+  void handleAuthStateChanged(isLoggedIn) {
+    if (isLoggedIn) {
+      // todo if the user is logged in redirect user
+      // todo we can check the database for user details aswell
+      // loginUser(name, password)
+      // Get.offAllNamed(Routes.SUBMIT_STORY, arguments: firebaseAuth.currentUser);
+    } else {
+      // Get.offAllNamed(Routes.INTRODUCTION);
+    }
+  }
+
+  void loginGoogleSignIn() async {
+    // todo inplement progress indicator first
+    GoogleSignInAccount? googleSignInAccount = await googleSign.signIn();
+    if (googleSignInAccount == null) {
+      //? user is null cancel the loading
+      CustomSnackbar(title: 'Error', message: 'Google Signin error')
+          .showWarning();
+    } else {
+      GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+      OAuthCredential oAuthCredential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken);
+      await firebaseAuth.signInWithCredential(oAuthCredential);
+      // ? now close the loding indicator
+      name.value = firebaseAuth.currentUser!.displayName.toString();
+      email.value = firebaseAuth.currentUser!.email.toString();
+    }
+  }
+
+  void logoutGoogleSingIn() async {
+    await googleSign.disconnect();
+    await firebaseAuth.signOut();
+  }
+
   void toggleObscured() {
     obscured.value = !obscured.value;
   }
@@ -92,8 +148,9 @@ class SignupController extends GetxController {
       if (details.toString().contains("error")) {
         CustomSnackbar(
                 title: 'User exists',
-                message: 'Accouont already exists! Login now!')
+                message: 'Account already exists! Login now!')
             .showWarning();
+        logoutGoogleSingIn();
         isLoading.value = false;
       }
       if (details.toString().contains("true")) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
@@ -49,6 +50,8 @@ class ProfileView extends GetView<ProfileController> {
           'Logout', 'Logout and restart the app', FontAwesomeIcons.signOutAlt,
           () {
         Get.reloadAll(force: true);
+        UserLoginLogout().userLoggedIn(false);
+        controller.logoutGoogleUser();
         UserDetails().deleteUserDetailsfromBox();
         Get.offAllNamed(Routes.HOME);
       }),

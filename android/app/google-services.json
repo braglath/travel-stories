@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "169428647691",
+    "project_id": "traveldiaries-af30e",
+    "storage_bucket": "traveldiaries-af30e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169428647691:android:65e072bec3d2898d4b6c0e",
+        "android_client_info": {
+          "package_name": "com.ubermensch.travel_diaries"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "169428647691-l5h663ojjepdengkp4n1qg72pebodq3n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ubermensch.travel_diaries",
+            "certificate_hash": "59bd2154b16cee27eaab6acacbedd45560b0abb9"
+          }
+        },
+        {
+          "client_id": "169428647691-69j9c749s6gho6m0vv2ebk76airj83eh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF7K1GMdJReKivBIIjazM5Ueh-49FG3hk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "169428647691-69j9c749s6gho6m0vv2ebk76airj83eh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
