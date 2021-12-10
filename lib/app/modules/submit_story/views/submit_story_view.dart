@@ -6,6 +6,7 @@ import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
 import 'package:travel_diaries/app/modules/submit_story/views/navbar.dart';
+import 'package:travel_diaries/app/modules/top_stories/views/top_stories_view.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 import 'package:travel_diaries/app/views/views/custom_story_bar_widget_view.dart';
@@ -19,8 +20,6 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
 
   @override
   Widget build(BuildContext context) {
-    final isPortrait =
-        MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
         drawer: NavBar(),
         appBar: AppBarView(
@@ -46,6 +45,9 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
                             : Color(0xFF8F260F),
                         height: 50,
                         child: customchips()),
+                    Column(
+                      children: [],
+                    ),
                     Obx(() {
                       print('story length ${controller.story.length}');
                       return controller.isEmpty.isTrue
@@ -59,125 +61,152 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
                                 fontSize: 20,
                               ),
                             )
-                          : Expanded(child: Obx(() {
-                              // controller.update();
-                              return RefreshIndicator(
-                                color: ThemeService().theme == ThemeMode.light
-                                    ? ColorResourcesLight.mainLIGHTColor
-                                    : ColorResourcesDark.mainDARKColor,
-                                strokeWidth: 3,
-                                onRefresh: () => controller.refreshStories(
-                                    controller.travelmodes[
-                                        controller.defaultChoiceIndex.value]),
-                                child: ListView.builder(
-                                  physics: BouncingScrollPhysics(),
-                                  scrollDirection: Axis.vertical,
-                                  shrinkWrap: true,
-                                  itemCount: controller.story.length,
-                                  itemBuilder: (context, index) {
-                                    var dateTime = DateTime.parse(controller
-                                        .story[index].dateadded
-                                        .toString());
-                                    var formate1 =
-                                        "${dateTime.day}-${dateTime.month}-${dateTime.year}";
-                                    var story = controller.story[index];
-                                    print(controller
-                                        .story[index].personprofilepic);
+                          : Expanded(
+                              child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  TopStoriesView(),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 12.0, bottom: 4),
+                                    child: Text(
+                                      'Recent stories',
+                                      style: context.theme.textTheme.headline4,
+                                    ),
+                                  ),
+                                  Obx(() {
+                                    // controller.update();
+                                    return RefreshIndicator(
+                                      color: ThemeService().theme ==
+                                              ThemeMode.light
+                                          ? ColorResourcesLight.mainLIGHTColor
+                                          : ColorResourcesDark.mainDARKColor,
+                                      strokeWidth: 3,
+                                      onRefresh: () =>
+                                          controller.refreshStories(
+                                              controller.travelmodes[controller
+                                                  .defaultChoiceIndex.value]),
+                                      child: ListView.builder(
+                                        physics: BouncingScrollPhysics(),
+                                        scrollDirection: Axis.vertical,
+                                        shrinkWrap: true,
+                                        itemCount: controller.story.length,
+                                        itemBuilder: (context, index) {
+                                          var dateTime = DateTime.parse(
+                                              controller.story[index].dateadded
+                                                  .toString());
+                                          var formate1 =
+                                              "${dateTime.day}-${dateTime.month}-${dateTime.year}";
+                                          var story = controller.story[index];
+                                          print(controller
+                                              .story[index].personprofilepic);
 
-                                    return CustomStoryBarWidgetView(
-                                      trailingOnTap: () => CustomSnackbar(
-                                              title: 'Warning',
-                                              message:
-                                                  'Read the story before adding it to favorites')
-                                          .showWarning(),
-                                      likes: story.likes,
-                                      authorProfilePic: story.personprofilepic,
-                                      storyTitle: story.title,
-                                      storyCategory: story.category,
-                                      authorName: story.personname,
-                                      storyDate: formate1,
-                                      authorId: story.personid,
-                                      storyId: story.id,
-                                      listTileOnTap: () => Get.toNamed(
-                                          Routes.FULL_SCREEN_STORY,
-                                          arguments: [
-                                            {
-                                              "authorname": controller
-                                                  .story[index].personname
-                                            },
-                                            {
-                                              "authorprofilepic": controller
-                                                  .story[index].personprofilepic
-                                            },
-                                            {
-                                              "authorid": controller
-                                                  .story[index].personid
-                                            },
-                                            {
-                                              "storytitle":
-                                                  controller.story[index].title
-                                            },
-                                            {
-                                              "storycategory": controller
-                                                  .story[index].category
-                                            },
-                                            {
-                                              "storybody":
-                                                  controller.story[index].body
-                                            },
-                                            {
-                                              "storylikes":
-                                                  controller.story[index].likes
-                                            },
-                                            {
-                                              "storyid":
-                                                  controller.story[index].id
-                                            },
-                                            {"storydate": formate1.toString()}
-                                          ]),
-                                      storyBody: story.body,
-                                      readmoreOnTap: () => Get.toNamed(
-                                          Routes.FULL_SCREEN_STORY,
-                                          arguments: [
-                                            {
-                                              "authorname": controller
-                                                  .story[index].personname
-                                            },
-                                            {
-                                              "authorprofilepic": controller
-                                                  .story[index].personprofilepic
-                                            },
-                                            {
-                                              "authorid": controller
-                                                  .story[index].personid
-                                            },
-                                            {
-                                              "storytitle":
-                                                  controller.story[index].title
-                                            },
-                                            {
-                                              "storycategory": controller
-                                                  .story[index].category
-                                            },
-                                            {
-                                              "storybody":
-                                                  controller.story[index].body
-                                            },
-                                            {
-                                              "storylikes":
-                                                  controller.story[index].likes
-                                            },
-                                            {
-                                              "storyid":
-                                                  controller.story[index].id
-                                            },
-                                            {"storydate": formate1.toString()}
-                                          ]),
+                                          return CustomStoryBarWidgetView(
+                                            trailingOnTap: () => CustomSnackbar(
+                                                    title: 'Warning',
+                                                    message:
+                                                        'Read the story before adding it to favorites')
+                                                .showWarning(),
+                                            likes: story.likes,
+                                            authorProfilePic:
+                                                story.personprofilepic,
+                                            storyTitle: story.title,
+                                            storyCategory: story.category,
+                                            authorName: story.personname,
+                                            storyDate: formate1,
+                                            authorId: story.personid,
+                                            storyId: story.id,
+                                            listTileOnTap: () => Get.toNamed(
+                                                Routes.FULL_SCREEN_STORY,
+                                                arguments: [
+                                                  {
+                                                    "authorname": controller
+                                                        .story[index].personname
+                                                  },
+                                                  {
+                                                    "authorprofilepic":
+                                                        controller.story[index]
+                                                            .personprofilepic
+                                                  },
+                                                  {
+                                                    "authorid": controller
+                                                        .story[index].personid
+                                                  },
+                                                  {
+                                                    "storytitle": controller
+                                                        .story[index].title
+                                                  },
+                                                  {
+                                                    "storycategory": controller
+                                                        .story[index].category
+                                                  },
+                                                  {
+                                                    "storybody": controller
+                                                        .story[index].body
+                                                  },
+                                                  {
+                                                    "storylikes": controller
+                                                        .story[index].likes
+                                                  },
+                                                  {
+                                                    "storyid": controller
+                                                        .story[index].id
+                                                  },
+                                                  {
+                                                    "storydate":
+                                                        formate1.toString()
+                                                  }
+                                                ]),
+                                            storyBody: story.body,
+                                            readmoreOnTap: () => Get.toNamed(
+                                                Routes.FULL_SCREEN_STORY,
+                                                arguments: [
+                                                  {
+                                                    "authorname": controller
+                                                        .story[index].personname
+                                                  },
+                                                  {
+                                                    "authorprofilepic":
+                                                        controller.story[index]
+                                                            .personprofilepic
+                                                  },
+                                                  {
+                                                    "authorid": controller
+                                                        .story[index].personid
+                                                  },
+                                                  {
+                                                    "storytitle": controller
+                                                        .story[index].title
+                                                  },
+                                                  {
+                                                    "storycategory": controller
+                                                        .story[index].category
+                                                  },
+                                                  {
+                                                    "storybody": controller
+                                                        .story[index].body
+                                                  },
+                                                  {
+                                                    "storylikes": controller
+                                                        .story[index].likes
+                                                  },
+                                                  {
+                                                    "storyid": controller
+                                                        .story[index].id
+                                                  },
+                                                  {
+                                                    "storydate":
+                                                        formate1.toString()
+                                                  }
+                                                ]),
+                                          );
+                                        },
+                                      ),
                                     );
-                                  },
-                                ),
-                              );
-                            }));
+                                  }),
+                                ],
+                              ),
+                            ));
                     })
                   ],
                 ),

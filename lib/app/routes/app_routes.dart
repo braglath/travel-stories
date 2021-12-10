@@ -22,6 +22,7 @@ abstract class Routes {
   static const MY_STORIES_FULL_SCREEN = _Paths.MY_STORIES_FULL_SCREEN;
   static const EDIT_MY_STORIES = _Paths.EDIT_MY_STORIES;
   static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
+  static const TOP_STORIES = _Paths.TOP_STORIES;
 }
 
 abstract class _Paths {
@@ -41,4 +42,5 @@ abstract class _Paths {
   static const MY_STORIES_FULL_SCREEN = '/my-stories-full-screen';
   static const EDIT_MY_STORIES = '/edit-my-stories';
   static const EDIT_PROFILE = '/edit-profile';
+  static const TOP_STORIES = '/top-stories';
 }

@@ -30,6 +30,8 @@ import 'package:travel_diaries/app/modules/signup/bindings/signup_binding.dart';
 import 'package:travel_diaries/app/modules/signup/views/signup_view.dart';
 import 'package:travel_diaries/app/modules/submit_story/bindings/submit_story_binding.dart';
 import 'package:travel_diaries/app/modules/submit_story/views/submit_story_view.dart';
+import 'package:travel_diaries/app/modules/top_stories/bindings/top_stories_binding.dart';
+import 'package:travel_diaries/app/modules/top_stories/views/top_stories_view.dart';
 import 'package:travel_diaries/app/views/views/introductio_screens_view.dart';
 
 // ignore_for_file: constant_identifier_names
@@ -145,6 +147,11 @@ class AppPages {
       name: _Paths.EDIT_PROFILE,
       page: () => EditProfileView(),
       binding: EditProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.TOP_STORIES,
+      page: () => TopStoriesView(),
+      binding: TopStoriesBinding(),
     ),
   ];
 }
