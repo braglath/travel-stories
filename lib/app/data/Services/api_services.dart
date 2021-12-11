@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:travel_diaries/app/data/Models/comments_model.dart';
 import 'package:travel_diaries/app/data/Models/fav_stories_model.dart';
 import 'package:travel_diaries/app/data/Models/my_stories_model.dart';
 import 'package:travel_diaries/app/data/Models/stories_model.dart';
@@ -66,10 +67,35 @@ class APIservices {
     var response = await client.get(Uri.parse(url));
     print(response.body);
     if (response.statusCode == 200) {
-      var jsonString = response.body;
-      return topStoriesModelFromJson(jsonString);
+      if (response.body.isNotEmpty) {
+        var jsonString = response.body;
+        return topStoriesModelFromJson(jsonString);
+      } else {
+        return <TopStoriesModel>[];
+      }
     } else {
       return <TopStoriesModel>[];
+    }
+  }
+
+  static Future<List<CommentsModel>> getComments(
+      {required storyid, required storytitle}) async {
+    final url = 'http://ubermensch.studio/travel_stories/getcomments.php';
+    var data = {
+      "storyid": storyid,
+      "storytitle": storytitle,
+    };
+    var response = await client.post(Uri.parse(url), body: data);
+    print(response.body);
+    if (response.statusCode == 200) {
+      if (response.body.isNotEmpty) {
+        var jsonString = response.body;
+        return commentsModelFromJson(jsonString);
+      } else {
+        return <CommentsModel>[];
+      }
+    } else {
+      return <CommentsModel>[];
     }
   }
 }

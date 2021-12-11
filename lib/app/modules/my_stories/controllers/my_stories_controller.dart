@@ -32,7 +32,7 @@ class MyStoriesController extends GetxController {
     var stories = await APIservices.fetchMyStories();
 
     if (stories.isNotEmpty) {
-      story.addAll(stories);
+      story.assignAll(stories);
       isLoading.value = false;
     } else {
       print('Nothing to show');

@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
 import 'package:travel_diaries/app/data/Models/top_stories_model.dart';
 import 'package:travel_diaries/app/data/Services/api_services.dart';
+import 'package:http/http.dart' as http;
 
 class TopStoriesController extends GetxController {
+  static var client = http.Client();
   final count = 0.obs;
   var topStories = <TopStoriesModel>[].obs;
   final isLoading = false.obs;
@@ -10,12 +12,12 @@ class TopStoriesController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getTopStories();
   }
 
   @override
   void onReady() {
     super.onReady();
+    getTopStories();
   }
 
   @override
@@ -23,14 +25,14 @@ class TopStoriesController extends GetxController {
   void increment() => count.value++;
   void getTopStories() async {
     isLoading.value = true;
-    var topstoriesItems = await APIservices.fetchTopStories();
-    if (topstoriesItems.isNotEmpty) {
-      topStories.assignAll(topstoriesItems);
 
-      isLoading.value = false;
-    } else {
-      isLoading.value = false;
-      throw Exception();
-    }
+    await APIservices.fetchTopStories().then((value) {
+      if (value.isNotEmpty) {
+        topStories.assignAll(value);
+      }
+    });
+    print(topStories);
+
+    isLoading.value = false;
   }
 }

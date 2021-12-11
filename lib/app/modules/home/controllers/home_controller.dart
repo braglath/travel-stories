@@ -135,7 +135,8 @@ class HomeController extends GetxController {
                 title: 'Login error',
                 message: 'Mutiple users detected with the same name')
             .showWarning();
-      } else if (details.toString().contains("new user")) {
+      }
+      if (details.toString().contains("new user")) {
         print('new user');
         isLoading.value = false;
         CustomSnackbar(
