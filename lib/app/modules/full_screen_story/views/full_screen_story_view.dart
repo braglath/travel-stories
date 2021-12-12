@@ -31,7 +31,6 @@ class FullScreenStoryView extends GetView<FullScreenStoryController> {
     final String storydate = data[8]['storydate'];
     controller.storyID.value = storyid;
     controller.storyTitle.value = storytitle;
-
     controller.count.value = int.parse(storylikes);
     // ? checking user already like or not
     controller.checkLikedStories(
@@ -103,8 +102,7 @@ class FullScreenStoryView extends GetView<FullScreenStoryController> {
                                 ),
                                 Text(
                                   controller.count.toString(),
-                                  style: TextStyle(
-                                      fontSize: 14, color: Colors.black),
+                                  style: context.theme.textTheme.caption,
                                 ),
                               ],
                             );
@@ -150,22 +148,39 @@ class FullScreenStoryView extends GetView<FullScreenStoryController> {
                       ),
                       subtitle: IntrinsicHeight(
                           child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             storycategory,
+                            style: context.theme.textTheme.caption
+                                ?.copyWith(fontSize: 12),
                           ),
-                          VerticalDivider(
-                            thickness: 1,
-                          ),
-                          Expanded(
-                            flex: authorName.length > 10 ? 1 : 0,
-                            child: Text(authorName),
-                          ),
-                          VerticalDivider(
-                            thickness: 1,
+                          Container(
+                            height: 12,
+                            child: VerticalDivider(
+                              thickness: 1,
+                            ),
                           ),
                           Text(
-                            storydate,
+                            authorName.length > 12
+                                ? authorName.replaceFirst(" ", "\n")
+                                : authorName,
+                            textAlign: TextAlign.center,
+                            style: context.theme.textTheme.caption
+                                ?.copyWith(fontSize: 12),
+                          ),
+                          Container(
+                            height: 12,
+                            child: VerticalDivider(
+                              thickness: 1,
+                            ),
+                          ),
+                          Text(
+                            storydate.toString().trim(),
+                            style: context.theme.textTheme.caption
+                                ?.copyWith(fontSize: 12),
                           ),
                         ],
                       )),
@@ -223,35 +238,33 @@ class FullScreenStoryView extends GetView<FullScreenStoryController> {
                                   icon: FaIcon(controller.isLarge.isFalse
                                       ? FontAwesomeIcons.commentAlt
                                       : FontAwesomeIcons.solidCommentAlt)),
-                              Obx(() {
-                                return Text(
-                                  controller.comments.length.toString(),
-                                  style: context.theme.textTheme.caption,
-                                );
-                              }),
                             ],
                           );
                         }),
-                        IconButton(
-                            padding: EdgeInsets.zero,
-                            color: ThemeService().theme == ThemeMode.light
-                                ? ColorResourcesLight.mainLIGHTColor
-                                : ColorResourcesDark.mainDARKColor,
-                            splashRadius: 12,
-                            iconSize: 20,
-                            onPressed: () => controller.liked(storylikes,
-                                authorid: authorid,
-                                authorname: authorName,
-                                authorprofilepic: authorprofilepic,
-                                likedpersonname:
-                                    UserDetails().readUserNamefromBox(),
-                                likedpersonid:
-                                    UserDetails().readUserIDfromBox(),
-                                title: storytitle,
-                                category: storycategory,
-                                body: storybody,
-                                date: storydate),
-                            icon: FaIcon(FontAwesomeIcons.heart)),
+                        Obx(() {
+                          return IconButton(
+                              padding: EdgeInsets.zero,
+                              color: ThemeService().theme == ThemeMode.light
+                                  ? ColorResourcesLight.mainLIGHTColor
+                                  : ColorResourcesDark.mainDARKColor,
+                              splashRadius: 12,
+                              iconSize: 20,
+                              onPressed: () => controller.liked(storylikes,
+                                  authorid: authorid,
+                                  authorname: authorName,
+                                  authorprofilepic: authorprofilepic,
+                                  likedpersonname:
+                                      UserDetails().readUserNamefromBox(),
+                                  likedpersonid:
+                                      UserDetails().readUserIDfromBox(),
+                                  title: storytitle,
+                                  category: storycategory,
+                                  body: storybody,
+                                  date: storydate),
+                              icon: FaIcon(controller.isLiked.isTrue
+                                  ? FontAwesomeIcons.solidHeart
+                                  : FontAwesomeIcons.heart));
+                        }),
                         IconButton(
                             padding: EdgeInsets.zero,
                             color: ThemeService().theme == ThemeMode.light
@@ -342,7 +355,7 @@ class FullScreenStoryView extends GetView<FullScreenStoryController> {
                       ],
                     );
                   }),
-                  commentsBuilder()
+                  FadedScaleAnimation(commentsBuilder())
                 ],
               ),
             ),
@@ -355,7 +368,7 @@ class FullScreenStoryView extends GetView<FullScreenStoryController> {
   Widget commentsBuilder() {
     return Obx(() {
       return Container(
-        height: 500,
+        height: controller.comments.length * 100,
         child: ListView.builder(
             itemCount: controller.comments.length,
             itemBuilder: (context, index) {

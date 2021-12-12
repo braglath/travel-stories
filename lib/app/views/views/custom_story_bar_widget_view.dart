@@ -91,7 +91,7 @@ class CustomStoryBarWidgetView extends GetView {
                           ),
                           Text(
                             likes.isEmpty ? '0' : likes,
-                            style: TextStyle(fontSize: 14, color: Colors.black),
+                            style: context.theme.textTheme.caption,
                           ),
                         ],
                       ),
@@ -138,21 +138,40 @@ class CustomStoryBarWidgetView extends GetView {
                   ),
                   subtitle: IntrinsicHeight(
                       child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         storyCategory,
+                        style: context.theme.textTheme.caption
+                            ?.copyWith(fontSize: 12),
                       ),
-                      VerticalDivider(
-                        thickness: 1,
+                      Container(
+                        height: 12,
+                        child: VerticalDivider(
+                          thickness: 1,
+                        ),
                       ),
-                      Expanded(
-                        flex: authorName.length > 8 ? 1 : 0,
-                        child: Text(authorName),
+                      Text(
+                        authorName.length > 12
+                            ? authorName.replaceFirst(" ", "\n")
+                            : authorName,
+                        textAlign: TextAlign.center,
+                        style: context.theme.textTheme.caption
+                            ?.copyWith(fontSize: 12),
                       ),
-                      VerticalDivider(
-                        thickness: 1,
+                      Container(
+                        height: 12,
+                        child: VerticalDivider(
+                          thickness: 1,
+                        ),
                       ),
-                      Text(storyDate.toString()),
+                      Text(
+                        storyDate.toString().trim(),
+                        style: context.theme.textTheme.caption
+                            ?.copyWith(fontSize: 12),
+                      ),
                     ],
                   )),
                   onTap: listTileOnTap),

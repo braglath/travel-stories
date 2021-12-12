@@ -9,6 +9,7 @@ import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
+import 'package:travel_diaries/app/views/views/comments_card_view.dart';
 
 import '../controllers/my_stories_full_screen_controller.dart';
 
@@ -29,6 +30,8 @@ class MyStoriesFullScreenView extends GetView<MyStoriesFullScreenController> {
     final String storylikes = data[6]['storylikes'];
     final String storyid = data[7]['storyid'];
     final String storydate = data[8]['storydate'];
+    controller.storyID.value = storyid;
+    controller.storyTitle.value = storytitle;
 
     controller.count.value = int.parse(storylikes);
     // ? checking user already like or not
@@ -101,8 +104,7 @@ class MyStoriesFullScreenView extends GetView<MyStoriesFullScreenController> {
                                 ),
                                 Text(
                                   controller.count.toString(),
-                                  style: TextStyle(
-                                      fontSize: 14, color: Colors.black),
+                                  style: context.theme.textTheme.caption,
                                 ),
                               ],
                             );
@@ -151,19 +153,33 @@ class MyStoriesFullScreenView extends GetView<MyStoriesFullScreenController> {
                         children: [
                           Text(
                             storycategory,
+                            style: context.theme.textTheme.caption
+                                ?.copyWith(fontSize: 12),
                           ),
-                          VerticalDivider(
-                            thickness: 1,
-                          ),
-                          Expanded(
-                            flex: authorName.length > 10 ? 1 : 0,
-                            child: Text(authorName),
-                          ),
-                          VerticalDivider(
-                            thickness: 1,
+                          Container(
+                            height: 12,
+                            child: VerticalDivider(
+                              thickness: 1,
+                            ),
                           ),
                           Text(
-                            storydate,
+                            authorName.length > 12
+                                ? authorName.replaceFirst(" ", "\n")
+                                : authorName,
+                            textAlign: TextAlign.center,
+                            style: context.theme.textTheme.caption
+                                ?.copyWith(fontSize: 12),
+                          ),
+                          Container(
+                            height: 12,
+                            child: VerticalDivider(
+                              thickness: 1,
+                            ),
+                          ),
+                          Text(
+                            storydate.toString().trim(),
+                            style: context.theme.textTheme.caption
+                                ?.copyWith(fontSize: 12),
                           ),
                         ],
                       )),
@@ -204,6 +220,32 @@ class MyStoriesFullScreenView extends GetView<MyStoriesFullScreenController> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
+                        Obx(() {
+                          return Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              IconButton(
+                                  onPressed: () =>
+                                      controller.animateContainer(),
+                                  padding: EdgeInsets.zero,
+                                  color: ThemeService().theme == ThemeMode.light
+                                      ? ColorResourcesLight.mainLIGHTColor
+                                      : ColorResourcesDark.mainDARKColor,
+                                  splashRadius: 12,
+                                  iconSize: 20,
+                                  icon: FaIcon(controller.isLarge.isFalse
+                                      ? FontAwesomeIcons.commentAlt
+                                      : FontAwesomeIcons.solidCommentAlt)),
+                              Obx(() {
+                                return Text(
+                                  controller.comments.length.toString(),
+                                  style: context.theme.textTheme.caption,
+                                );
+                              }),
+                            ],
+                          );
+                        }),
                         IconButton(
                             padding: EdgeInsets.zero,
                             color: ThemeService().theme == ThemeMode.light
@@ -231,6 +273,85 @@ class MyStoriesFullScreenView extends GetView<MyStoriesFullScreenController> {
                       ],
                     ),
                   ),
+                  Container(
+                    // height: 345,
+                    // color: Colors.black,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Comments',
+                          style: context.theme.textTheme.caption,
+                        ),
+                        Obx(
+                          () => IconButton(
+                            onPressed: () => controller.animateContainer(),
+                            padding: EdgeInsets.zero,
+                            color: ThemeService().theme == ThemeMode.light
+                                ? ColorResourcesLight.mainLIGHTColor
+                                : ColorResourcesDark.mainDARKColor,
+                            iconSize: 15,
+                            splashRadius: 12,
+                            icon: FaIcon(controller.isLarge.isFalse
+                                ? FontAwesomeIcons.chevronDown
+                                : FontAwesomeIcons.chevronUp),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Obx(() {
+                    return Column(
+                      children: [
+                        AnimatedContainer(
+                          curve: Curves.fastOutSlowIn,
+                          height: controller.height.value.toDouble(),
+                          duration: Duration(milliseconds: 500),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: controller.isLarge.isTrue
+                                ? Form(
+                                    key: controller.commentkey,
+                                    child: TextFormField(
+                                      controller: controller.commentController,
+                                      maxLines: 3,
+                                      style: TextStyle(
+                                          color: ColorResourcesLight
+                                              .mainTextHEADINGColor),
+                                      cursorColor: ColorResourcesLight
+                                          .mainTextHEADINGColor,
+                                      keyboardType: TextInputType.name,
+                                      onSaved: (value) {
+                                        controller.comment.value =
+                                            value.toString();
+                                      },
+                                      validator: (value) =>
+                                          controller.validateComment(value!),
+                                      decoration: InputDecoration(
+                                          labelText: 'Your comment',
+                                          labelStyle:
+                                              context.theme.textTheme.caption),
+                                    ),
+                                  )
+                                : SizedBox.shrink(),
+                          ),
+                        ),
+                        controller.height.value != 0
+                            ? Padding(
+                                padding: const EdgeInsets.only(bottom: 8.0),
+                                child: FadedScaleAnimation(
+                                  ElevatedButton(
+                                      onPressed: () =>
+                                          controller.commentValidator(),
+                                      child: Text('submit')),
+                                ),
+                              )
+                            : SizedBox.shrink(),
+                        // commentsBuilder(),
+                      ],
+                    );
+                  }),
+                  FadedScaleAnimation(commentsBuilder())
                 ],
               ),
             ),
@@ -238,5 +359,25 @@ class MyStoriesFullScreenView extends GetView<MyStoriesFullScreenController> {
         ),
       ),
     );
+  }
+
+  Widget commentsBuilder() {
+    return Obx(() {
+      return Container(
+        height: controller.comments.length * 100,
+        child: ListView.builder(
+            itemCount: controller.comments.length,
+            itemBuilder: (context, index) {
+              final data = controller.comments[index];
+              return CommentesCardView().showCustomComments(
+                  context,
+                  data.commentername,
+                  data.comment,
+                  data.commenterprofilepic,
+                  data.isliked,
+                  data.datecommented);
+            }),
+      );
+    });
   }
 }

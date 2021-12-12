@@ -7,4 +7,7 @@ class UserLoginLogout {
   bool checkisUserLoggedIn() => _box.read(_key) ?? false;
   Future<void> userLoggedIn(bool userLoggedIn) =>
       _box.write(_key, userLoggedIn);
+
+  bool isGoogleUser() => _box.read(_key) ?? false;
+  Future<void> googleUser(bool userLoggedIn) => _box.write(_key, userLoggedIn);
 }

@@ -126,7 +126,7 @@ class MyStoriesView extends GetView<MyStoriesController> {
               IconButton(
                   splashRadius: 15,
                   onPressed: () => CustomDialogue(
-                        title: 'Remove this story form favorites list?',
+                        title: 'Do you want to permanently delete this story?',
                         textConfirm: 'Yes',
                         textCancel: 'No',
                         onpressedConfirm: () => controller.removeStory(

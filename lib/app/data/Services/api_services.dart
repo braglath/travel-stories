@@ -98,4 +98,24 @@ class APIservices {
       return <CommentsModel>[];
     }
   }
+
+  static Future<List<CommentsModel>> myFavComments(
+      {required storytitle}) async {
+    final url = 'http://ubermensch.studio/travel_stories/myfavcomments.php';
+    var data = {
+      "storytitle": storytitle,
+    };
+    var response = await client.post(Uri.parse(url), body: data);
+    print(response.body);
+    if (response.statusCode == 200) {
+      if (response.body.isNotEmpty) {
+        var jsonString = response.body;
+        return commentsModelFromJson(jsonString);
+      } else {
+        return <CommentsModel>[];
+      }
+    } else {
+      return <CommentsModel>[];
+    }
+  }
 }

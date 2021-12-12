@@ -24,6 +24,11 @@ class SignupController extends GetxController {
   //TODO: Implement SignupController
   // todo find the controller where the google signin method ever is listening
 
+  var password = ''.obs;
+  var passwordStrength = 0.0.obs;
+  RegExp numRegExpress = RegExp(r".*[0-9].*");
+  RegExp letterRegExpress = RegExp(r".*[A-Za-z].*");
+
   late GoogleSignIn googleSign;
   var isSignIn = false.obs;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -72,6 +77,24 @@ class SignupController extends GetxController {
   void onClose() {}
 
   void increment() => count.value++;
+
+  void checkPasswordStrength(String value) {
+    password.value = value.trim();
+    if (password.value.isEmpty) {
+      passwordStrength.value = 0.0;
+    } else if (password.value.length < 6) {
+      passwordStrength.value = 1 / 4;
+    } else if (password.value.length < 8) {
+      passwordStrength.value = 2 / 4;
+    } else {
+      if (!letterRegExpress.hasMatch(password.value) ||
+          !numRegExpress.hasMatch(password.value)) {
+        passwordStrength.value = 3 / 4;
+      } else {
+        passwordStrength.value = 1 / 4;
+      }
+    }
+  }
 
   void handleAuthStateChanged(isLoggedIn) {
     if (isLoggedIn) {

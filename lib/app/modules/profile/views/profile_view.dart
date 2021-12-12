@@ -136,7 +136,9 @@ class ProfileView extends GetView<ProfileController> {
                 text: TextSpan(
                   children: <TextSpan>[
                     TextSpan(
-                        text: "${UserDetails().readUserNamefromBox()} \n",
+                        text: UserDetails().readUserNamefromBox().length > 18
+                            ? "${UserDetails().readUserNamefromBox().replaceAll(" ", "\n")} \n"
+                            : "${UserDetails().readUserNamefromBox()} \n",
                         style: context.theme.textTheme.headline3),
                     TextSpan(
                         text:

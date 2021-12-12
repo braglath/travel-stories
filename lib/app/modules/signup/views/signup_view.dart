@@ -68,6 +68,28 @@ class SignupView extends GetView<SignupController> {
                                 const EdgeInsets.symmetric(horizontal: 12.0),
                             child: password(),
                           ),
+                          Obx(() {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 22),
+                              child: LinearProgressIndicator(
+                                minHeight: 3,
+                                semanticsLabel: 'password strength',
+                                value: controller.passwordStrength.value,
+                                backgroundColor: Colors.white,
+                                color: controller.passwordStrength.value <=
+                                        1 / 4
+                                    ? Colors.red.withOpacity(0.8)
+                                    : controller.passwordStrength.value == 2 / 4
+                                        ? Colors.amber.withOpacity(0.8)
+                                        : controller.passwordStrength.value ==
+                                                3 / 4
+                                            ? Colors.deepPurpleAccent
+                                                .withOpacity(0.8)
+                                            : Colors.green.withOpacity(0.8),
+                              ),
+                            );
+                          }),
                           SizedBox(
                             height: 20,
                           ),
@@ -256,6 +278,7 @@ class SignupView extends GetView<SignupController> {
 
   Widget password() => Obx(() {
         return TextFormField(
+            onChanged: (value) => controller.checkPasswordStrength(value),
             style: TextStyle(color: ColorResourcesLight.mainTextHEADINGColor),
             cursorColor: ThemeService().theme == ThemeMode.light
                 ? ColorResourcesLight.mainTextHEADINGColor
