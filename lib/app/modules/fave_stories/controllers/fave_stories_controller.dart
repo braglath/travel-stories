@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:travel_diaries/app/data/Models/fav_stories_model.dart';
@@ -13,11 +14,14 @@ class FaveStoriesController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLiked = false.obs;
   List<FavStoriesModel> story = <FavStoriesModel>[].obs;
+  final scrollController = ScrollController().obs;
+  var shouldAutoscroll = false.obs;
 
   @override
   void onInit() {
     super.onInit();
     fetchFavStories();
+    scrollController.value.addListener(_scrollListener);
   }
 
   @override
@@ -26,8 +30,27 @@ class FaveStoriesController extends GetxController {
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+    scrollController.value.removeListener(_scrollListener);
+  }
+
   void increment() => count.value++;
+
+  void scrollToTop() {
+    final double start = 0;
+    scrollController.value.animateTo(start,
+        duration: Duration(milliseconds: 500), curve: Curves.fastOutSlowIn);
+  }
+
+  void _scrollListener() {
+    if (scrollController.value.hasClients &&
+        scrollController.value.position.pixels >= 150) {
+      shouldAutoscroll.value = true;
+    } else {
+      shouldAutoscroll.value = false;
+    }
+  }
+
   void fetchFavStories() async {
     isLoading.value = true;
 

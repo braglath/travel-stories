@@ -58,12 +58,30 @@ class ProfileView extends GetView<ProfileController> {
     ];
     return Scaffold(
       appBar: AppBarView(title: 'Profile page'),
+      floatingActionButton: Obx(() {
+        return controller.shouldAutoscroll.value
+            ? FadedScaleAnimation(
+                FloatingActionButton(
+                    heroTag: null,
+                    mini: true,
+                    tooltip: 'move to top',
+                    child: FaIcon(
+                      FontAwesomeIcons.chevronUp,
+                    ),
+                    onPressed: () {
+                      controller.scrollToTop();
+                      print(controller.scrollController.value);
+                    }),
+              )
+            : SizedBox.shrink();
+      }),
       body: _listView(context, _menu),
     );
   }
 
   Widget _listView(BuildContext context, _menu) {
     return ListView(
+      controller: controller.scrollController.value,
       physics: BouncingScrollPhysics(),
       children: [
         Container(
@@ -144,6 +162,9 @@ class ProfileView extends GetView<ProfileController> {
                         text:
                             '${UserDetails().readUserPhoneorEmailfromBox()}\n',
                         style: context.theme.textTheme.headline4),
+                    TextSpan(
+                        text: '${UserDetails().readUserCaptionfromBox()}\n',
+                        style: context.theme.textTheme.caption),
                   ],
                 ),
               ),

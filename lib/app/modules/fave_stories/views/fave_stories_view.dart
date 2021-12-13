@@ -25,6 +25,23 @@ class FaveStoriesView extends GetView<FaveStoriesController> {
         appBar: AppBarView(
           title: 'Fav stories',
         ),
+        floatingActionButton: Obx(() {
+          return controller.shouldAutoscroll.value
+              ? FadedScaleAnimation(
+                  FloatingActionButton(
+                      heroTag: null,
+                      mini: true,
+                      tooltip: 'move to top',
+                      child: FaIcon(
+                        FontAwesomeIcons.chevronUp,
+                      ),
+                      onPressed: () {
+                        controller.scrollToTop();
+                        print(controller.scrollController.value);
+                      }),
+                )
+              : SizedBox.shrink();
+        }),
         body: Obx(() {
           return Stack(
             children: [
@@ -93,6 +110,7 @@ class FaveStoriesView extends GetView<FaveStoriesController> {
             CustomStoryBarWidgetView(
               likes: _controller.likes,
               trailingOnTap: () => CustomDialogue(
+                isDismissible: false,
                 title: 'Remove this story form favorites list?',
                 textConfirm: 'Yes',
                 textCancel: 'No',
@@ -147,6 +165,7 @@ class FaveStoriesView extends GetView<FaveStoriesController> {
               IconButton(
                   splashRadius: 15,
                   onPressed: () => CustomDialogue(
+                        isDismissible: false,
                         title: 'Remove this story form favorites list?',
                         textConfirm: 'Yes',
                         textCancel: 'No',

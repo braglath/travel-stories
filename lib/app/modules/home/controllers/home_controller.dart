@@ -201,6 +201,7 @@ class HomeController extends GetxController {
             list[0]['phoneoremail'],
             list[0]['password'],
             list[0]['fav'],
+            list[0]['caption'],
             list[0]['profilepicture'],
             list[0]['id']);
         UserLoginLogout().userLoggedIn(true);
@@ -227,6 +228,7 @@ class HomeController extends GetxController {
         'Anonymous password',
         'bike',
         'profilepicture',
+        'I am anonymous',
         'id');
     UserLoginLogout().userLoggedIn(true);
     CustomSnackbar(

@@ -14,6 +14,7 @@ class SignupView extends GetView<SignupController> {
   final TextEditingController _phonenumberController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _captionController = TextEditingController();
   final textFieldFocusNode = FocusNode();
 
   @override
@@ -93,14 +94,20 @@ class SignupView extends GetView<SignupController> {
                           SizedBox(
                             height: 20,
                           ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12.0),
+                            child: caption(),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
                           Text(
                             'Pick one favorite mode of transport',
                             style: context.theme.textTheme.headline4,
                           ),
                           SizedBox(height: 50, child: customchips()),
-                          SizedBox(
-                            height: 20,
-                          ),
+                          SizedBox(height: 20),
                           Hero(
                             tag: 'loginbutton',
                             child: Center(
@@ -109,6 +116,7 @@ class SignupView extends GetView<SignupController> {
                                     controller.profilePictureDialogue(
                                         _nameController.text,
                                         _phonenumberController.text,
+                                        _captionController.text,
                                         _passwordController.text),
                                 child: Text(
                                   'Sign up',
@@ -183,9 +191,6 @@ class SignupView extends GetView<SignupController> {
                                 ],
                               )),
                         ],
-                      ),
-                      SizedBox(
-                        height: 10,
                       ),
                       SizedBox(
                         height: 10,
@@ -358,4 +363,21 @@ class SignupView extends GetView<SignupController> {
           ),
         );
       });
+
+  Widget caption() => TextFormField(
+      style: TextStyle(color: ColorResourcesLight.mainTextHEADINGColor),
+      cursorColor: ThemeService().theme == ThemeMode.light
+          ? ColorResourcesLight.mainTextHEADINGColor
+          : ColorResourcesDark.mainDARKTEXTICONcolor,
+      keyboardType: TextInputType.visiblePassword,
+      controller: _captionController,
+      maxLength: 90,
+      validator: (val) {},
+      decoration: InputDecoration(
+        prefixIcon: Icon(
+          Icons.format_quote,
+          color: ColorResourcesLight.mainLIGHTColor,
+        ),
+        labelText: 'caption',
+      ));
 }

@@ -21,6 +21,23 @@ class MyStoriesView extends GetView<MyStoriesController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBarView(title: 'My stories'),
+        floatingActionButton: Obx(() {
+          return controller.shouldAutoscroll.value
+              ? FadedScaleAnimation(
+                  FloatingActionButton(
+                      heroTag: null,
+                      mini: true,
+                      tooltip: 'move to top',
+                      child: FaIcon(
+                        FontAwesomeIcons.chevronUp,
+                      ),
+                      onPressed: () {
+                        controller.scrollToTop();
+                        print(controller.scrollController.value);
+                      }),
+                )
+              : SizedBox.shrink();
+        }),
         body: Obx(() {
           return Stack(
             children: [
@@ -126,6 +143,7 @@ class MyStoriesView extends GetView<MyStoriesController> {
               IconButton(
                   splashRadius: 15,
                   onPressed: () => CustomDialogue(
+                        isDismissible: false,
                         title: 'Do you want to permanently delete this story?',
                         textConfirm: 'Yes',
                         textCancel: 'No',

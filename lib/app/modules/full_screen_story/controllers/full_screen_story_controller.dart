@@ -132,6 +132,7 @@ class FullScreenStoryController extends GetxController {
     required String body,
     required String date,
   }) {
+    print(authorprofilepic);
     isLiked.value = !isLiked.value;
     print('is liked - $isLiked');
     if (isLiked.isTrue) {

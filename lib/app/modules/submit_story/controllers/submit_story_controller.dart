@@ -1,22 +1,18 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:travel_diaries/app/data/Models/stories_model.dart';
-import 'package:travel_diaries/app/data/Services/api_services.dart';
 
 class SubmitStoryController extends GetxController {
-  //TODO: Implement SubmitStoryController
-
   final defaultChoiceIndex = 0.obs;
   RxBool isSelected = false.obs;
   RxBool isLiked = false.obs;
   RxBool isEmpty = false.obs;
   RxBool isLoading = false.obs;
+  final scrollController = ScrollController().obs;
+  var shouldAutoscroll = false.obs;
 
   List<String> travelmodes =
       ['All', 'Cycle', 'Bike', 'Car', 'Bus', 'Train', 'Flight'].obs;
@@ -35,6 +31,7 @@ class SubmitStoryController extends GetxController {
   @override
   void onInit() {
     fetchStories(travelmodes[defaultChoiceIndex.value]);
+    scrollController.value.addListener(_scrollListener);
     super.onInit();
   }
 
@@ -44,7 +41,24 @@ class SubmitStoryController extends GetxController {
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+    scrollController.value.removeListener(_scrollListener);
+  }
+
+  void scrollToTop() {
+    final double start = 0;
+    scrollController.value.animateTo(start,
+        duration: Duration(milliseconds: 500), curve: Curves.fastOutSlowIn);
+  }
+
+  void _scrollListener() {
+    if (scrollController.value.hasClients &&
+        scrollController.value.position.pixels >= 150) {
+      shouldAutoscroll.value = true;
+    } else {
+      shouldAutoscroll.value = false;
+    }
+  }
 
   void fetchStories(String category) async {
     isLoading.value = true;
@@ -82,6 +96,4 @@ class SubmitStoryController extends GetxController {
       return [];
     }
   }
-
-
 }

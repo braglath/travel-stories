@@ -43,9 +43,8 @@ class SignupController extends GetxController {
   XFile? photo;
 
   List<String> travelmodes =
-      ['All', 'Cycle', 'Bike', 'Car', 'Bus', 'Train', 'Flight'].obs;
+      ['Cycle', 'Bike', 'Car', 'Bus', 'Train', 'Flight'].obs;
   List<IconData> travelIcons = [
-    Icons.flutter_dash,
     Icons.directions_bike_sharp,
     Icons.motorcycle_rounded,
     FontAwesomeIcons.car,
@@ -136,11 +135,11 @@ class SignupController extends GetxController {
     obscured.value = !obscured.value;
   }
 
-  void profilePictureDialogue(name, phoneoremail, password) {
+  void profilePictureDialogue(name, phoneoremail, caption, password) {
     isLoading.value = true;
     if (name.toString() == '' ||
         phoneoremail.toString() == '' ||
-        password.toString() == '') {
+        caption.toString() == '') {
       CustomSnackbar(title: 'Warning', message: 'Credentials cannot be empty')
           .showWarning();
       isLoading.value = false;
@@ -151,18 +150,20 @@ class SignupController extends GetxController {
           .showWarning();
       isLoading.value = false;
     } else {
-      signupUser(name, phoneoremail, password);
+      signupUser(name, phoneoremail, caption, password);
     }
   }
 
-  void signupUser(String name, String phoneoremail, String password) async {
+  void signupUser(
+      String name, String phoneoremail, String caption, String password) async {
     var url = 'http://ubermensch.studio/travel_stories/signup.php';
     var uri = Uri.parse(url);
     var data = {
       "name": name,
       "phoneoremail": phoneoremail,
       "password": password,
-      "fav": travelmodes[defaultChoiceIndex.value]
+      "fav": travelmodes[defaultChoiceIndex.value],
+      "caption": caption
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
@@ -222,6 +223,9 @@ class SignupController extends GetxController {
       UserDetails().saveUserFavtoBox(
         list[0]['fav'],
       );
+      UserDetails().saveUserCaptiontoBox(
+        list[0]['caption'],
+      );
       UserDetails().saveUserIDtoBox(
         list[0]['id'],
       );
@@ -234,6 +238,7 @@ class SignupController extends GetxController {
       //     list[0]['id']);
       UserLoginLogout().userLoggedIn(true);
       CustomDialogue(
+              isDismissible: false,
               title: 'Set a profile picture',
               textConfirm: 'Set now',
               textCancel: 'Set it later',
@@ -319,6 +324,7 @@ class SignupController extends GetxController {
           list[0]['password'],
           list[0]['fav'],
           list[0]['profilepicture'],
+          list[0]['caption'],
           list[0]['id']);
       Get.back();
       Get.offAllNamed(Routes.SUBMIT_STORY);
@@ -360,6 +366,14 @@ Widget dialogueContent() => Column(
             color: ColorResourcesLight.mainTextHEADINGColor,
             fontWeight: FontWeight.bold,
             fontSize: 15,
+          ),
+        ),
+        Text(
+          UserDetails().readUserCaptionfromBox(),
+          style: TextStyle(
+            color: ColorResourcesLight.mainTextHEADINGColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
           ),
         ),
       ],

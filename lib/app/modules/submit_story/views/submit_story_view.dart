@@ -25,9 +25,35 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
         appBar: AppBarView(
           title: 'Travel stories',
         ),
-        floatingActionButton: FadedScaleAnimation(
-          _floatingActionButton(context, FontAwesomeIcons.plus, 'Post',
-              () => Get.toNamed(Routes.POST_STORY)),
+        floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Obx(() {
+              return controller.shouldAutoscroll.value
+                  ? FadedScaleAnimation(
+                      FloatingActionButton(
+                          heroTag: null,
+                          mini: true,
+                          tooltip: 'move to top',
+                          child: FaIcon(
+                            FontAwesomeIcons.chevronUp,
+                          ),
+                          onPressed: () {
+                            controller.scrollToTop();
+                            print(controller.scrollController.value);
+                          }),
+                    )
+                  : SizedBox.shrink();
+            }),
+            SizedBox(
+              height: 20,
+            ),
+            FadedScaleAnimation(
+              _floatingActionButton(context, FontAwesomeIcons.plus, 'Post',
+                  () => Get.toNamed(Routes.POST_STORY)),
+            ),
+          ],
         ),
         body: Obx(() {
           return Stack(
@@ -63,6 +89,7 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
                             )
                           : Expanded(
                               child: SingleChildScrollView(
+                              controller: controller.scrollController.value,
                               child: Column(
                                 children: [
                                   TopStoriesView(),

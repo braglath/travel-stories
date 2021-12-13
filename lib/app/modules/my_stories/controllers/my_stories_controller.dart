@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_diaries/app/data/Models/my_stories_model.dart';
 import 'package:travel_diaries/app/data/Services/api_services.dart';
@@ -10,11 +11,15 @@ class MyStoriesController extends GetxController {
   final count = 0.obs;
   RxBool isLoading = false.obs;
   List<MyStoriesModel> story = <MyStoriesModel>[].obs;
+    final scrollController = ScrollController().obs;
+  var shouldAutoscroll = false.obs;
 
   @override
   void onInit() {
     super.onInit();
     fetchMyStories();
+    scrollController.value.addListener(_scrollListener);
+
   }
 
   @override
@@ -23,8 +28,26 @@ class MyStoriesController extends GetxController {
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+    scrollController.value.removeListener(_scrollListener);
+
+  }
   void increment() => count.value++;
+
+  void scrollToTop() {
+    final double start = 0;
+    scrollController.value.animateTo(start,
+        duration: Duration(milliseconds: 500), curve: Curves.fastOutSlowIn);
+  }
+
+  void _scrollListener() {
+    if (scrollController.value.hasClients &&
+        scrollController.value.position.pixels >= 150) {
+      shouldAutoscroll.value = true;
+    } else {
+      shouldAutoscroll.value = false;
+    }
+  }
 
   void fetchMyStories() async {
     isLoading.value = true;

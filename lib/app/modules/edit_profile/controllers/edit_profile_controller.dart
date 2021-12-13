@@ -15,10 +15,12 @@ class EditProfileController extends GetxController {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   late TextEditingController nameController,
       emailController,
-      passwordController;
+      passwordController,
+      captionController;
   var name;
   var email;
   var password;
+  var caption;
   var profileImage = ''.obs;
   XFile? photo;
   final defaultChoiceIndex = 0.obs;
@@ -43,6 +45,7 @@ class EditProfileController extends GetxController {
     nameController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();
+    captionController = TextEditingController();
     profileImage.value = UserDetails().readUserProfilePicfromBox();
   }
 
@@ -56,6 +59,7 @@ class EditProfileController extends GetxController {
     nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
+    captionController.dispose();
   }
 
   void toggleObscured() {
@@ -159,6 +163,7 @@ class EditProfileController extends GetxController {
       UserDetails().saveUserPhoneorEmailtoBox(list[0]['phoneoremail']);
       UserDetails().saveUserPasswordtoBox(list[0]['password']);
       UserDetails().saveUserFavtoBox(list[0]['fav']);
+      UserDetails().saveUserCaptiontoBox(list[0]['caption']);
       UserDetails().saveUserIDtoBox(list[0]['id']);
       UserDetails().saveUserProfilePictoBox(list[0]['profilepicture']);
       profileImage.value = UserDetails().readUserProfilePicfromBox();
@@ -183,6 +188,7 @@ class EditProfileController extends GetxController {
       "phoneoremail": emailController.text,
       "password": passwordController.text,
       "fav": travelmodes[defaultChoiceIndex.value],
+      "caption": captionController.text
     };
     print(data);
     http.Response res = await http.post(Uri.parse(url), body: data);
@@ -229,6 +235,7 @@ class EditProfileController extends GetxController {
       UserDetails().saveUserPhoneorEmailtoBox(list[0]['phoneoremail']);
       UserDetails().saveUserPasswordtoBox(list[0]['password']);
       UserDetails().saveUserFavtoBox(list[0]['fav']);
+      UserDetails().saveUserCaptiontoBox(list[0]['caption']);
       UserDetails().saveUserIDtoBox(list[0]['id']);
       UserDetails().saveUserProfilePictoBox(list[0]['profilepicture']);
       profileImage.value = UserDetails().readUserProfilePicfromBox();

@@ -11,17 +11,19 @@ class CustomDialogue {
   Function()? onpressedConfirm;
   Function()? onpressedCancel;
   Widget? contentWidget;
-  CustomDialogue({
-    required this.title,
-    required this.textConfirm,
-    required this.textCancel,
-    required this.onpressedConfirm,
-    required this.onpressedCancel,
-    required this.contentWidget,
-  });
+  bool isDismissible = false;
+  CustomDialogue(
+      {required this.title,
+      required this.textConfirm,
+      required this.textCancel,
+      required this.onpressedConfirm,
+      required this.onpressedCancel,
+      required this.contentWidget,
+      required this.isDismissible});
 
   void showDialogue() {
     Get.defaultDialog(
+        barrierDismissible: false,
         title: title,
         backgroundColor: ColorResourcesLight.mainLIGHTAPPBARcolor,
         titleStyle: TextStyle(

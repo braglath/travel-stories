@@ -8,6 +8,7 @@ class UserDetails {
   final _userPasswordBox = GetStorage();
   final _userFavBox = GetStorage();
   final _userProfilePicBox = GetStorage();
+  final _userCaptionBox = GetStorage();
   final _userIDBox = GetStorage();
 
   final _userNamekey = 'userName';
@@ -15,6 +16,7 @@ class UserDetails {
   final _userPasswordkey = 'userPassword';
   final _userFavkey = 'userFav';
   final _userProfilePickey = 'userProfilePic';
+  final _userCaptionKey = 'userCaption';
   final _userIDkey = 'userID';
 
   // ? write user details
@@ -33,6 +35,9 @@ class UserDetails {
   saveUserProfilePictoBox(String userProfilePic) =>
       _userProfilePicBox.write(_userProfilePickey, userProfilePic);
 
+  saveUserCaptiontoBox(String userCaption) =>
+      _userCaptionBox.write(_userCaptionKey, userCaption);
+
   saveUserIDtoBox(String userID) => _userIDBox.write(_userIDkey, userID);
 
   // ? read user details
@@ -44,6 +49,7 @@ class UserDetails {
   String readUserFavfromBox() => _userFavBox.read(_userFavkey);
   String readUserProfilePicfromBox() =>
       _userPasswordBox.read(_userProfilePickey);
+  String readUserCaptionfromBox() => _userCaptionBox.read(_userCaptionKey);
   String readUserIDfromBox() => _userIDBox.read(_userIDkey);
 
   deleteUserDetailsfromBox() {
@@ -52,17 +58,19 @@ class UserDetails {
     _userPasswordBox.remove(_userPasswordkey);
     _userFavBox.remove(_userFavkey);
     _userProfilePicBox.remove(_userProfilePickey);
+    _userCaptionBox.remove(_userCaptionKey);
     _userIDBox.remove(_userIDkey);
     UserLoginLogout().userLoggedIn(false);
   }
 
   saveUserDetailstoBox(String name, String phoneoremail, String password,
-      String fav, String profilepic, String id) {
+      String fav, String profilepic, String caption, String id) {
     saveUserNametoBox(name);
     saveUserPhoneorEmailtoBox(phoneoremail);
     saveUserPasswordtoBox(password);
     saveUserFavtoBox(fav);
     saveUserProfilePictoBox(profilepic);
+    saveUserCaptiontoBox(caption);
     saveUserIDtoBox(id);
   }
 }

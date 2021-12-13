@@ -23,6 +23,7 @@ class EditProfileView extends GetView<EditProfileController> {
         UserDetails().readUserPhoneorEmailfromBox();
     controller.passwordController.text =
         UserDetails().readUserPasswordfromBox();
+    controller.captionController.text = UserDetails().readUserCaptionfromBox();
 
     return Scaffold(
       appBar: AppBarView(
@@ -36,7 +37,7 @@ class EditProfileView extends GetView<EditProfileController> {
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 Stack(
                   alignment: Alignment.bottomCenter,
@@ -88,6 +89,13 @@ class EditProfileView extends GetView<EditProfileController> {
                       SizedBox(
                         height: 20,
                       ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                        child: caption(),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
                       Text(
                         'Pick one favorite mode of transport',
                         style: context.theme.textTheme.headline4,
@@ -100,7 +108,16 @@ class EditProfileView extends GetView<EditProfileController> {
                         tag: 'loginbutton',
                         child: Center(
                           child: ElevatedButton(
-                            onPressed: () => controller.saveUserDetails(),
+                            onPressed: () => CustomDialogue(
+                                    title: 'Check profile changes',
+                                    textConfirm: 'Confirm',
+                                    textCancel: 'Cancel',
+                                    onpressedConfirm: () =>
+                                        controller.saveUserDetails(),
+                                    onpressedCancel: () => Get.back(),
+                                    contentWidget: contentWidget(context),
+                                    isDismissible: false)
+                                .showDialogue(),
                             child: Text(
                               'Confirm',
                               style: context.theme.textTheme.headline6,
@@ -249,6 +266,23 @@ class EditProfileView extends GetView<EditProfileController> {
             ));
       });
 
+  Widget caption() => TextFormField(
+      style: TextStyle(color: ColorResourcesLight.mainTextHEADINGColor),
+      cursorColor: ThemeService().theme == ThemeMode.light
+          ? ColorResourcesLight.mainTextHEADINGColor
+          : ColorResourcesDark.mainDARKTEXTICONcolor,
+      keyboardType: TextInputType.visiblePassword,
+      controller: controller.captionController,
+      maxLength: 90,
+      validator: (val) {},
+      decoration: InputDecoration(
+        prefixIcon: Icon(
+          Icons.format_quote,
+          color: ColorResourcesLight.mainLIGHTColor,
+        ),
+        labelText: 'caption',
+      ));
+
   Widget customchips() => ListView.builder(
       // itemExtent: 100,
       physics: BouncingScrollPhysics(),
@@ -287,4 +321,60 @@ class EditProfileView extends GetView<EditProfileController> {
           ),
         );
       });
+
+  Widget contentWidget(context) => Column(
+        children: [
+          Center(
+            child: Stack(
+              children: [
+                CircleAvatar(
+                  backgroundColor: ThemeService().theme == ThemeMode.light
+                      ? ColorResourcesLight.mainLIGHTColor
+                      : ColorResourcesDark.mainDARKColor,
+                  radius: 55,
+                  child: CircleAvatar(
+                      radius: 52.0,
+                      child: Icon(
+                        Icons.person,
+                        color: Colors.white,
+                      ),
+                      backgroundColor: ThemeService().theme == ThemeMode.light
+                          ? ColorResourcesLight.mainLIGHTColor
+                          : ColorResourcesDark.mainDARKColor,
+                      backgroundImage: NetworkImage(
+                          "http://ubermensch.studio/travel_stories/profileimages/${controller.profileImage.value}")),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                    text: controller.nameController.text.length > 18
+                        ? "${controller.nameController.text.replaceAll(" ", "\n")} \n"
+                        : "${controller.nameController.text} \n",
+                    style: Theme.of(context).textTheme.headline3),
+                TextSpan(
+                    text: '${controller.emailController.text}\n',
+                    style: Theme.of(context).textTheme.headline4),
+                TextSpan(
+                    text: '${controller.passwordController.text}\n',
+                    style: Theme.of(context).textTheme.headline4),
+                TextSpan(
+                    text: '${controller.captionController.text}\n',
+                    style: Theme.of(context).textTheme.caption),
+                TextSpan(
+                    text:
+                        '${controller.travelmodes[controller.defaultChoiceIndex.value]}\n',
+                    style: Theme.of(context).textTheme.caption),
+              ],
+            ),
+          ),
+        ],
+      );
 }

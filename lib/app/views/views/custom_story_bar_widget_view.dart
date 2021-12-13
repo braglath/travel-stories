@@ -37,6 +37,7 @@ class CustomStoryBarWidgetView extends GetView {
       required this.readmoreOnTap});
   @override
   Widget build(BuildContext context) {
+    print(authorProfilePic);
     return FadedScaleAnimation(
       Padding(
         padding: const EdgeInsets.all(8.0),
