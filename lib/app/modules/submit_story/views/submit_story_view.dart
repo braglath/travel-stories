@@ -137,6 +137,15 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
                                                 .story[index].personprofilepic);
 
                                             return CustomStoryBarWidgetView(
+                                              profileOnTapped: () =>
+                                                  Get.toNamed(
+                                                      Routes.OTHER_PROFILE,
+                                                      arguments: {
+                                                    'authorId': controller
+                                                        .story[index].personid,
+                                                    'authorName': controller
+                                                        .story[index].personname
+                                                  }),
                                               trailingOnTap: () => CustomSnackbar(
                                                       title: 'Warning',
                                                       message:

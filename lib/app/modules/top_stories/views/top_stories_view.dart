@@ -58,6 +58,8 @@ class TopStoriesView extends GetView<TopStoriesController> {
                           "${dateTime.day}-${dateTime.month}-${dateTime.year}";
                       if (controller.topStories.isNotEmpty) {
                         return CustomStoryBarWidgetView(
+                          profileOnTapped: () =>
+                              Get.toNamed(Routes.OTHER_PROFILE),
                           trailingOnTap: () => CustomSnackbar(
                                   title: 'Warning',
                                   message:

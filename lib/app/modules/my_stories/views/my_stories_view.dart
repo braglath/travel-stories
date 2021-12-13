@@ -104,6 +104,7 @@ class MyStoriesView extends GetView<MyStoriesController> {
         return Stack(
           children: [
             CustomStoryBarWidgetView(
+              profileOnTapped: () => Get.toNamed(Routes.OTHER_PROFILE),
               likes: _controller.likes,
               trailingOnTap: () => {},
               authorProfilePic: _controller.personprofilepic,

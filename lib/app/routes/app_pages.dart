@@ -22,6 +22,8 @@ import 'package:travel_diaries/app/modules/my_stories/bindings/my_stories_bindin
 import 'package:travel_diaries/app/modules/my_stories/views/my_stories_view.dart';
 import 'package:travel_diaries/app/modules/my_stories_full_screen/bindings/my_stories_full_screen_binding.dart';
 import 'package:travel_diaries/app/modules/my_stories_full_screen/views/my_stories_full_screen_view.dart';
+import 'package:travel_diaries/app/modules/other_profile/bindings/other_profile_binding.dart';
+import 'package:travel_diaries/app/modules/other_profile/views/other_profile_view.dart';
 import 'package:travel_diaries/app/modules/post_story/bindings/post_story_binding.dart';
 import 'package:travel_diaries/app/modules/post_story/views/post_story_view.dart';
 import 'package:travel_diaries/app/modules/profile/bindings/profile_binding.dart';
@@ -152,6 +154,11 @@ class AppPages {
       name: _Paths.TOP_STORIES,
       page: () => TopStoriesView(),
       binding: TopStoriesBinding(),
+    ),
+    GetPage(
+      name: _Paths.OTHER_PROFILE,
+      page: () => OtherProfileView(),
+      binding: OtherProfileBinding(),
     ),
   ];
 }

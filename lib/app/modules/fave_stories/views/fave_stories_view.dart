@@ -108,6 +108,7 @@ class FaveStoriesView extends GetView<FaveStoriesController> {
         return Stack(
           children: [
             CustomStoryBarWidgetView(
+              profileOnTapped: () => Get.toNamed(Routes.OTHER_PROFILE),
               likes: _controller.likes,
               trailingOnTap: () => CustomDialogue(
                 isDismissible: false,

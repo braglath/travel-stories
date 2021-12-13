@@ -6,22 +6,21 @@ import 'package:get/get.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
-import 'package:travel_diaries/app/routes/app_pages.dart';
-import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 
 class CustomStoryBarWidgetView extends GetView {
-  Function()? trailingOnTap;
-  String likes;
-  String authorProfilePic;
-  String storyTitle;
-  String storyCategory;
-  String authorName;
-  String storyDate;
-  String authorId;
-  String storyId;
-  Function()? listTileOnTap;
-  String storyBody;
-  Function()? readmoreOnTap;
+  final Function()? trailingOnTap;
+  final String likes;
+  final String authorProfilePic;
+  final String storyTitle;
+  final String storyCategory;
+  final String authorName;
+  final String storyDate;
+  final String authorId;
+  final String storyId;
+  final Function()? listTileOnTap;
+  final String storyBody;
+  final Function()? readmoreOnTap;
+  final Function()? profileOnTapped;
   CustomStoryBarWidgetView(
       {required this.likes,
       required this.trailingOnTap,
@@ -34,7 +33,8 @@ class CustomStoryBarWidgetView extends GetView {
       required this.storyId,
       required this.listTileOnTap,
       required this.storyBody,
-      required this.readmoreOnTap});
+      required this.readmoreOnTap,
+      required this.profileOnTapped});
   @override
   Widget build(BuildContext context) {
     print(authorProfilePic);
@@ -98,33 +98,37 @@ class CustomStoryBarWidgetView extends GetView {
                       ),
                     ),
                   ),
-                  leading: Stack(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: ThemeService().theme == ThemeMode.light
-                            ? ColorResourcesLight.mainLIGHTColor
-                            : ColorResourcesDark.mainDARKColor,
-                        radius: 25,
-                        child: CircleAvatar(
-                          radius: 22,
-                          child: authorProfilePic.isNotEmpty
-                              ? null
-                              : Icon(
-                                  Icons.person,
-                                  color: Colors.white,
-                                ),
-                          backgroundColor: authorProfilePic.isNotEmpty
-                              ? null
-                              : ThemeService().theme == ThemeMode.light
+                  leading: InkWell(
+                    onTap: profileOnTapped,
+                    child: Stack(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor:
+                              ThemeService().theme == ThemeMode.light
                                   ? ColorResourcesLight.mainLIGHTColor
                                   : ColorResourcesDark.mainDARKColor,
-                          backgroundImage: authorProfilePic.isNotEmpty
-                              ? NetworkImage(
-                                  "http://ubermensch.studio/travel_stories/profileimages/$authorProfilePic")
-                              : null,
-                        ),
-                      )
-                    ],
+                          radius: 25,
+                          child: CircleAvatar(
+                            radius: 22,
+                            child: authorProfilePic.isNotEmpty
+                                ? null
+                                : Icon(
+                                    Icons.person,
+                                    color: Colors.white,
+                                  ),
+                            backgroundColor: authorProfilePic.isNotEmpty
+                                ? null
+                                : ThemeService().theme == ThemeMode.light
+                                    ? ColorResourcesLight.mainLIGHTColor
+                                    : ColorResourcesDark.mainDARKColor,
+                            backgroundImage: authorProfilePic.isNotEmpty
+                                ? NetworkImage(
+                                    "http://ubermensch.studio/travel_stories/profileimages/$authorProfilePic")
+                                : null,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                   title: Text(
                     storyTitle,
