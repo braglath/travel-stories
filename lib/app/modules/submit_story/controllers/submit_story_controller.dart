@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:travel_diaries/app/data/Models/stories_model.dart';
+import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 
 class SubmitStoryController extends GetxController {
   final defaultChoiceIndex = 0.obs;
@@ -13,6 +14,7 @@ class SubmitStoryController extends GetxController {
   RxBool isLoading = false.obs;
   final scrollController = ScrollController().obs;
   var shouldAutoscroll = false.obs;
+  DateTime timeBackButtonPressed = DateTime.now();
 
   List<String> travelmodes =
       ['All', 'Cycle', 'Bike', 'Car', 'Bus', 'Train', 'Flight'].obs;
@@ -43,6 +45,21 @@ class SubmitStoryController extends GetxController {
   @override
   void onClose() {
     scrollController.value.removeListener(_scrollListener);
+  }
+
+  Future<bool> pressBackAgainToExit() async {
+    final difference = DateTime.now().difference(timeBackButtonPressed);
+    final isExitWarning = difference >= Duration(seconds: 2);
+    timeBackButtonPressed = DateTime.now();
+    if (isExitWarning) {
+      CustomSnackbar(
+              title: 'Exiting the app',
+              message: 'Press back button again to exit the app')
+          .showWarning();
+      return false;
+    } else {
+      return true;
+    }
   }
 
   void scrollToTop() {
