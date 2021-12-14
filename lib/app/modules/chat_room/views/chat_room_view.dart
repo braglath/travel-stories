@@ -2,31 +2,26 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import 'package:travel_diaries/app/modules/app_bar/controllers/app_bar_controller.dart';
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
-
+import 'package:travel_diaries/app/routes/app_pages.dart';
+import 'package:travel_diaries/app/views/views/first_chat_page_view.dart';
 import '../controllers/chat_room_controller.dart';
 
 class ChatRoomView extends GetView<ChatRoomController> {
   @override
-  final controller = Get.find<ChatRoomController>(tag: 'chatroomcontroller');
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarView(
-        appBarSize: 100,
-        title: 'Chat room',
-        bottom: TabBar(
-          tabs: controller.myTabs,
-          controller: controller.tabController,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          splashRadius: 15,
+          icon: Icon(Icons.chevron_left_outlined),
+          onPressed: () => Get.offAllNamed(Routes.SUBMIT_STORY),
         ),
       ),
-      body: Center(
-        child: Text(
-          'ChatRoomView is working',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
+      body: FirstCharPage(),
     );
   }
 }

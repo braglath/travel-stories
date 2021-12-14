@@ -176,7 +176,7 @@ class AppPages {
         page: () => ChatRoomView(),
         binding: ChatRoomBinding(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration: Duration(milliseconds: 600)),
     GetPage(
         name: _Paths.LOADING_CHAT_ROOM,
         page: () => LoadingChatRoomView(),

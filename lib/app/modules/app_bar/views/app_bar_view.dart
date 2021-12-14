@@ -90,7 +90,11 @@ class AppBarView extends GetView<AppBarController>
                   .settings
                   .name!
                   .contains('/edit-profile') ||
-              ModalRoute.of(context)!.settings.name!.contains('/other-profile')
+              ModalRoute.of(context)!
+                  .settings
+                  .name!
+                  .contains('/other-profile') ||
+              ModalRoute.of(context)!.settings.name!.contains('/chat-room')
           ? null
           : <Widget>[
               Padding(
