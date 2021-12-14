@@ -39,7 +39,9 @@ class CustomBottomSheet {
               title: Text(
                 title1,
                 style: TextStyle(
-                    color: ColorResourcesLight.mainTextHEADINGColor,
+                    color: ThemeService().theme == ThemeMode.light
+                        ? ColorResourcesLight.mainTextHEADINGColor
+                        : ColorResourcesLight.mainLIGHTAPPBARcolor,
                     fontWeight: FontWeight.bold,
                     fontSize: 22),
               ),
@@ -57,7 +59,9 @@ class CustomBottomSheet {
               ),
               title: Text(titile2,
                   style: TextStyle(
-                      color: ColorResourcesLight.mainTextHEADINGColor,
+                      color: ThemeService().theme == ThemeMode.light
+                          ? ColorResourcesLight.mainTextHEADINGColor
+                          : ColorResourcesLight.mainLIGHTAPPBARcolor,
                       fontWeight: FontWeight.bold,
                       fontSize: 22)),
               onTap: onTap2,

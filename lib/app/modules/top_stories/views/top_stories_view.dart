@@ -59,7 +59,10 @@ class TopStoriesView extends GetView<TopStoriesController> {
                       if (controller.topStories.isNotEmpty) {
                         return CustomStoryBarWidgetView(
                           profileOnTapped: () =>
-                              Get.toNamed(Routes.OTHER_PROFILE),
+                              Get.toNamed(Routes.OTHER_PROFILE, arguments: {
+                            'authorId': topStories.personid,
+                            'authorName': topStories.personname
+                          }),
                           trailingOnTap: () => CustomSnackbar(
                                   title: 'Warning',
                                   message:

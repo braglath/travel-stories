@@ -25,6 +25,7 @@ class NavBar extends GetView {
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(30.0), bottomRight: Radius.circular(30.0)),
       child: Drawer(
+        semanticLabel: 'app drawer',
         backgroundColor: ThemeService().theme == ThemeMode.light
             ? ColorResourcesLight.mainLIGHTAPPBARcolor
             : ColorResourcesDark.mainDARKAPPBARcolor,

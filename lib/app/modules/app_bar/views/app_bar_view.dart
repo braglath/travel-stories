@@ -45,6 +45,18 @@ class AppBarView extends GetView<AppBarController>
                     .contains('/fav-full-screen')) {
                   Get.offAllNamed(Routes.SUBMIT_STORY);
                 }
+                if (ModalRoute.of(context)!
+                    .settings
+                    .name!
+                    .contains('/profile')) {
+                  Get.offAllNamed(Routes.SUBMIT_STORY);
+                }
+                if (ModalRoute.of(context)!
+                    .settings
+                    .name!
+                    .contains('/edit-profile')) {
+                  Get.offAllNamed(Routes.SUBMIT_STORY);
+                }
                 Get.back();
               }),
 

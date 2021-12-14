@@ -6,6 +6,7 @@ import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
+import 'package:travel_diaries/app/routes/app_pages.dart';
 import 'package:travel_diaries/app/views/views/comments_card_view.dart';
 import '../controllers/fav_full_screen_controller.dart';
 
@@ -110,30 +111,37 @@ class FavFullScreenView extends GetView<FavFullScreenController> {
                         ),
                       ),
 
-                      leading: Stack(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor:
-                                ThemeService().theme == ThemeMode.light
-                                    ? ColorResourcesLight.mainLIGHTColor
-                                    : ColorResourcesDark.mainDARKColor,
-                            radius: 25,
-                            child: CircleAvatar(
-                                radius: 22,
-                                child: authorprofilepic.isEmpty
-                                    ? Icon(
-                                        Icons.person,
-                                        color: Colors.white,
-                                      )
-                                    : null,
-                                backgroundColor:
-                                    ThemeService().theme == ThemeMode.light
-                                        ? ColorResourcesLight.mainLIGHTColor
-                                        : ColorResourcesDark.mainDARKColor,
-                                backgroundImage: NetworkImage(
-                                    "http://ubermensch.studio/travel_stories/profileimages/$authorprofilepic")),
-                          )
-                        ],
+                      leading: InkWell(
+                        onTap: () => Get.toNamed(Routes.OTHER_PROFILE,
+                            arguments: {
+                              'authorId': authorid,
+                              'authorName': authorName
+                            }),
+                        child: Stack(
+                          children: [
+                            CircleAvatar(
+                              backgroundColor:
+                                  ThemeService().theme == ThemeMode.light
+                                      ? ColorResourcesLight.mainLIGHTColor
+                                      : ColorResourcesDark.mainDARKColor,
+                              radius: 25,
+                              child: CircleAvatar(
+                                  radius: 22,
+                                  child: authorprofilepic.isEmpty
+                                      ? Icon(
+                                          Icons.person,
+                                          color: Colors.white,
+                                        )
+                                      : null,
+                                  backgroundColor:
+                                      ThemeService().theme == ThemeMode.light
+                                          ? ColorResourcesLight.mainLIGHTColor
+                                          : ColorResourcesDark.mainDARKColor,
+                                  backgroundImage: NetworkImage(
+                                      "http://ubermensch.studio/travel_stories/profileimages/$authorprofilepic")),
+                            )
+                          ],
+                        ),
                       ),
                       title: Text(
                         storytitle,

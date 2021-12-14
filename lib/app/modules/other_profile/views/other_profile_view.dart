@@ -237,8 +237,11 @@ class OtherProfileView extends GetView<OtherProfileController> {
                         "${dateTime.day}-${dateTime.month}-${dateTime.year}";
                     if (controller.storiesPosted.isNotEmpty) {
                       return CustomStoryBarWidgetView(
-                        profileOnTapped: () =>
-                            Get.toNamed(Routes.OTHER_PROFILE),
+                        profileOnTapped: () => Get.toNamed(Routes.OTHER_PROFILE,
+                            arguments: {
+                              'authorId': recentStories.personid,
+                              'authorName': recentStories.personname
+                            }),
                         trailingOnTap: () => CustomSnackbar(
                                 title: 'Warning',
                                 message:
@@ -291,30 +294,37 @@ class OtherProfileView extends GetView<OtherProfileController> {
                     }
                   },
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:
-                      controller.storiesPosted.asMap().entries.map((entry) {
-                    return GestureDetector(
-                      onTap: () => _controller.animateToPage(entry.key),
-                      child: Container(
-                        width: 8.0,
-                        height: 8.0,
-                        margin: EdgeInsets.symmetric(
-                            vertical: 4.0, horizontal: 4.0),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: (Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? ColorResourcesDark.mainDARKColor
-                                    : ColorResourcesLight.mainLIGHTColor)
-                                .withOpacity(controller.count.value == entry.key
-                                    ? 0.9
-                                    : 0.4)),
-                      ),
-                    );
-                  }).toList(),
-                )
+                controller.storiesPosted.length > 1
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: controller.storiesPosted
+                            .asMap()
+                            .entries
+                            .map((entry) {
+                          return GestureDetector(
+                            onTap: () => _controller.animateToPage(entry.key),
+                            child: Container(
+                              width: 8.0,
+                              height: 8.0,
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 4.0, horizontal: 4.0),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: (Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? ColorResourcesDark.mainDARKColor
+                                          : ColorResourcesLight.mainLIGHTColor)
+                                      .withOpacity(
+                                          controller.count.value == entry.key
+                                              ? 0.9
+                                              : 0.4)),
+                            ),
+                          );
+                        }).toList(),
+                      )
+                    : SizedBox(
+                        height: 10,
+                      )
               ],
             ),
             controller.isLoading.value

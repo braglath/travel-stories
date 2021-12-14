@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:travel_diaries/app/data/theme/theme_service.dart';
 
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 
@@ -25,9 +26,13 @@ class CustomDialogue {
     Get.defaultDialog(
         barrierDismissible: false,
         title: title,
-        backgroundColor: ColorResourcesLight.mainLIGHTAPPBARcolor,
+        backgroundColor: ThemeService().theme == ThemeMode.light
+            ? ColorResourcesLight.mainLIGHTAPPBARcolor
+            : ColorResourcesDark.mainDARKAPPBARcolor,
         titleStyle: TextStyle(
-          color: ColorResourcesLight.mainTextHEADINGColor,
+          color: ThemeService().theme == ThemeMode.light
+              ? ColorResourcesLight.mainTextHEADINGColor
+              : ColorResourcesLight.mainLIGHTAPPBARcolor,
           fontWeight: FontWeight.bold,
           fontSize: 18,
         ),

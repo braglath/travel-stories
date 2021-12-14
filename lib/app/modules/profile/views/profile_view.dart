@@ -9,7 +9,9 @@ import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
+import 'package:travel_diaries/app/modules/other_profile/controllers/other_profile_controller.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
+import 'package:travel_diaries/app/views/views/custom_counter.dart';
 
 import '../controllers/profile_controller.dart';
 
@@ -23,11 +25,16 @@ class MenuTile {
 
 class ProfileView extends GetView<ProfileController> {
   final args = Get.arguments;
+  final id = UserDetails().readUserIDfromBox();
+  final name = UserDetails().readUserNamefromBox();
   @override
   final controller = Get.find(tag: 'profilecontroller');
+  final controller2 = Get.find<OtherProfileController>();
 
   @override
   Widget build(BuildContext context) {
+    controller2.addAuthorDetails(id, name);
+    controller2.addStoriedPosted(id, name);
     List<MenuTile> _menu = [
       MenuTile('Profile', 'Edit your profile', FontAwesomeIcons.edit,
           () => Get.toNamed(Routes.EDIT_PROFILE)),
@@ -145,31 +152,41 @@ class ProfileView extends GetView<ProfileController> {
           color: ThemeService().theme == ThemeMode.light
               ? ColorResourcesLight.mainLIGHTAPPBARcolor
               : ColorResourcesDark.mainDARKAPPBARcolor,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: UserDetails().readUserNamefromBox().length > 18
-                            ? "${UserDetails().readUserNamefromBox().replaceAll(" ", "\n")} \n"
-                            : "${UserDetails().readUserNamefromBox()} \n",
-                        style: context.theme.textTheme.headline3),
-                    TextSpan(
-                        text:
-                            '${UserDetails().readUserPhoneorEmailfromBox()}\n',
-                        style: context.theme.textTheme.headline4),
-                    TextSpan(
-                        text: '${UserDetails().readUserCaptionfromBox()}\n',
-                        style: context.theme.textTheme.caption),
-                  ],
-                ),
-              ),
-            ],
+          child: RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                    text: UserDetails().readUserNamefromBox().length > 18
+                        ? "${UserDetails().readUserNamefromBox().replaceAll(" ", "\n")} \n"
+                        : "${UserDetails().readUserNamefromBox()} \n",
+                    style: context.theme.textTheme.headline3),
+                TextSpan(
+                    text: '${UserDetails().readUserPhoneorEmailfromBox()}\n',
+                    style: context.theme.textTheme.headline4),
+                TextSpan(
+                    text: '${UserDetails().readUserCaptionfromBox()}',
+                    style: context.theme.textTheme.caption),
+              ],
+            ),
           ),
+        ),
+        Container(
+          height: 5,
+          color: ThemeService().theme == ThemeMode.light
+              ? ColorResourcesLight.mainLIGHTAPPBARcolor
+              : ColorResourcesDark.mainDARKAPPBARcolor,
+        ),
+        Stack(
+          children: [
+            Container(
+              height: 50,
+              color: ThemeService().theme == ThemeMode.light
+                  ? ColorResourcesLight.mainLIGHTAPPBARcolor
+                  : ColorResourcesDark.mainDARKAPPBARcolor,
+            ),
+            cards(context),
+          ],
         ),
         Container(
           height: MediaQuery.of(context).size.height,
@@ -244,6 +261,75 @@ class ProfileView extends GetView<ProfileController> {
               }),
         ),
       ],
+    );
+  }
+
+  Widget cards(context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [totalStoriesPosted(context), totalLikedStories(context)],
+    );
+  }
+
+  Widget totalStoriesPosted(context) {
+    return Container(
+      height: 125,
+      width: 135,
+      child: Card(
+        color: ThemeService().theme == ThemeMode.light
+            ? ColorResourcesLight.mainLIGHTAPPBARcolor
+            : ColorResourcesDark.mainDARKAPPBARcolor,
+        child: Center(
+          child: ListTile(
+            trailing: FaIcon(
+              FontAwesomeIcons.book,
+              size: 22,
+              color: ThemeService().theme == ThemeMode.light
+                  ? ColorResourcesLight.mainLIGHTColor
+                  : ColorResourcesDark.mainDARKColor,
+            ),
+            title: Text(
+              'Stories posted',
+              style: Theme.of(context).textTheme.headline4,
+              textAlign: TextAlign.center,
+            ),
+            subtitle: CustomCounter(
+                percentage:
+                    double.parse(controller2.storiesPosted.length.toString())),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget totalLikedStories(context) {
+    return Container(
+      height: 125,
+      width: 135,
+      child: Card(
+        color: ThemeService().theme == ThemeMode.light
+            ? ColorResourcesLight.mainLIGHTAPPBARcolor
+            : ColorResourcesDark.mainDARKAPPBARcolor,
+        child: Center(
+          child: ListTile(
+            trailing: FaIcon(
+              FontAwesomeIcons.solidHeart,
+              size: 22,
+              color: ThemeService().theme == ThemeMode.light
+                  ? ColorResourcesLight.mainLIGHTColor
+                  : ColorResourcesDark.mainDARKColor,
+            ),
+            title: Text(
+              'Total likes',
+              style: Theme.of(context).textTheme.headline4,
+              textAlign: TextAlign.center,
+            ),
+            subtitle: CustomCounter(
+                percentage:
+                    double.parse(controller2.totallikes.value.toString())),
+          ),
+        ),
+      ),
     );
   }
 }

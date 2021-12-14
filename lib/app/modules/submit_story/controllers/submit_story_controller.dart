@@ -58,6 +58,7 @@ class SubmitStoryController extends GetxController {
           .showWarning();
       return false;
     } else {
+      Get.closeCurrentSnackbar();
       return true;
     }
   }
