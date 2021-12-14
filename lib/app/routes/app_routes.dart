@@ -24,6 +24,9 @@ abstract class Routes {
   static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
   static const TOP_STORIES = _Paths.TOP_STORIES;
   static const OTHER_PROFILE = _Paths.OTHER_PROFILE;
+  static const MY_TABS = _Paths.MY_TABS;
+  static const CHAT_ROOM = _Paths.CHAT_ROOM;
+  static const LOADING_CHAT_ROOM = _Paths.LOADING_CHAT_ROOM;
 }
 
 abstract class _Paths {
@@ -45,4 +48,7 @@ abstract class _Paths {
   static const EDIT_PROFILE = '/edit-profile';
   static const TOP_STORIES = '/top-stories';
   static const OTHER_PROFILE = '/other-profile';
+  static const MY_TABS = '/my-tabs';
+  static const CHAT_ROOM = '/chat-room';
+  static const LOADING_CHAT_ROOM = '/loading-chat-room';
 }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 
+import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
@@ -64,7 +64,8 @@ class ProfileView extends GetView<ProfileController> {
       }),
     ];
     return Scaffold(
-      appBar: AppBarView(title: 'Profile page'),
+      appBar: AppBarView(
+        appBarSize: 56, bottom: null, title: 'Profile page'),
       floatingActionButton: Obx(() {
         return controller.shouldAutoscroll.value
             ? FadedScaleAnimation(

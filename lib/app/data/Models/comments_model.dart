@@ -1,8 +1,8 @@
+import 'dart:convert';
+
 // To parse this JSON data, do
 //
 //     final commentsModel = commentsModelFromJson(jsonString);
-
-import 'dart:convert';
 
 List<CommentsModel> commentsModelFromJson(String str) =>
     List<CommentsModel>.from(

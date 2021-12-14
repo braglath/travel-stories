@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:get/get.dart';
-import 'package:travel_diaries/app/data/storage/user_details.dart';
 
+import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
@@ -23,6 +23,9 @@ class FaveStoriesView extends GetView<FaveStoriesController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBarView(
+        appBarSize: 56,
+
+          bottom: null,
           title: 'Fav stories',
         ),
         floatingActionButton: Obx(() {
@@ -108,12 +111,11 @@ class FaveStoriesView extends GetView<FaveStoriesController> {
         return Stack(
           children: [
             CustomStoryBarWidgetView(
-              profileOnTapped: () => Get.toNamed(
-                                                      Routes.OTHER_PROFILE,
-                                                      arguments: {
-                                                    'authorId':_controller.authorid,
-                                                    'authorName':_controller.authorname
-                                                  }),
+              profileOnTapped: () => Get.toNamed(Routes.OTHER_PROFILE,
+                  arguments: {
+                    'authorId': _controller.authorid,
+                    'authorName': _controller.authorname
+                  }),
               likes: _controller.likes,
               trailingOnTap: () => CustomDialogue(
                 isDismissible: false,

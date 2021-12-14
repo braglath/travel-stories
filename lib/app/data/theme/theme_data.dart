@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 
 class Themes {

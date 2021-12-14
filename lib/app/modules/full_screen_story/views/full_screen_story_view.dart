@@ -42,6 +42,9 @@ class FullScreenStoryView extends GetView<FullScreenStoryController> {
 
     return Scaffold(
       appBar: AppBarView(
+        appBarSize: 56,
+
+        bottom: null,
         title: 'Stories',
       ),
       body: SingleChildScrollView(

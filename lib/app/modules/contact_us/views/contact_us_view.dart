@@ -19,6 +19,9 @@ class ContactUsView extends GetView<ContactUsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarView(
+        appBarSize: 56,
+
+        bottom: null,
         title: 'Contact us',
       ),
       body: emailTab(),

@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
+
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:get/get.dart';
+
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/top_to_bottom_animation.dart';
@@ -33,6 +34,9 @@ class OtherProfileView extends GetView<OtherProfileController> {
     return Scaffold(
       bottomSheet: recentStories(context),
       appBar: AppBarView(
+        appBarSize: 56,
+
+        bottom: null,
         title: '',
       ),
       body: Obx(() {

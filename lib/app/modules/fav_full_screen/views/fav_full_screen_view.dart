@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
@@ -8,6 +10,7 @@ import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 import 'package:travel_diaries/app/views/views/comments_card_view.dart';
+
 import '../controllers/fav_full_screen_controller.dart';
 
 class FavFullScreenView extends GetView<FavFullScreenController> {
@@ -39,6 +42,10 @@ class FavFullScreenView extends GetView<FavFullScreenController> {
 
     return Scaffold(
       appBar: AppBarView(
+        appBarSize: 56,
+
+        bottom: null,
+
         title: 'Fav stories',
 
         // ModalRoute.of(context)!

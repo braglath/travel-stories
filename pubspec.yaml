@@ -21,6 +21,7 @@ dependencies:
   google_sign_in: ^5.2.1
   firebase_auth: ^3.3.3
   firebase_core: ^1.10.5
+  lottie: ^1.2.1
 
 dev_dependencies:
   flutter_lints: ^1.0.0
@@ -34,6 +35,7 @@ flutter:
   assets:
     - assets/
     - images/
+    - assets/lottie/
 
 fonts:
   - family: Noto_Sans

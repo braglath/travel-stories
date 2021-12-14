@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
@@ -44,6 +45,9 @@ class EditMyStoriesView extends GetView<EditMyStoriesController> {
 
     return Scaffold(
       appBar: AppBarView(
+        appBarSize: 56,
+
+        bottom: null,
         title: 'Edit story',
       ),
       body: Obx(

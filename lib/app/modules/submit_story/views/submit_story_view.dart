@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
@@ -16,6 +18,8 @@ import '../controllers/submit_story_controller.dart';
 class SubmitStoryView extends GetView<SubmitStoryController> {
   final TextEditingController textController = TextEditingController();
   DateTime timeBackButtonPressed = DateTime.now();
+  // final PersistentTabController _controller =
+  //   PersistentTabController(initialIndex: 0);
   @override
   final controller = Get.find(tag: 'submitstorycontroller');
 
@@ -26,6 +30,9 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
       child: Scaffold(
           drawer: NavBar(),
           appBar: AppBarView(
+        appBarSize: 56,
+
+            bottom: null,
             title: 'Travel stories',
           ),
           floatingActionButton: Column(
@@ -39,9 +46,9 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
                             heroTag: null,
                             mini: true,
                             tooltip: 'move to top',
-                            child: FaIcon(
-                              FontAwesomeIcons.chevronUp,
-                            ),
+                            child: FaIcon(FontAwesomeIcons.chevronUp,
+                                color:
+                                    ColorResourcesLight.mainLIGHTAPPBARcolor),
                             onPressed: () {
                               controller.scrollToTop();
                               print(controller.scrollController.value);
@@ -49,6 +56,30 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
                       )
                     : SizedBox.shrink();
               }),
+              SizedBox(
+                height: 20,
+              ),
+              FadedScaleAnimation(
+                Stack(
+                  alignment: Alignment.topRight,
+                  children: [
+                    FloatingActionButton(
+                      heroTag: null,
+                      mini: true,
+                      tooltip: 'chat room',
+                      child: FaIcon(
+                        FontAwesomeIcons.comment,
+                        color: ColorResourcesLight.mainLIGHTAPPBARcolor,
+                      ),
+                      onPressed: () => Get.toNamed(Routes.LOADING_CHAT_ROOM),
+                    ),
+                    CircleAvatar(
+                      radius: 8,
+                      backgroundColor: Colors.red,
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(
                 height: 20,
               ),
@@ -338,4 +369,75 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
           ),
         );
       });
+
+  //     Widget bottomNavTab(context) {
+  //   return PersistentTabView(
+  //     context,
+  //     controller: _controller,
+  //     screens: _buildScreens(),
+  //     items: _navBarsItems(),
+  //     confineInSafeArea: true,
+  //     backgroundColor: Colors.white, // Default is Colors.white.
+  //     handleAndroidBackButtonPress: true, // Default is true.
+  //     resizeToAvoidBottomInset:
+  //         true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+  //     stateManagement: true, // Default is true.
+  //     hideNavigationBarWhenKeyboardShows:
+  //         true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+  //     decoration: NavBarDecoration(
+  //       borderRadius: BorderRadius.circular(10.0),
+  //       colorBehindNavBar: Colors.white,
+  //     ),
+  //     popAllScreensOnTapOfSelectedTab: true,
+  //     popActionScreens: PopActionScreensType.all,
+  //     itemAnimationProperties: ItemAnimationProperties(
+  //       // Navigation Bar's items animation properties.
+  //       duration: Duration(milliseconds: 200),
+  //       curve: Curves.ease,
+  //     ),
+  //     screenTransitionAnimation: ScreenTransitionAnimation(
+  //       // Screen transition animation on change of selected tab.
+  //       animateTabTransition: true,
+  //       curve: Curves.ease,
+  //       duration: Duration(milliseconds: 200),
+  //     ),
+  //     navBarStyle:
+  //         NavBarStyle.style13, // Choose the nav bar style with this property.
+  //   );
+  // }
+
+  // List<Widget> _buildScreens() {
+  //   return [SubmitStoryView(), ProfileView()];
+  // }
+
+  // List<PersistentBottomNavBarItem> _navBarsItems() {
+  //   return [
+  //     PersistentBottomNavBarItem(
+  //       icon: Icon(CupertinoIcons.home),
+  //       title: ("Home"),
+  //       activeColorPrimary: CupertinoColors.activeBlue,
+  //       inactiveColorPrimary: CupertinoColors.systemGrey,
+  //       routeAndNavigatorSettings: RouteAndNavigatorSettings(
+  //         initialRoute: Routes.HOME,
+  //         routes: {
+  //           Routes.SUBMIT_STORY: (context) => SubmitStoryView(),
+  //           Routes.PROFILE: (context) => ProfileView(),
+  //         },
+  //       ),
+  //     ),
+  //     PersistentBottomNavBarItem(
+  //       icon: Icon(CupertinoIcons.settings),
+  //       title: ("Settings"),
+  //       activeColorPrimary: CupertinoColors.activeBlue,
+  //       inactiveColorPrimary: CupertinoColors.systemGrey,
+  //       routeAndNavigatorSettings: RouteAndNavigatorSettings(
+  //         initialRoute: Routes.HOME,
+  //         routes: {
+  //           Routes.SUBMIT_STORY: (context) => SubmitStoryView(),
+  //           Routes.PROFILE: (context) => ProfileView(),
+  //         },
+  //       ),
+  //     )
+  //   ];
+  // }
 }

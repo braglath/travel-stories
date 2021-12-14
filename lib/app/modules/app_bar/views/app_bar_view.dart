@@ -1,29 +1,39 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
+
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/top_to_bottom_animation.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
+
 import '../controllers/app_bar_controller.dart';
 
 class AppBarView extends GetView<AppBarController>
     implements PreferredSizeWidget {
   final Size preferredSize;
   final String title;
+  final PreferredSizeWidget? bottom;
+  final double appBarSize;
 
-  AppBarView({
-    Key? key,
-    required this.title,
-  })  : preferredSize = const Size.fromHeight(56.0),
+  AppBarView(
+      {Key? key,
+      required this.title,
+      required this.bottom,
+      required this.appBarSize})
+      : preferredSize = Size.fromHeight(appBarSize),
         super(key: key);
 
   // final bool args = Get.arguments;
   @override
-  final controller = Get.find(tag: 'appbarcontroller');
+  final controller = Get.find<AppBarController>(tag: 'appbarcontroller');
   @override
   Widget build(BuildContext context) {
     print('${ModalRoute.of(context)?.settings.name}');
     return AppBar(
+      // excludeHeaderSemantics: true,
+      // ignore: unnecessary_null_in_if_null_operators
+      bottom: bottom ?? null,
       title: ToptoBottomAnimation(
           duration: Duration(milliseconds: 800),
           child: Text(title,

@@ -36,6 +36,9 @@ class PostStoryView extends GetView<PostStoryController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBarView(
+        appBarSize: 56,
+
+          bottom: null,
           title: 'Post Story',
         ),
         body: Obx(() {
@@ -90,7 +93,6 @@ class PostStoryView extends GetView<PostStoryController> {
       });
 
   Widget dropDown() => Obx(() {
-    
         return DropdownButton<String>(
           isExpanded: true,
           value: controller.dropdownVal.toString(),

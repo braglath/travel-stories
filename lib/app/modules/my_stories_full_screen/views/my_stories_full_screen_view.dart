@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+
 import 'package:travel_diaries/app/data/Models/my_stories_model.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
@@ -43,6 +44,9 @@ class MyStoriesFullScreenView extends GetView<MyStoriesFullScreenController> {
 
     return Scaffold(
       appBar: AppBarView(
+        appBarSize: 56,
+
+        bottom: null,
         title: 'My stories',
       ),
       body: SingleChildScrollView(

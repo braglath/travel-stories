@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:travel_diaries/app/data/Models/top_stories_model.dart';
 import 'package:travel_diaries/app/data/Services/api_services.dart';
-import 'package:http/http.dart' as http;
 
 class TopStoriesController extends GetxController {
   static var client = http.Client();

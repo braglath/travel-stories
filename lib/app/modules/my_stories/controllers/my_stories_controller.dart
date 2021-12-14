@@ -1,17 +1,19 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:travel_diaries/app/data/Models/my_stories_model.dart';
 import 'package:travel_diaries/app/data/Services/api_services.dart';
-import 'package:http/http.dart' as http;
 import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 
 class MyStoriesController extends GetxController {
   final count = 0.obs;
   RxBool isLoading = false.obs;
   List<MyStoriesModel> story = <MyStoriesModel>[].obs;
-    final scrollController = ScrollController().obs;
+  final scrollController = ScrollController().obs;
   var shouldAutoscroll = false.obs;
 
   @override
@@ -19,7 +21,6 @@ class MyStoriesController extends GetxController {
     super.onInit();
     fetchMyStories();
     scrollController.value.addListener(_scrollListener);
-
   }
 
   @override
@@ -30,8 +31,8 @@ class MyStoriesController extends GetxController {
   @override
   void onClose() {
     scrollController.value.removeListener(_scrollListener);
-
   }
+
   void increment() => count.value++;
 
   void scrollToTop() {

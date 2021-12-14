@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
@@ -20,7 +21,12 @@ class MyStoriesView extends GetView<MyStoriesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBarView(title: 'My stories'),
+        appBar: AppBarView(
+        appBarSize: 56,
+
+          bottom: null,
+          title: 'My stories',
+        ),
         floatingActionButton: Obx(() {
           return controller.shouldAutoscroll.value
               ? FadedScaleAnimation(
@@ -104,12 +110,11 @@ class MyStoriesView extends GetView<MyStoriesController> {
         return Stack(
           children: [
             CustomStoryBarWidgetView(
-              profileOnTapped: () => Get.toNamed(
-                                                      Routes.OTHER_PROFILE,
-                                                      arguments: {
-                                                    'authorId': _controller.personid,
-                                                    'authorName': _controller.personname
-                                                  }),
+              profileOnTapped: () => Get.toNamed(Routes.OTHER_PROFILE,
+                  arguments: {
+                    'authorId': _controller.personid,
+                    'authorName': _controller.personname
+                  }),
               likes: _controller.likes,
               trailingOnTap: () => {},
               authorProfilePic: _controller.personprofilepic,
