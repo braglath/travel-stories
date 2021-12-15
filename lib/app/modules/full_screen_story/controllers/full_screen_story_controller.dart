@@ -23,6 +23,7 @@ class FullScreenStoryController extends GetxController {
   RxString comment = ''.obs;
   RxString storyID = ''.obs;
   RxString storyTitle = ''.obs;
+  final focusNode = FocusNode().obs;
 
   var comments = <CommentsModel>[].obs;
 
@@ -89,9 +90,14 @@ class FullScreenStoryController extends GetxController {
 
     if (details.toString().contains("already commented")) {
       print('already commented');
+
+      height.value = 0;
+      isLarge.value = false;
+      commentController.clear();
+      focusNode.value.previousFocus();
       CustomSnackbar(
               title: 'Warning',
-              message: 'You have alrady commented for this story')
+              message: 'You have already commented for this story')
           .showWarning();
     } else {
       if (details.toString().contains("true")) {
@@ -101,6 +107,10 @@ class FullScreenStoryController extends GetxController {
                 storyid: storyID.toString(), storytitle: storyTitle.toString())
             .then((value) => comments.assignAll(value));
         print(comments);
+        height.value = 0;
+        isLarge.value = false;
+        commentController.clear();
+        focusNode.value.previousFocus();
         // todo change stories table in sql
         CustomSnackbar(
                 title: 'Posted',

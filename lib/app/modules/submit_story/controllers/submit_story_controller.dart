@@ -87,7 +87,7 @@ class SubmitStoryController extends GetxController {
     var stories = await refreshStories(category);
 
     if (stories.isNotEmpty) {
-      story.add(stories[0]);
+      story.assignAll(stories);
       print('fetch stories length - ${stories.length}');
       isLoading.value = false;
       isEmpty.value = false;

@@ -63,8 +63,14 @@ class UserDetails {
     UserLoginLogout().userLoggedIn(false);
   }
 
-  saveUserDetailstoBox(String name, String phoneoremail, String password,
-      String fav, String profilepic, String caption, String id) {
+  saveUserDetailstoBox(
+      {required String name,
+      required String phoneoremail,
+      required String password,
+      required String fav,
+      required String profilepic,
+      required String caption,
+      required String id}) {
     saveUserNametoBox(name);
     saveUserPhoneorEmailtoBox(phoneoremail);
     saveUserPasswordtoBox(password);

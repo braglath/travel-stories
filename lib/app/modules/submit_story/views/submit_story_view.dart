@@ -30,8 +30,7 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
       child: Scaffold(
           drawer: NavBar(),
           appBar: AppBarView(
-        appBarSize: 56,
-
+            appBarSize: 56,
             bottom: null,
             title: 'Travel stories',
           ),

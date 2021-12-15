@@ -26,9 +26,11 @@ class _FirstCharPage extends State<FirstCharPage> {
     //Creating the socket
     socket =
         io('https://travelstoriesflutter.herokuapp.com/', <String, dynamic>{
-      'transports': ['websocket'],
-      'autoConnect': true,
-    });
+      'transports': ['polling', 'websocket'],
+      'pingTimeout': 180000,
+      'pingInterval': 25000,
+      'autoConnect': true
+    }); 
     //Call init before doing anything with socket
     socket.connect();
     // connectAndListen();

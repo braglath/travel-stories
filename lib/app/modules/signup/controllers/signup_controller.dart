@@ -1,29 +1,21 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-
 import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
-import 'package:travel_diaries/app/modules/home/controllers/home_controller.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 import 'package:travel_diaries/app/views/views/custom_bottom_sheet_view.dart';
 import 'package:travel_diaries/app/views/views/custom_dialogue_view.dart';
 import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 
 class SignupController extends GetxController {
-  //TODO: Implement SignupController
-  // todo find the controller where the google signin method ever is listening
-
   var password = ''.obs;
   var passwordStrength = 0.0.obs;
   RegExp numRegExpress = RegExp(r".*[0-9].*");
@@ -34,6 +26,7 @@ class SignupController extends GetxController {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   var name = ''.obs;
   var email = ''.obs;
+  var profilePic = ''.obs;
 
   final count = 0.obs;
   final defaultChoiceIndex = 0.obs;
@@ -123,6 +116,7 @@ class SignupController extends GetxController {
       // ? now close the loding indicator
       name.value = firebaseAuth.currentUser!.displayName.toString();
       email.value = firebaseAuth.currentUser!.email.toString();
+      profilePic.value = firebaseAuth.currentUser!.photoURL.toString();
     }
   }
 
@@ -197,7 +191,6 @@ class SignupController extends GetxController {
 
   void loginUser(String name, String password) async {
     var url = 'http://ubermensch.studio/travel_stories/login.php';
-    var uri = Uri.parse(url);
     var data = {
       "name": name,
       "password": password,
@@ -239,7 +232,9 @@ class SignupController extends GetxController {
       UserLoginLogout().userLoggedIn(true);
       CustomDialogue(
               isDismissible: false,
-              title: 'Set a profile picture',
+              title: profilePic.value.isEmpty
+                  ? 'Set a profile picture'
+                  : 'Change profile picture',
               textConfirm: 'Set now',
               textCancel: 'Set it later',
               onpressedConfirm: () => CustomBottomSheet(
@@ -319,13 +314,13 @@ class SignupController extends GetxController {
       isLoading.value = false;
       print('login main - Success');
       UserDetails().saveUserDetailstoBox(
-          list[0]['name'],
-          list[0]['phoneoremail'],
-          list[0]['password'],
-          list[0]['fav'],
-          list[0]['profilepicture'],
-          list[0]['caption'],
-          list[0]['id']);
+          name: name,
+          phoneoremail: list[0]['phoneoremail'],
+          password: list[0]['password'],
+          fav: list[0]['fav'],
+          profilepic: list[0]['profilepic'],
+          caption: list[0]['caption'],
+          id: list[0]['id']);
       Get.back();
       Get.offAllNamed(Routes.SUBMIT_STORY);
     } else {

@@ -43,11 +43,11 @@ class FullScreenStoryView extends GetView<FullScreenStoryController> {
     return Scaffold(
       appBar: AppBarView(
         appBarSize: 56,
-
         bottom: null,
         title: 'Stories',
       ),
       body: SingleChildScrollView(
+        reverse: true,
         child: FadedScaleAnimation(
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -327,26 +327,30 @@ class FullScreenStoryView extends GetView<FullScreenStoryController> {
                             child: controller.isLarge.isTrue
                                 ? Form(
                                     key: controller.commentkey,
-                                    child: TextFormField(
-                                      controller: controller.commentController,
-                                      maxLines: 3,
-                                      style: TextStyle(
-                                          color: ColorResourcesLight
-                                              .mainTextHEADINGColor),
-                                      cursorColor: ColorResourcesLight
-                                          .mainTextHEADINGColor,
-                                      keyboardType: TextInputType.name,
-                                      onSaved: (value) {
-                                        controller.comment.value =
-                                            value.toString();
-                                      },
-                                      validator: (value) =>
-                                          controller.validateComment(value!),
-                                      decoration: InputDecoration(
-                                          labelText: 'Your comment',
-                                          labelStyle:
-                                              context.theme.textTheme.caption),
-                                    ),
+                                    child: Obx(() {
+                                      return TextFormField(
+                                        focusNode: controller.focusNode.value,
+                                        controller:
+                                            controller.commentController,
+                                        maxLines: 3,
+                                        style: TextStyle(
+                                            color: ColorResourcesLight
+                                                .mainTextHEADINGColor),
+                                        cursorColor: ColorResourcesLight
+                                            .mainTextHEADINGColor,
+                                        keyboardType: TextInputType.name,
+                                        onSaved: (value) {
+                                          controller.comment.value =
+                                              value.toString();
+                                        },
+                                        validator: (value) =>
+                                            controller.validateComment(value!),
+                                        decoration: InputDecoration(
+                                            labelText: 'Your comment',
+                                            labelStyle: context
+                                                .theme.textTheme.caption),
+                                      );
+                                    }),
                                   )
                                 : SizedBox.shrink(),
                           ),
@@ -366,7 +370,10 @@ class FullScreenStoryView extends GetView<FullScreenStoryController> {
                       ],
                     );
                   }),
-                  FadedScaleAnimation(commentsBuilder())
+                  FadedScaleAnimation(Padding(
+                    padding: const EdgeInsets.only(bottom: 12.0),
+                    child: commentsBuilder(),
+                  ))
                 ],
               ),
             ),

@@ -41,12 +41,6 @@ class HomeController extends GetxController {
   void onReady() async {
     super.onReady();
     // ? using ever to keep looking for changes
-    ever(isSignIn, handleAuthStateChanged);
-    isSignIn.value = await firebaseAuth.currentUser != null;
-    firebaseAuth.authStateChanges().listen((event) {
-      // ? this event will contain the firebase user
-      isSignIn.value = event != null;
-    });
   }
 
   @override
@@ -57,18 +51,6 @@ class HomeController extends GetxController {
 
   void toggleObscured() {
     obscured.value = !obscured.value;
-  }
-
-  void handleAuthStateChanged(isLoggedIn) {
-    if (isLoggedIn) {
-      // todo if the user is logged in redirect user
-      // todo we can check the database for user details aswell
-      checkGoogleLogin();
-      // loginUser(name, password)
-      // Get.offAllNamed(Routes.SUBMIT_STORY, arguments: firebaseAuth.currentUser);
-    } else {
-      // Get.offAllNamed(Routes.INTRODUCTION);
-    }
   }
 
   void loginGoogleSignIn() async {
@@ -88,6 +70,7 @@ class HomeController extends GetxController {
       // ? now close the loding indicator
       name.value = firebaseAuth.currentUser!.displayName.toString();
       email.value = firebaseAuth.currentUser!.email.toString();
+      loginGoogleUser();
     }
   }
 
@@ -113,17 +96,64 @@ class HomeController extends GetxController {
     }
   }
 
-  void checkGoogleLogin() async {
-    var url = 'http://ubermensch.studio/travel_stories/googlelogin.php';
+  // void checkGoogleLogin() async {
+  //   var url = 'http://ubermensch.studio/travel_stories/googlelogin.php';
+  //   var data = {
+  //     "name": name.value,
+  //     "phoneoremail": email.value,
+  //   };
+
+  //   http.Response res = await http.post(Uri.parse(url), body: data);
+  //   var details = json.decode(json.encode(res.body));
+  //   print(res.body);
+
+  //   if (res.statusCode == 200) {
+  //     print('login status code - ${res.statusCode}');
+
+  //     if (details.toString().contains("Error")) {
+  //       print('login main - Error');
+  //       isLoading.value = false;
+  //       CustomSnackbar(
+  //               title: 'Login error',
+  //               message: 'Mutiple users detected with the same name')
+  //           .showWarning();
+  //     }
+  //     if (details.toString().contains("new user")) {
+  //       print('new user');
+  //       isLoading.value = false;
+  //       CustomSnackbar(
+  //               title: 'Login error',
+  //               message: 'Credentials are new here! Sign up')
+  //           .showWarning();
+  //     } else {
+  //       final List list = json.decode(res.body);
+  //       print('login user details list - $list');
+
+  //       print('login main - Success');
+  //       // loginUser(name.value, password.value);
+  //       loginGoogleUser();
+  //       // CustomSnackbar(title: 'Login', message: 'Enter password to login')
+  //       //     .showWarning();
+  //     }
+  //   } else {
+  //     isLoading.value = false;
+  //     CustomSnackbar(
+  //             title: 'Login error', message: 'Check your internet connection')
+  //         .showWarning();
+  //     throw Exception();
+  //   }
+  // }
+
+  void loginGoogleUser() async {
+    isLoading.value = true;
+    var url = 'http://ubermensch.studio/travel_stories/logingoogleuser.php';
     var uri = Uri.parse(url);
     var data = {
       "name": name.value,
-      "phoneoremail": email.value,
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
     var details = json.decode(json.encode(res.body));
-    print(res.body);
 
     if (res.statusCode == 200) {
       print('login status code - ${res.statusCode}');
@@ -135,8 +165,7 @@ class HomeController extends GetxController {
                 title: 'Login error',
                 message: 'Mutiple users detected with the same name')
             .showWarning();
-      }
-      if (details.toString().contains("new user")) {
+      } else if (details.toString().contains("new user")) {
         print('new user');
         isLoading.value = false;
         CustomSnackbar(
@@ -148,9 +177,21 @@ class HomeController extends GetxController {
         print('login user details list - $list');
 
         print('login main - Success');
-        // loginUser(name.value, password.value);
-        CustomSnackbar(title: 'Login', message: 'Enter password to login')
-            .showWarning();
+        isLoading.value = false;
+        UserDetails().saveUserDetailstoBox(
+            name: list[0]['name'],
+            phoneoremail: list[0]['phoneoremail'],
+            password: list[0]['password'],
+            fav: list[0]['fav'],
+            profilepic: list[0]['profilepicture'].toString(),
+            caption: list[0]['caption'],
+            id: list[0]['id']);
+        UserLoginLogout().userLoggedIn(true);
+        CustomSnackbar(
+                title: 'Login Successful',
+                message: 'Hello, ${UserDetails().readUserNamefromBox()}')
+            .showSuccess();
+        Get.offAllNamed(Routes.SUBMIT_STORY);
       }
     } else {
       isLoading.value = false;
@@ -197,13 +238,13 @@ class HomeController extends GetxController {
         print('login main - Success');
         isLoading.value = false;
         UserDetails().saveUserDetailstoBox(
-            list[0]['name'],
-            list[0]['phoneoremail'],
-            list[0]['password'],
-            list[0]['fav'],
-            list[0]['caption'],
-            list[0]['profilepicture'],
-            list[0]['id']);
+            name: name,
+            phoneoremail: list[0]['phoneoremail'],
+            password: list[0]['password'],
+            fav: list[0]['fav'],
+            profilepic: list[0]['profilepicture'].toString(),
+            caption: list[0]['caption'],
+            id: list[0]['id']);
         UserLoginLogout().userLoggedIn(true);
         CustomSnackbar(
                 title: 'Login Successful',
@@ -223,13 +264,13 @@ class HomeController extends GetxController {
   void anonymousLogin() {
     isLoading.value = false;
     UserDetails().saveUserDetailstoBox(
-        'Anonymous user',
-        'Anonymous phone number',
-        'Anonymous password',
-        'bike',
-        'profilepicture',
-        'I am anonymous',
-        'id');
+        name: 'Anonymous user',
+        phoneoremail: 'Anonymous phone',
+        password: 'anonymusr',
+        fav: 'Bike',
+        profilepic: 'Profile picture',
+        caption: 'I am an anonymous user',
+        id: '555');
     UserLoginLogout().userLoggedIn(true);
     CustomSnackbar(
             title: 'Anonymous login Successful',

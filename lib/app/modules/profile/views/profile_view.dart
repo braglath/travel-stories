@@ -29,12 +29,10 @@ class ProfileView extends GetView<ProfileController> {
   final name = UserDetails().readUserNamefromBox();
   @override
   final controller = Get.find(tag: 'profilecontroller');
-  final controller2 = Get.find<OtherProfileController>();
 
   @override
   Widget build(BuildContext context) {
-    controller2.addAuthorDetails(id, name);
-    controller2.addStoriedPosted(id, name);
+    controller.addStoriedPosted();
     List<MenuTile> _menu = [
       MenuTile('Profile', 'Edit your profile', FontAwesomeIcons.edit,
           () => Get.toNamed(Routes.EDIT_PROFILE)),
@@ -64,8 +62,7 @@ class ProfileView extends GetView<ProfileController> {
       }),
     ];
     return Scaffold(
-      appBar: AppBarView(
-        appBarSize: 56, bottom: null, title: 'Profile page'),
+      appBar: AppBarView(appBarSize: 56, bottom: null, title: 'Profile page'),
       floatingActionButton: Obx(() {
         return controller.shouldAutoscroll.value
             ? FadedScaleAnimation(
@@ -294,9 +291,11 @@ class ProfileView extends GetView<ProfileController> {
               style: Theme.of(context).textTheme.headline4,
               textAlign: TextAlign.center,
             ),
-            subtitle: CustomCounter(
-                percentage:
-                    double.parse(controller2.storiesPosted.length.toString())),
+            subtitle: Obx(() {
+              return CustomCounter(
+                  percentage:
+                      double.parse(controller.storiesPosted.length.toString()));
+            }),
           ),
         ),
       ),
@@ -325,9 +324,11 @@ class ProfileView extends GetView<ProfileController> {
               style: Theme.of(context).textTheme.headline4,
               textAlign: TextAlign.center,
             ),
-            subtitle: CustomCounter(
-                percentage:
-                    double.parse(controller2.totallikes.value.toString())),
+            subtitle: Obx(() {
+              return CustomCounter(
+                  percentage:
+                      double.parse(controller.totallikes.value.toString()));
+            }),
           ),
         ),
       ),
