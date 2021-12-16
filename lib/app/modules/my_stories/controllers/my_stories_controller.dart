@@ -53,7 +53,8 @@ class MyStoriesController extends GetxController {
   void fetchMyStories() async {
     isLoading.value = true;
 
-    var stories = await APIservices.fetchMyStories();
+    var stories = await APIservices.fetchMyStories()
+        .whenComplete(() => isLoading.value = false);
 
     if (stories.isNotEmpty) {
       story.assignAll(stories);

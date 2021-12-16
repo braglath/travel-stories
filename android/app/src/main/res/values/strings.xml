@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">travel diaries</string>
+    <string name="facebook_app_id">601883294371361</string>
+    <string name="facebook_client_token">c0031c0e6d3a7db3b5595bb12e6aace8</string>
+    <string name="fb_login_protocol_scheme">fb601883294371361</string>
+</resources>

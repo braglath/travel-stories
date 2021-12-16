@@ -97,61 +97,61 @@ class AppBarView extends GetView<AppBarController>
               ModalRoute.of(context)!.settings.name!.contains('/chat-room')
           ? null
           : <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: InkWell(
-                  radius: 5,
-                  borderRadius: BorderRadius.circular(50),
-                  onTap: () => ModalRoute.of(context)!
-                          .settings
-                          .name!
-                          .contains('/profile')
-                      ? null
-                      : Get.toNamed(Routes.PROFILE),
-                  child: Hero(
-                    tag: 'profileicon',
-                    child: Obx(
-                      () {
-                        return Center(
-                          child: Stack(
-                            children: [
-                              CircleAvatar(
-                                backgroundColor:
-                                    ThemeService().theme == ThemeMode.light
-                                        ? ColorResourcesLight.mainLIGHTColor
-                                        : ColorResourcesDark.mainDARKColor,
-                                radius: 15,
-                                child: CircleAvatar(
-                                    radius: 13.0,
-                                    child: controller
-                                            .profilePicture.value.isNotEmpty
-                                        ? null
-                                        : Icon(
-                                            Icons.person,
-                                            color: Colors.white,
-                                          ),
-                                    backgroundColor: controller
-                                            .profilePicture.value.isNotEmpty
-                                        ? ThemeService().theme ==
-                                                ThemeMode.light
-                                            ? ColorResourcesLight.mainLIGHTColor
-                                            : ColorResourcesDark.mainDARKColor
-                                        : null,
-                                    backgroundImage: controller
-                                            .profilePicture.value.isNotEmpty
-                                        ? NetworkImage(
-                                            "http://ubermensch.studio/travel_stories/profileimages/${controller.profilePicture.value}")
-                                        : null),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ),
+              _profileImage(context),
             ],
+    );
+  }
+
+  Padding _profileImage(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 8.0),
+      child: InkWell(
+        radius: 5,
+        borderRadius: BorderRadius.circular(50),
+        onTap: () => ModalRoute.of(context)!.settings.name!.contains('/profile')
+            ? null
+            : Get.toNamed(Routes.PROFILE),
+        child: Hero(
+          tag: 'profileicon',
+          child: Obx(
+            () {
+              return Center(
+                child: Stack(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: ThemeService().theme == ThemeMode.light
+                          ? ColorResourcesLight.mainLIGHTColor
+                          : ColorResourcesDark.mainDARKColor,
+                      radius: 15,
+                      child: CircleAvatar(
+                          radius: 13.0,
+                          child: controller.profilePicture.value.isNotEmpty
+                              ? null
+                              : Icon(
+                                  Icons.person,
+                                  color: Colors.white,
+                                ),
+                          backgroundColor:
+                              controller.profilePicture.value.isNotEmpty
+                                  ? ThemeService().theme == ThemeMode.light
+                                      ? ColorResourcesLight.mainLIGHTColor
+                                      : ColorResourcesDark.mainDARKColor
+                                  : null,
+                          backgroundImage: controller
+                                  .profilePicture.value.isNotEmpty
+                              ? NetworkImage(controller.profilePicture.value
+                                      .contains('https')
+                                  ? controller.profilePicture.value
+                                  : "http://ubermensch.studio/travel_stories/profileimages/${controller.profilePicture.value}")
+                              : null),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ),
     );
   }
 }

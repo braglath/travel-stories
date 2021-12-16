@@ -29,7 +29,6 @@ class EditProfileView extends GetView<EditProfileController> {
     return Scaffold(
       appBar: AppBarView(
         appBarSize: 56,
-
         bottom: null,
         title: 'Edit profile',
       ),
@@ -188,9 +187,11 @@ class EditProfileView extends GetView<EditProfileController> {
                                           : ColorResourcesDark.mainDARKColor
                                       : null,
                               backgroundImage: controller
-                                      .profileImage.isNotEmpty
-                                  ? NetworkImage(
-                                      "http://ubermensch.studio/travel_stories/profileimages/${controller.profileImage.value}")
+                                      .profileImage.value.isNotEmpty
+                                  ? NetworkImage(controller.profileImage.value
+                                          .contains('https')
+                                      ? controller.profileImage.value
+                                      : "http://ubermensch.studio/travel_stories/profileimages/${controller.profileImage.value}")
                                   : null),
                         ),
                       ],

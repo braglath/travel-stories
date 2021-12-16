@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:travel_diaries/app/data/Services/facebook_login_service.dart';
+import 'package:travel_diaries/app/data/Services/google_login_service.dart';
+import 'package:travel_diaries/app/data/Services/logout_user_service.dart';
 
 import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
@@ -17,6 +20,8 @@ class NavBar extends GetView {
   final String name = UserDetails().readUserNamefromBox().toString();
   final String phoneorEmail =
       UserDetails().readUserPhoneorEmailfromBox().toString();
+  final String profilepicture =
+      UserDetails().readUserProfilePicfromBox().toString();
 
   @override
   Widget build(BuildContext context) {
@@ -53,33 +58,7 @@ class NavBar extends GetView {
                   ),
                 ),
               ),
-              currentAccountPicture: FadedScaleAnimation(
-                Stack(
-                  children: [
-                    CircleAvatar(
-                        radius: 40.0,
-                        child:
-                            UserDetails().readUserProfilePicfromBox().isNotEmpty
-                                ? null
-                                : Icon(
-                                    Icons.person,
-                                    color: Colors.white,
-                                  ),
-                        backgroundColor:
-                            UserDetails().readUserProfilePicfromBox().isNotEmpty
-                                ? ThemeService().theme == ThemeMode.light
-                                    ? ColorResourcesLight.mainLIGHTColor
-                                    : ColorResourcesDark.mainDARKColor
-                                : null,
-                        backgroundImage: UserDetails()
-                                .readUserProfilePicfromBox()
-                                .isNotEmpty
-                            ? NetworkImage(
-                                "http://ubermensch.studio/travel_stories/profileimages/${UserDetails().readUserProfilePicfromBox()}")
-                            : null),
-                  ],
-                ),
-              ),
+              currentAccountPicture: _profileImage(),
               decoration: BoxDecoration(
                 color: ThemeService().theme == ThemeMode.light
                     ? ColorResourcesLight.mainLIGHTColor
@@ -224,15 +203,38 @@ class NavBar extends GetView {
                   ),
                 ),
                 onTap: () {
-                  final controller = Get.find<HomeController>();
-                  controller.logoutGoogleSingIn();
-                  UserLoginLogout().userLoggedIn(false);
-                  Get.reloadAll(force: true);
-                  UserDetails().deleteUserDetailsfromBox();
-                  Get.offAllNamed(Routes.HOME);
+                  LogoutUserFromAll().now();
                 }),
           ],
         ),
+      ),
+    );
+  }
+
+  FadedScaleAnimation _profileImage() {
+    return FadedScaleAnimation(
+      Stack(
+        children: [
+          CircleAvatar(
+              radius: 40.0,
+              child: UserDetails().readUserProfilePicfromBox().isNotEmpty
+                  ? null
+                  : Icon(
+                      Icons.person,
+                      color: Colors.white,
+                    ),
+              backgroundColor:
+                  UserDetails().readUserProfilePicfromBox().isNotEmpty
+                      ? ThemeService().theme == ThemeMode.light
+                          ? ColorResourcesLight.mainLIGHTColor
+                          : ColorResourcesDark.mainDARKColor
+                      : null,
+              backgroundImage: profilepicture.isNotEmpty
+                  ? NetworkImage(profilepicture.contains('https')
+                      ? profilepicture
+                      : "http://ubermensch.studio/travel_stories/profileimages/${controller.profilepicture.value}")
+                  : null),
+        ],
       ),
     );
   }

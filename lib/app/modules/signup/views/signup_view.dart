@@ -23,219 +23,221 @@ class SignupView extends GetView<SignupController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-            reverse: true,
-            child: Obx(() {
-              return Stack(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Text(
-                          'Sign up',
-                          style: context.theme.textTheme.headline1,
-                        ),
-                      ),
-                      Hero(
-                        tag: 'loginlogo',
-                        child: SizedBox(
-                            child: Image.asset('images/introfinal.png',
-                                fit: BoxFit.contain)),
-                      ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 12.0),
-                            child: name(),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 12.0),
-                            child: phoneNumber(),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 12.0),
-                            child: password(),
-                          ),
-                          Obx(() {
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 22),
-                              child: LinearProgressIndicator(
-                                minHeight: 3,
-                                semanticsLabel: 'password strength',
-                                value: controller.passwordStrength.value,
-                                backgroundColor: Colors.white,
-                                color: controller.passwordStrength.value <=
-                                        1 / 4
-                                    ? Colors.red.withOpacity(0.8)
-                                    : controller.passwordStrength.value == 2 / 4
-                                        ? Colors.amber.withOpacity(0.8)
-                                        : controller.passwordStrength.value ==
-                                                3 / 4
-                                            ? Colors.deepPurpleAccent
-                                                .withOpacity(0.8)
-                                            : Colors.green.withOpacity(0.8),
-                              ),
-                            );
-                          }),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 12.0),
-                            child: caption(),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            'Pick one favorite mode of transport',
-                            style: context.theme.textTheme.headline4,
-                          ),
-                          SizedBox(height: 50, child: customchips()),
-                          SizedBox(height: 20),
-                          Hero(
-                            tag: 'loginbutton',
-                            child: Center(
-                              child: ElevatedButton(
-                                onPressed: () =>
-                                    controller.profilePictureDialogue(
-                                        _nameController.text,
-                                        _phonenumberController.text,
-                                        _captionController.text,
-                                        _passwordController.text),
-                                child: Text(
-                                  'Sign up',
-                                  style: context.theme.textTheme.headline6,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 20),
-                      Row(
-                        children: [
-                          Expanded(child: Divider()),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5),
-                            child: Text('Other options',
-                                style: context.theme.textTheme.headline4
-                                    ?.copyWith(fontSize: 15)),
-                          ),
-                          Expanded(child: Divider()),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ElevatedButton(
-                              onPressed: () => controller.loginGoogleSignIn(),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  FaIcon(
-                                    FontAwesomeIcons.google,
-                                    size: 15,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    'Google',
-                                    style: context.theme.textTheme.headline4
-                                        ?.copyWith(
-                                            color: ColorResourcesLight
-                                                .mainLIGHTAPPBARcolor,
-                                            fontSize: 15),
-                                  )
-                                ],
-                              )),
-                          ElevatedButton(
-                              onPressed: () => controller.logoutGoogleSingIn(),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  FaIcon(
-                                    FontAwesomeIcons.facebook,
-                                    size: 15,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    'Facebook',
-                                    style: context.theme.textTheme.headline4
-                                        ?.copyWith(
-                                            color: ColorResourcesLight
-                                                .mainLIGHTAPPBARcolor,
-                                            fontSize: 15),
-                                  )
-                                ],
-                              )),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Center(
-                          child: InkWell(
-                            onTap: () => Get.back(),
-                            child: RichText(
-                              text: TextSpan(
-                                text: 'Have an account? ',
-                                style: context.theme.textTheme.headline4,
-                                children: <TextSpan>[
-                                  TextSpan(
-                                      text: 'Login',
-                                      style: context.theme.textTheme.headline4
-                                          ?.copyWith(
-                                        color: ThemeService().theme ==
-                                                ThemeMode.light
-                                            ? ColorResourcesLight.mainLIGHTColor
-                                            : ColorResourcesDark.mainDARKColor,
-                                      )),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  controller.isLoading.value
-                      ? Positioned.fill(
-                          child: Center(
-                              child: CircularProgressIndicator(
-                          backgroundColor:
-                              ColorResourcesLight.mainLIGHTAPPBARcolor,
-                          color: ColorResourcesLight.mainLIGHTColor,
-                        )))
-                      : SizedBox.shrink()
-                ],
-              );
-            })),
-      ),
+      body: _mainBody(context),
     );
+  }
+
+  SafeArea _mainBody(BuildContext context) {
+    return SafeArea(
+      child: SingleChildScrollView(
+          reverse: true,
+          child: Obx(() {
+            return Stack(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Text(
+                        'Sign up',
+                        style: context.theme.textTheme.headline1,
+                      ),
+                    ),
+                    Hero(
+                      tag: 'loginlogo',
+                      child: SizedBox(
+                          child: Image.asset('images/introfinal.png',
+                              fit: BoxFit.contain)),
+                    ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                          child: name(),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                          child: phoneNumber(),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                          child: password(),
+                        ),
+                        Obx(() {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 22),
+                            child: LinearProgressIndicator(
+                              minHeight: 3,
+                              semanticsLabel: 'password strength',
+                              value: controller.passwordStrength.value,
+                              backgroundColor: Colors.white,
+                              color: controller.passwordStrength.value <= 1 / 4
+                                  ? Colors.red.withOpacity(0.8)
+                                  : controller.passwordStrength.value == 2 / 4
+                                      ? Colors.amber.withOpacity(0.8)
+                                      : controller.passwordStrength.value ==
+                                              3 / 4
+                                          ? Colors.deepPurpleAccent
+                                              .withOpacity(0.8)
+                                          : Colors.green.withOpacity(0.8),
+                            ),
+                          );
+                        }),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                          child: caption(),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          'Pick one favorite mode of transport',
+                          style: context.theme.textTheme.headline4,
+                        ),
+                        SizedBox(height: 50, child: customchips()),
+                        SizedBox(height: 20),
+                        Hero(
+                          tag: 'loginbutton',
+                          child: Center(
+                            child: ElevatedButton(
+                              onPressed: () =>
+                                  controller.profilePictureDialogue(
+                                      _nameController.text,
+                                      _phonenumberController.text,
+                                      _captionController.text,
+                                      _passwordController.text),
+                              child: Text(
+                                'Sign up',
+                                style: context.theme.textTheme.headline6,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Expanded(child: Divider()),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 5),
+                          child: Text('Other options',
+                              style: context.theme.textTheme.headline4
+                                  ?.copyWith(fontSize: 15)),
+                        ),
+                        Expanded(child: Divider()),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _googleLoginButton(context),
+                        _facebookLoginButton(context),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Center(
+                        child: InkWell(
+                          onTap: () => Get.back(),
+                          child: RichText(
+                            text: TextSpan(
+                              text: 'Have an account? ',
+                              style: context.theme.textTheme.headline4,
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: 'Login',
+                                    style: context.theme.textTheme.headline4
+                                        ?.copyWith(
+                                      color: ThemeService().theme ==
+                                              ThemeMode.light
+                                          ? ColorResourcesLight.mainLIGHTColor
+                                          : ColorResourcesDark.mainDARKColor,
+                                    )),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                controller.isLoading.value
+                    ? Positioned.fill(
+                        child: Center(
+                            child: CircularProgressIndicator(
+                        backgroundColor:
+                            ColorResourcesLight.mainLIGHTAPPBARcolor,
+                        color: ColorResourcesLight.mainLIGHTColor,
+                      )))
+                    : SizedBox.shrink()
+              ],
+            );
+          })),
+    );
+  }
+
+  ElevatedButton _googleLoginButton(BuildContext context) {
+    return ElevatedButton(
+        onPressed: () => controller.googleLogin(),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FaIcon(
+              FontAwesomeIcons.google,
+              size: 15,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              'Google',
+              style: context.theme.textTheme.headline4?.copyWith(
+                  color: ColorResourcesLight.mainLIGHTAPPBARcolor,
+                  fontSize: 15),
+            )
+          ],
+        ));
+  }
+
+  ElevatedButton _facebookLoginButton(BuildContext context) {
+    return ElevatedButton(
+        onPressed: () => controller.facebookLogin(),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FaIcon(
+              FontAwesomeIcons.facebook,
+              size: 15,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              'Facebook',
+              style: context.theme.textTheme.headline4?.copyWith(
+                  color: ColorResourcesLight.mainLIGHTAPPBARcolor,
+                  fontSize: 15),
+            )
+          ],
+        ));
   }
 
   Widget name() {

@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'package:travel_diaries/app/data/Services/facebook_login_service.dart';
+import 'package:travel_diaries/app/data/Services/logout_user_service.dart';
 
 import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
@@ -51,6 +53,21 @@ class HomeController extends GetxController {
 
   void toggleObscured() {
     obscured.value = !obscured.value;
+  }
+
+  void facebookLogin() async {
+    isLoading.value = true;
+    var userData = await FacebookLogin()
+        .loginwithFacebook()
+        .whenComplete(() => isLoading.value = false);
+    if (userData != null) {
+      name.value = '${userData['name']}';
+      email.value = '${userData['email']}';
+      loginGoogleUser();
+    } else {
+      isLoading.value = false;
+      return null;
+    }
   }
 
   void loginGoogleSignIn() async {
@@ -187,6 +204,7 @@ class HomeController extends GetxController {
             caption: list[0]['caption'],
             id: list[0]['id']);
         UserLoginLogout().userLoggedIn(true);
+        // UserLoginLogout().googleUserLoggedIn(true);
         CustomSnackbar(
                 title: 'Login Successful',
                 message: 'Hello, ${UserDetails().readUserNamefromBox()}')

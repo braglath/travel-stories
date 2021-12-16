@@ -48,7 +48,7 @@ class UserDetails {
   String readUserPasswordfromBox() => _userPasswordBox.read(_userPasswordkey);
   String readUserFavfromBox() => _userFavBox.read(_userFavkey);
   String readUserProfilePicfromBox() =>
-      _userPasswordBox.read(_userProfilePickey);
+      _userProfilePicBox.read(_userProfilePickey);
   String readUserCaptionfromBox() => _userCaptionBox.read(_userCaptionKey);
   String readUserIDfromBox() => _userIDBox.read(_userIDkey);
 

@@ -123,50 +123,8 @@ class HomeView extends GetView<HomeController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          ElevatedButton(
-                              onPressed: () => controller.loginGoogleSignIn(),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  FaIcon(
-                                    FontAwesomeIcons.google,
-                                    size: 15,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    'Google',
-                                    style: context.theme.textTheme.headline4
-                                        ?.copyWith(
-                                            color: ColorResourcesLight
-                                                .mainLIGHTAPPBARcolor,
-                                            fontSize: 15),
-                                  )
-                                ],
-                              )),
-                          ElevatedButton(
-                              onPressed: () => controller.logoutGoogleSingIn(),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  FaIcon(
-                                    FontAwesomeIcons.facebook,
-                                    size: 15,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    'Facebook',
-                                    style: context.theme.textTheme.headline4
-                                        ?.copyWith(
-                                            color: ColorResourcesLight
-                                                .mainLIGHTAPPBARcolor,
-                                            fontSize: 15),
-                                  )
-                                ],
-                              )),
+                          _googleButton(context),
+                          _facebookButton(context),
                         ],
                       ),
                       SizedBox(
@@ -211,6 +169,52 @@ class HomeView extends GetView<HomeController> {
             })),
       ),
     );
+  }
+
+  ElevatedButton _facebookButton(BuildContext context) {
+    return ElevatedButton(
+        onPressed: () => controller.facebookLogin(),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FaIcon(
+              FontAwesomeIcons.facebook,
+              size: 15,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              'Facebook',
+              style: context.theme.textTheme.headline4?.copyWith(
+                  color: ColorResourcesLight.mainLIGHTAPPBARcolor,
+                  fontSize: 15),
+            )
+          ],
+        ));
+  }
+
+  ElevatedButton _googleButton(BuildContext context) {
+    return ElevatedButton(
+        onPressed: () => controller.loginGoogleSignIn(),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FaIcon(
+              FontAwesomeIcons.google,
+              size: 15,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              'Google',
+              style: context.theme.textTheme.headline4?.copyWith(
+                  color: ColorResourcesLight.mainLIGHTAPPBARcolor,
+                  fontSize: 15),
+            )
+          ],
+        ));
   }
 
   Widget name() {

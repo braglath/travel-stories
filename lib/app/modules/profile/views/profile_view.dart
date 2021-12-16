@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:travel_diaries/app/data/Services/facebook_login_service.dart';
+import 'package:travel_diaries/app/data/Services/google_login_service.dart';
+import 'package:travel_diaries/app/data/Services/logout_user_service.dart';
 
 import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
@@ -54,11 +57,7 @@ class ProfileView extends GetView<ProfileController> {
       MenuTile(
           'Logout', 'Logout and restart the app', FontAwesomeIcons.signOutAlt,
           () {
-        Get.reloadAll(force: true);
-        UserLoginLogout().userLoggedIn(false);
-        controller.logoutGoogleUser();
-        UserDetails().deleteUserDetailsfromBox();
-        Get.offAllNamed(Routes.HOME);
+        LogoutUserFromAll().now();
       }),
     ];
     return Scaffold(
@@ -136,8 +135,11 @@ class ProfileView extends GetView<ProfileController> {
                                         : null,
                                     backgroundImage: controller
                                             .profilePicture.value.isNotEmpty
-                                        ? NetworkImage(
-                                            "http://ubermensch.studio/travel_stories/profileimages/${controller.profilePicture.value}")
+                                        ? NetworkImage(controller
+                                                .profilePicture.value
+                                                .contains('https')
+                                            ? controller.profilePicture.value
+                                            : "http://ubermensch.studio/travel_stories/profileimages/${controller.profilePicture.value}")
                                         : null),
                               ),
                             ],

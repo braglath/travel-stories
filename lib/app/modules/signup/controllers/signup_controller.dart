@@ -2,11 +2,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:travel_diaries/app/data/Services/facebook_login_service.dart';
+import 'package:travel_diaries/app/data/Services/google_login_service.dart';
 import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
@@ -70,6 +73,26 @@ class SignupController extends GetxController {
 
   void increment() => count.value++;
 
+  void facebookLogin() async {
+    isLoading.value = true;
+    var userData = await FacebookLogin()
+        .loginwithFacebook()
+        .whenComplete(() => isLoading.value = false);
+    name.value = '${userData['name']}';
+    email.value = '${userData['email']}';
+    profilePic.value = '${userData['picture']['data']['url']}';
+  }
+
+  void googleLogin() async {
+    isLoading.value = true;
+    var googleUserData = await GoogleLogin()
+        .loginGoogleSignIn()
+        .whenComplete(() => isLoading.value = false);
+    name.value = googleUserData.displayName.toString();
+    email.value = googleUserData.email.toString();
+    profilePic.value = googleUserData.photoURL.toString();
+  }
+
   void checkPasswordStrength(String value) {
     password.value = value.trim();
     if (password.value.isEmpty) {
@@ -99,27 +122,6 @@ class SignupController extends GetxController {
     }
   }
 
-  void loginGoogleSignIn() async {
-    // todo inplement progress indicator first
-    GoogleSignInAccount? googleSignInAccount = await googleSign.signIn();
-    if (googleSignInAccount == null) {
-      //? user is null cancel the loading
-      CustomSnackbar(title: 'Error', message: 'Google Signin error')
-          .showWarning();
-    } else {
-      GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount.authentication;
-      OAuthCredential oAuthCredential = GoogleAuthProvider.credential(
-          accessToken: googleSignInAuthentication.accessToken,
-          idToken: googleSignInAuthentication.idToken);
-      await firebaseAuth.signInWithCredential(oAuthCredential);
-      // ? now close the loding indicator
-      name.value = firebaseAuth.currentUser!.displayName.toString();
-      email.value = firebaseAuth.currentUser!.email.toString();
-      profilePic.value = firebaseAuth.currentUser!.photoURL.toString();
-    }
-  }
-
   void logoutGoogleSingIn() async {
     await googleSign.disconnect();
     await firebaseAuth.signOut();
@@ -131,9 +133,9 @@ class SignupController extends GetxController {
 
   void profilePictureDialogue(name, phoneoremail, caption, password) {
     isLoading.value = true;
-    if (name.toString() == '' ||
-        phoneoremail.toString() == '' ||
-        caption.toString() == '') {
+    if (name.toString().isEmpty ||
+        phoneoremail.toString().isEmpty ||
+        caption.toString().isEmpty) {
       CustomSnackbar(title: 'Warning', message: 'Credentials cannot be empty')
           .showWarning();
       isLoading.value = false;
@@ -157,7 +159,8 @@ class SignupController extends GetxController {
       "phoneoremail": phoneoremail,
       "password": password,
       "fav": travelmodes[defaultChoiceIndex.value],
-      "caption": caption
+      "caption": caption,
+      "profilepicture": profilePic.value
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
@@ -221,6 +224,9 @@ class SignupController extends GetxController {
       );
       UserDetails().saveUserIDtoBox(
         list[0]['id'],
+      );
+      UserDetails().saveUserProfilePictoBox(
+        list[0]['profilepicture'],
       );
       // UserDetails().saveUserDetailstoBox(
       //     list[0]['name'],
@@ -328,48 +334,53 @@ class SignupController extends GetxController {
       throw Exception();
     }
   }
-}
 
-Widget dialogueContent() => Column(
-      children: [
-        Stack(
-          children: [
-            CircleAvatar(
-              backgroundColor: ColorResourcesLight.mainLIGHTColor,
-              radius: 45,
-              child: Icon(
-                Icons.person,
-                size: 50,
+  Widget dialogueContent() => Column(
+        children: [
+          Stack(
+            children: [
+              CircleAvatar(
+                backgroundColor: ColorResourcesLight.mainLIGHTColor,
+                backgroundImage: profilePic.value.contains('https')
+                    ? NetworkImage(profilePic.value)
+                    : null,
+                radius: 45,
+                child: profilePic.value.contains('https')
+                    ? null
+                    : Icon(
+                        Icons.person,
+                        size: 50,
+                      ),
               ),
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            UserDetails().readUserNamefromBox(),
+            style: TextStyle(
+              color: ColorResourcesLight.mainTextHEADINGColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
             ),
-          ],
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          UserDetails().readUserNamefromBox(),
-          style: TextStyle(
-            color: ColorResourcesLight.mainTextHEADINGColor,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
           ),
-        ),
-        Text(
-          UserDetails().readUserPhoneorEmailfromBox(),
-          style: TextStyle(
-            color: ColorResourcesLight.mainTextHEADINGColor,
-            fontWeight: FontWeight.bold,
-            fontSize: 15,
+          Text(
+            UserDetails().readUserPhoneorEmailfromBox(),
+            style: TextStyle(
+              color: ColorResourcesLight.mainTextHEADINGColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 15,
+            ),
           ),
-        ),
-        Text(
-          UserDetails().readUserCaptionfromBox(),
-          style: TextStyle(
-            color: ColorResourcesLight.mainTextHEADINGColor,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
+          Text(
+            UserDetails().readUserCaptionfromBox(),
+            style: TextStyle(
+              color: ColorResourcesLight.mainTextHEADINGColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+}
