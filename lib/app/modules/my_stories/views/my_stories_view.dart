@@ -22,8 +22,7 @@ class MyStoriesView extends GetView<MyStoriesController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBarView(
-        appBarSize: 56,
-
+          appBarSize: 56,
           bottom: null,
           title: 'My stories',
         ),

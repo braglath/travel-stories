@@ -52,7 +52,7 @@ class FavFullScreenView extends GetView<FavFullScreenController> {
         //               .settings
         //               .name!
         //               .contains('/full-screen-story')
-        //           ? Get.offAllNamed(Routes.SUBMIT_STORY)
+        //           ? Get.offAllNamed(Routes.NAVIGATION_DRAWER)
         //           : Get.back(),
       ),
       body: SingleChildScrollView(

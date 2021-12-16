@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:travel_diaries/app/data/Models/author_details_model.dart';
 import 'package:travel_diaries/app/data/Models/my_stories_model.dart';
-import 'package:http/http.dart' as http;
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 
 class ProfileController extends GetxController {

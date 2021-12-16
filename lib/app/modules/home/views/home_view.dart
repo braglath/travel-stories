@@ -331,7 +331,7 @@ class HomeView extends GetView<HomeController> {
   //       routeAndNavigatorSettings: RouteAndNavigatorSettings(
   //         initialRoute: Routes.HOME,
   //         routes: {
-  //           Routes.SUBMIT_STORY: (context) => SubmitStoryView(),
+  //           Routes.NAVIGATION_DRAWER: (context) => SubmitStoryView(),
   //           Routes.PROFILE: (context) => ProfileView(),
   //         },
   //       ),
@@ -344,7 +344,7 @@ class HomeView extends GetView<HomeController> {
   //       routeAndNavigatorSettings: RouteAndNavigatorSettings(
   //         initialRoute: Routes.HOME,
   //         routes: {
-  //           Routes.SUBMIT_STORY: (context) => SubmitStoryView(),
+  //           Routes.NAVIGATION_DRAWER: (context) => SubmitStoryView(),
   //           Routes.PROFILE: (context) => ProfileView(),
   //         },
   //       ),

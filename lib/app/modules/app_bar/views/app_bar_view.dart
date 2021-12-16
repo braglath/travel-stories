@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/top_to_bottom_animation.dart';
+import 'package:travel_diaries/app/modules/navigation_drawer/controllers/navigation_drawer_controller.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 
 import '../controllers/app_bar_controller.dart';
@@ -27,6 +29,8 @@ class AppBarView extends GetView<AppBarController>
   // final bool args = Get.arguments;
   @override
   final controller = Get.find<AppBarController>(tag: 'appbarcontroller');
+  final controller2 =
+      Get.put<NavigationDrawerController>(NavigationDrawerController());
   @override
   Widget build(BuildContext context) {
     print('${ModalRoute.of(context)?.settings.name}');
@@ -41,34 +45,54 @@ class AppBarView extends GetView<AppBarController>
                   context.theme.textTheme.headline3?.copyWith(fontSize: 22))),
       leading: ModalRoute.of(context)!.settings.name!.contains('/submit-story')
           ? null
-          : IconButton(
-              splashRadius: 15,
-              icon: Icon(Icons.chevron_left_outlined),
-              onPressed: () {
-                if (ModalRoute.of(context)!
-                    .settings
-                    .name!
-                    .contains('/full-screen-story')) {}
-                if (ModalRoute.of(context)!
-                    .settings
-                    .name!
-                    .contains('/fav-full-screen')) {
-                  Get.offAllNamed(Routes.SUBMIT_STORY);
-                }
-                if (ModalRoute.of(context)!
-                    .settings
-                    .name!
-                    .contains('/profile')) {
-                  Get.offAllNamed(Routes.SUBMIT_STORY);
-                }
-                if (ModalRoute.of(context)!
-                    .settings
-                    .name!
-                    .contains('/edit-profile')) {
-                  Get.offAllNamed(Routes.SUBMIT_STORY);
-                }
-                Get.back();
-              }),
+          : ModalRoute.of(context)!
+                  .settings
+                  .name!
+                  .contains('/navigation-drawer')
+              ? Obx(() {
+                  return IconButton(
+                      onPressed: () {
+                        controller2.drawerController.toggle!();
+                        controller.drawerOpened();
+                      },
+                      icon: FaIcon(
+                        controller.isDrawerOpened.isFalse
+                            ? FontAwesomeIcons.bars
+                            : FontAwesomeIcons.minus,
+                        size: 18,
+                        color: ThemeService().theme == ThemeMode.light
+                            ? ColorResourcesLight.mainTextHEADINGColor
+                            : ColorResourcesDark.mainDARKTEXTICONcolor,
+                      ));
+                })
+              : IconButton(
+                  splashRadius: 15,
+                  icon: Icon(Icons.chevron_left_outlined),
+                  onPressed: () {
+                    if (ModalRoute.of(context)!
+                        .settings
+                        .name!
+                        .contains('/full-screen-story')) {}
+                    if (ModalRoute.of(context)!
+                        .settings
+                        .name!
+                        .contains('/fav-full-screen')) {
+                      Get.offAllNamed(Routes.NAVIGATION_DRAWER);
+                    }
+                    if (ModalRoute.of(context)!
+                        .settings
+                        .name!
+                        .contains('/profile')) {
+                      Get.offAllNamed(Routes.NAVIGATION_DRAWER);
+                    }
+                    if (ModalRoute.of(context)!
+                        .settings
+                        .name!
+                        .contains('/edit-profile')) {
+                      Get.offAllNamed(Routes.NAVIGATION_DRAWER);
+                    }
+                    Get.back();
+                  }),
 
       // line weight
       // clear_all_rounded

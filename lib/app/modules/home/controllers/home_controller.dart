@@ -6,9 +6,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+
 import 'package:travel_diaries/app/data/Services/facebook_login_service.dart';
 import 'package:travel_diaries/app/data/Services/logout_user_service.dart';
-
 import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
@@ -209,7 +209,7 @@ class HomeController extends GetxController {
                 title: 'Login Successful',
                 message: 'Hello, ${UserDetails().readUserNamefromBox()}')
             .showSuccess();
-        Get.offAllNamed(Routes.SUBMIT_STORY);
+        Get.offAllNamed(Routes.NAVIGATION_DRAWER);
       }
     } else {
       isLoading.value = false;
@@ -268,7 +268,7 @@ class HomeController extends GetxController {
                 title: 'Login Successful',
                 message: 'Hello, ${UserDetails().readUserNamefromBox()}')
             .showSuccess();
-        Get.offAllNamed(Routes.SUBMIT_STORY);
+        Get.offAllNamed(Routes.NAVIGATION_DRAWER);
       }
     } else {
       isLoading.value = false;
@@ -294,6 +294,6 @@ class HomeController extends GetxController {
             title: 'Anonymous login Successful',
             message: 'Hello, ${UserDetails().readUserNamefromBox()}')
         .showSuccess();
-    Get.offAllNamed(Routes.SUBMIT_STORY);
+    Get.offAllNamed(Routes.NAVIGATION_DRAWER);
   }
 }

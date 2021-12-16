@@ -346,8 +346,12 @@ class EditProfileView extends GetView<EditProfileController> {
                       backgroundColor: ThemeService().theme == ThemeMode.light
                           ? ColorResourcesLight.mainLIGHTColor
                           : ColorResourcesDark.mainDARKColor,
-                      backgroundImage: NetworkImage(
-                          "http://ubermensch.studio/travel_stories/profileimages/${controller.profileImage.value}")),
+                      backgroundImage: controller.profileImage.value.isNotEmpty
+                          ? NetworkImage(controller.profileImage.value
+                                  .contains('https')
+                              ? controller.profileImage.value
+                              : "http://ubermensch.studio/travel_stories/profileimages/${controller.profileImage.value}")
+                          : null),
                 ),
               ],
             ),

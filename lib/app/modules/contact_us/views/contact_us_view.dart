@@ -20,7 +20,6 @@ class ContactUsView extends GetView<ContactUsController> {
     return Scaffold(
       appBar: AppBarView(
         appBarSize: 56,
-
         bottom: null,
         title: 'Contact us',
       ),

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import 'package:travel_diaries/app/routes/app_pages.dart';
 
 class LoadingChatRoomController extends GetxController {

@@ -295,7 +295,7 @@ class EditMyStoriesController extends GetxController {
       titleController.clear();
       dropdownVal.value = 'Pick a category';
       bodyController.clear();
-      Get.offAllNamed(Routes.SUBMIT_STORY);
+      Get.offAllNamed(Routes.NAVIGATION_DRAWER);
     } else {
       print('story error');
       isloading.value = false;

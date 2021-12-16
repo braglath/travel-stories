@@ -1,39 +1,27 @@
 import 'package:flutter/material.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
-import 'package:travel_diaries/app/data/Services/facebook_login_service.dart';
-import 'package:travel_diaries/app/data/Services/google_login_service.dart';
-import 'package:travel_diaries/app/data/Services/logout_user_service.dart';
 
-import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
+import 'package:get/get.dart';
+import 'package:travel_diaries/app/data/Services/logout_user_service.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
 import 'package:travel_diaries/app/modules/animations/left_to_right_animation.dart';
-import 'package:travel_diaries/app/modules/home/controllers/home_controller.dart';
+import 'package:travel_diaries/app/modules/app_bar/controllers/app_bar_controller.dart';
+import 'package:travel_diaries/app/modules/navigation_drawer/controllers/navigation_drawer_controller.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 
-class NavBar extends GetView {
-  NavBar({Key? key}) : super(key: key);
-  final String name = UserDetails().readUserNamefromBox().toString();
-  final String phoneorEmail =
-      UserDetails().readUserPhoneorEmailfromBox().toString();
-  final String profilepicture =
-      UserDetails().readUserProfilePicfromBox().toString();
-
+class MenuScreenView extends GetView {
+  @override
+  final controller2 =
+      Get.put<NavigationDrawerController>(NavigationDrawerController());
+  final controller3 =
+      Get.put<AppBarController>(AppBarController(), tag: 'appbarcontroller');
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut<HomeController>(() => HomeController());
-    return ClipRRect(
-      borderRadius: BorderRadius.only(
-          topRight: Radius.circular(30.0), bottomRight: Radius.circular(30.0)),
-      child: Drawer(
-        semanticLabel: 'app drawer',
-        backgroundColor: ThemeService().theme == ThemeMode.light
-            ? ColorResourcesLight.mainLIGHTAPPBARcolor
-            : ColorResourcesDark.mainDARKAPPBARcolor,
+    return Scaffold(
+      body: SafeArea(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -41,20 +29,20 @@ class NavBar extends GetView {
               accountName: LefttoRightAnimation(
                 duration: Duration(milliseconds: 500),
                 child: Text(
-                  name,
+                  UserDetails().readUserNamefromBox(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: 16,
                   ),
                 ),
               ),
               accountEmail: LefttoRightAnimation(
                 duration: Duration(milliseconds: 500),
                 child: Text(
-                  phoneorEmail,
+                  UserDetails().readUserPhoneorEmailfromBox(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 15,
+                    fontSize: 12,
                   ),
                 ),
               ),
@@ -92,7 +80,10 @@ class NavBar extends GetView {
                   fontSize: 15,
                 ),
               ),
-              onTap: () => Get.back(),
+              onTap: () {
+                controller3.drawerOpened();
+                controller2.drawerController.toggle!();
+              },
             ),
             ListTile(
               leading: Icon(
@@ -216,7 +207,7 @@ class NavBar extends GetView {
       Stack(
         children: [
           CircleAvatar(
-              radius: 40.0,
+              radius: 50.0,
               child: UserDetails().readUserProfilePicfromBox().isNotEmpty
                   ? null
                   : Icon(
@@ -229,10 +220,14 @@ class NavBar extends GetView {
                           ? ColorResourcesLight.mainLIGHTColor
                           : ColorResourcesDark.mainDARKColor
                       : null,
-              backgroundImage: profilepicture.isNotEmpty
-                  ? NetworkImage(profilepicture.contains('https')
-                      ? profilepicture
-                      : "http://ubermensch.studio/travel_stories/profileimages/${controller.profilepicture.value}")
+              backgroundImage: UserDetails()
+                      .readUserProfilePicfromBox()
+                      .isNotEmpty
+                  ? NetworkImage(UserDetails()
+                          .readUserProfilePicfromBox()
+                          .contains('https')
+                      ? UserDetails().readUserProfilePicfromBox()
+                      : "http://ubermensch.studio/travel_stories/profileimages/${UserDetails().readUserProfilePicfromBox()}")
                   : null),
         ],
       ),

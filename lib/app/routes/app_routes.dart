@@ -27,6 +27,7 @@ abstract class Routes {
   static const MY_TABS = _Paths.MY_TABS;
   static const CHAT_ROOM = _Paths.CHAT_ROOM;
   static const LOADING_CHAT_ROOM = _Paths.LOADING_CHAT_ROOM;
+  static const NAVIGATION_DRAWER = _Paths.NAVIGATION_DRAWER;
 }
 
 abstract class _Paths {
@@ -51,4 +52,5 @@ abstract class _Paths {
   static const MY_TABS = '/my-tabs';
   static const CHAT_ROOM = '/chat-room';
   static const LOADING_CHAT_ROOM = '/loading-chat-room';
+  static const NAVIGATION_DRAWER = '/navigation-drawer';
 }

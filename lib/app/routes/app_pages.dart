@@ -28,6 +28,8 @@ import 'package:travel_diaries/app/modules/my_stories_full_screen/bindings/my_st
 import 'package:travel_diaries/app/modules/my_stories_full_screen/views/my_stories_full_screen_view.dart';
 import 'package:travel_diaries/app/modules/my_tabs/bindings/my_tabs_binding.dart';
 import 'package:travel_diaries/app/modules/my_tabs/views/my_tabs_view.dart';
+import 'package:travel_diaries/app/modules/navigation_drawer/bindings/navigation_drawer_binding.dart';
+import 'package:travel_diaries/app/modules/navigation_drawer/views/navigation_drawer_view.dart';
 import 'package:travel_diaries/app/modules/other_profile/bindings/other_profile_binding.dart';
 import 'package:travel_diaries/app/modules/other_profile/views/other_profile_view.dart';
 import 'package:travel_diaries/app/modules/post_story/bindings/post_story_binding.dart';
@@ -50,7 +52,7 @@ class AppPages {
   AppPages._();
 
   static const NEWUSER = Routes.INTRODUCTION;
-  static const OLDUSER = Routes.SUBMIT_STORY;
+  static const OLDUSER = Routes.NAVIGATION_DRAWER;
 
   static final routes = [
     GetPage(
@@ -183,5 +185,10 @@ class AppPages {
         binding: LoadingChatRoomBinding(),
         transition: Transition.fadeIn,
         transitionDuration: Duration(seconds: 1)),
+    GetPage(
+      name: _Paths.NAVIGATION_DRAWER,
+      page: () => NavigationDrawerView(),
+      binding: NavigationDrawerBinding(),
+    ),
   ];
 }

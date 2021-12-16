@@ -23,8 +23,7 @@ class FaveStoriesView extends GetView<FaveStoriesController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBarView(
-        appBarSize: 56,
-
+          appBarSize: 56,
           bottom: null,
           title: 'Fav stories',
         ),

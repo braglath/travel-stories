@@ -25,8 +25,7 @@ class MyTabsView extends GetView<MyTabsController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBarView(
-        appBarSize: 56,
-
+          appBarSize: 56,
           title: 'Tab bar',
           bottom: TabBar(
             tabs: controller.myTabs,

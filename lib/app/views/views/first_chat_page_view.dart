@@ -1,7 +1,10 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
+
 import 'package:flutter_io_socket/flutter_io_socket.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 
@@ -30,7 +33,7 @@ class _FirstCharPage extends State<FirstCharPage> {
       'pingTimeout': 180000,
       'pingInterval': 25000,
       'autoConnect': true
-    }); 
+    });
     //Call init before doing anything with socket
     socket.connect();
     // connectAndListen();

@@ -176,102 +176,149 @@ class PostStoryController extends GetxController {
             )),
       );
 
-  Widget stepperThree() => SingleChildScrollView(
-        reverse: true,
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Check your story',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  color: ThemeService().theme == ThemeMode.light
-                      ? ColorResourcesLight.mainTextHEADINGColor
-                      : ColorResourcesDark.mainDARKTEXTICONcolor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 28,
-                ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Container(
+  Widget stepperThree() {
+    var dateTime = DateTime.now();
+    var formatedDate = "${dateTime.day}-${dateTime.month}-${dateTime.year}";
+    return SingleChildScrollView(
+      reverse: true,
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Check your story',
+              textAlign: TextAlign.left,
+              style: TextStyle(
                 color: ThemeService().theme == ThemeMode.light
-                    ? ColorResourcesLight.mainLIGHTAPPBARcolor
-                    : ColorResourcesDark.mainDARKAPPBARcolor,
-                child: Column(
-                  children: [
-                    ListTile(
-                      // isThreeLine: true,
-                      leading: Stack(
-                        children: [
-                          CircleAvatar(
-                            child: UserDetails()
-                                    .readUserProfilePicfromBox()
-                                    .isNotEmpty
-                                ? null
-                                : Icon(
-                                    Icons.person,
-                                    color: Colors.white,
-                                  ),
-                            backgroundColor: UserDetails()
-                                    .readUserProfilePicfromBox()
-                                    .isNotEmpty
-                                ? null
-                                : ThemeService().theme == ThemeMode.light
-                                    ? ColorResourcesLight.mainLIGHTColor
-                                    : ColorResourcesDark.mainDARKColor,
-                            backgroundImage: profilePicture.isNotEmpty
-                                ? NetworkImage(profilePicture.contains('https')
-                                    ? profilePicture
-                                    : "http://ubermensch.studio/travel_stories/profileimages/${profilePicture}")
-                                : null,
-                          )
-                        ],
-                      ),
-                      title: Text(
-                        _titleController.text.isEmpty
-                            ? 'Your title appears here'
-                            : _titleController.text,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          color: ThemeService().theme == ThemeMode.light
-                              ? ColorResourcesLight.mainTextHEADINGColor
-                              : ColorResourcesDark.mainDARKTEXTICONcolor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      subtitle: IntrinsicHeight(
-                        child: Text(
-                          dropdownVal.toString(),
-                        ),
+                    ? ColorResourcesLight.mainTextHEADINGColor
+                    : ColorResourcesDark.mainDARKTEXTICONcolor,
+                fontWeight: FontWeight.bold,
+                fontSize: 28,
+              ),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Container(
+              color: ThemeService().theme == ThemeMode.light
+                  ? ColorResourcesLight.mainLIGHTAPPBARcolor
+                  : ColorResourcesDark.mainDARKAPPBARcolor,
+              child: Column(
+                children: [
+                  ListTile(
+                    // isThreeLine: true,
+                    leading: Stack(
+                      children: [
+                        CircleAvatar(
+                          child: UserDetails()
+                                  .readUserProfilePicfromBox()
+                                  .isNotEmpty
+                              ? null
+                              : Icon(
+                                  Icons.person,
+                                  color: Colors.white,
+                                ),
+                          backgroundColor: UserDetails()
+                                  .readUserProfilePicfromBox()
+                                  .isNotEmpty
+                              ? null
+                              : ThemeService().theme == ThemeMode.light
+                                  ? ColorResourcesLight.mainLIGHTColor
+                                  : ColorResourcesDark.mainDARKColor,
+                          backgroundImage: profilePicture.isNotEmpty
+                              ? NetworkImage(profilePicture.contains('https')
+                                  ? profilePicture
+                                  : "http://ubermensch.studio/travel_stories/profileimages/${profilePicture}")
+                              : null,
+                        )
+                      ],
+                    ),
+                    title: Text(
+                      _titleController.text.isEmpty
+                          ? 'Your title appears here'
+                          : _titleController.text,
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: ThemeService().theme == ThemeMode.light
+                            ? ColorResourcesLight.mainTextHEADINGColor
+                            : ColorResourcesDark.mainDARKTEXTICONcolor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        _bodyController.text.isEmpty
-                            ? 'Your story appears here'
-                            : _bodyController.text,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          color: ThemeService().theme == ThemeMode.light
-                              ? ColorResourcesLight.mainTextHEADINGColor
-                              : ColorResourcesDark.mainDARKTEXTICONcolor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
+                    subtitle: IntrinsicHeight(
+                        child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          dropdownVal.toString().length > 12
+                              ? dropdownVal.toString().replaceAll(" ", "\n")
+                              : dropdownVal.toString(),
+                          style: TextStyle().copyWith(
+                              color: Colors.grey.shade500,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12),
                         ),
+                        Container(
+                          height: 12,
+                          child: VerticalDivider(
+                            thickness: 1,
+                          ),
+                        ),
+                        Text(
+                          UserDetails().readUserNamefromBox().length > 12
+                              ? UserDetails()
+                                  .readUserNamefromBox()
+                                  .replaceFirst(" ", "\n")
+                              : UserDetails().readUserNamefromBox(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle().copyWith(
+                              color: Colors.grey.shade500,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12),
+                        ),
+                        Container(
+                          height: 12,
+                          child: VerticalDivider(
+                            thickness: 1,
+                          ),
+                        ),
+                        Text(
+                          formatedDate.toString().trim(),
+                          style: TextStyle().copyWith(
+                              color: Colors.grey.shade500,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12),
+                        ),
+                      ],
+                    )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      _bodyController.text.isEmpty
+                          ? 'Your story appears here'
+                          : _bodyController.text,
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: ThemeService().theme == ThemeMode.light
+                            ? ColorResourcesLight.mainTextHEADINGColor
+                            : ColorResourcesDark.mainDARKTEXTICONcolor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
                       ),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
         ),
-      );
+      ),
+    );
+  }
 
   void addStory() async {
     print('body - ${_bodyController.text}');
@@ -309,7 +356,7 @@ class PostStoryController extends GetxController {
         _titleController.clear();
         dropdownVal.value = 'Pick a category';
         _bodyController.clear();
-        Get.offAllNamed(Routes.SUBMIT_STORY);
+        Get.offAllNamed(Routes.NAVIGATION_DRAWER);
       } else if (details.toString().contains("false")) {
         print('story error');
         isloading.value = false;

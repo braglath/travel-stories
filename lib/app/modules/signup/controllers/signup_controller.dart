@@ -1,6 +1,8 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+
 import 'package:travel_diaries/app/data/Services/facebook_login_service.dart';
 import 'package:travel_diaries/app/data/Services/google_login_service.dart';
 import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
@@ -116,7 +119,7 @@ class SignupController extends GetxController {
       // todo if the user is logged in redirect user
       // todo we can check the database for user details aswell
       // loginUser(name, password)
-      // Get.offAllNamed(Routes.SUBMIT_STORY, arguments: firebaseAuth.currentUser);
+      // Get.offAllNamed(Routes.NAVIGATION_DRAWER, arguments: firebaseAuth.currentUser);
     } else {
       // Get.offAllNamed(Routes.INTRODUCTION);
     }
@@ -251,7 +254,8 @@ class SignupController extends GetxController {
                     onTap1: () => pickImage(ImageSource.camera),
                     onTap2: () => pickImage(ImageSource.gallery),
                   ).show(),
-              onpressedCancel: () => Get.offAllNamed(Routes.SUBMIT_STORY),
+              onpressedCancel: () =>
+                  Get.offAllNamed(Routes.NAVIGATION_DRAWER),
               contentWidget: dialogueContent())
           .showDialogue();
     } else {
@@ -328,7 +332,7 @@ class SignupController extends GetxController {
           caption: list[0]['caption'],
           id: list[0]['id']);
       Get.back();
-      Get.offAllNamed(Routes.SUBMIT_STORY);
+      Get.offAllNamed(Routes.NAVIGATION_DRAWER);
     } else {
       isLoading.value = false;
       throw Exception();

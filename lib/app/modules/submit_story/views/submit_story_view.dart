@@ -7,7 +7,7 @@ import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
-import 'package:travel_diaries/app/modules/submit_story/views/navbar.dart';
+import 'package:travel_diaries/app/modules/navigation_drawer/controllers/navigation_drawer_controller.dart';
 import 'package:travel_diaries/app/modules/top_stories/views/top_stories_view.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
@@ -22,13 +22,15 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
   //   PersistentTabController(initialIndex: 0);
   @override
   final controller = Get.find(tag: 'submitstorycontroller');
+  final controller2 =
+      Get.put<NavigationDrawerController>(NavigationDrawerController());
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => controller.pressBackAgainToExit(),
       child: Scaffold(
-          drawer: NavBar(),
+          // drawer: NavBar(),
           appBar: AppBarView(
             appBarSize: 56,
             bottom: null,
@@ -419,7 +421,7 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
   //       routeAndNavigatorSettings: RouteAndNavigatorSettings(
   //         initialRoute: Routes.HOME,
   //         routes: {
-  //           Routes.SUBMIT_STORY: (context) => SubmitStoryView(),
+  //           Routes.NAVIGATION_DRAWER: (context) => SubmitStoryView(),
   //           Routes.PROFILE: (context) => ProfileView(),
   //         },
   //       ),
@@ -432,7 +434,7 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
   //       routeAndNavigatorSettings: RouteAndNavigatorSettings(
   //         initialRoute: Routes.HOME,
   //         routes: {
-  //           Routes.SUBMIT_STORY: (context) => SubmitStoryView(),
+  //           Routes.NAVIGATION_DRAWER: (context) => SubmitStoryView(),
   //           Routes.PROFILE: (context) => ProfileView(),
   //         },
   //       ),

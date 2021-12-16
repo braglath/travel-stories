@@ -46,7 +46,6 @@ class EditMyStoriesView extends GetView<EditMyStoriesController> {
     return Scaffold(
       appBar: AppBarView(
         appBarSize: 56,
-
         bottom: null,
         title: 'Edit story',
       ),

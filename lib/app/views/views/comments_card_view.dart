@@ -38,8 +38,11 @@ class CommentesCardView {
                     backgroundColor: ThemeService().theme == ThemeMode.light
                         ? ColorResourcesLight.mainLIGHTColor
                         : ColorResourcesDark.mainDARKColor,
-                    backgroundImage: NetworkImage(
-                        "http://ubermensch.studio/travel_stories/profileimages/$commentaterProfilePic")),
+                    backgroundImage: NetworkImage(commentaterProfilePic
+                            .toString()
+                            .contains('https')
+                        ? commentaterProfilePic.toString()
+                        : "http://ubermensch.studio/travel_stories/profileimages/$commentaterProfilePic")),
               )
             ],
           ),

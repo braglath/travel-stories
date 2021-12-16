@@ -7,6 +7,7 @@ class AppBarController extends GetxController {
 
   final count = 0.obs;
   RxString profilePicture = ''.obs;
+  final isDrawerOpened = false.obs;
   @override
   void onInit() {
     super.onInit();
@@ -21,4 +22,7 @@ class AppBarController extends GetxController {
   @override
   void onClose() {}
   void increment() => count.value++;
+  void drawerOpened() {
+      isDrawerOpened.value = !isDrawerOpened.value;
+  }
 }

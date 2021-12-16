@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+
 import 'package:travel_diaries/app/data/Services/facebook_login_service.dart';
 import 'package:travel_diaries/app/data/Services/google_login_service.dart';
 import 'package:travel_diaries/app/data/Services/logout_user_service.dart';
-
 import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
