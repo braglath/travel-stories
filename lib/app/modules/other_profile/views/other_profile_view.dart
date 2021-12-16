@@ -28,14 +28,13 @@ class OtherProfileView extends GetView<OtherProfileController> {
 
   @override
   Widget build(BuildContext context) {
-    print('$authorId, $authorName');
+    print(' other profile view - $authorId, $authorName');
     controller.addAuthorDetails(authorId, authorName);
     controller.addStoriedPosted(authorId, authorName);
     return Scaffold(
       bottomSheet: recentStories(context),
       appBar: AppBarView(
         appBarSize: 56,
-
         bottom: null,
         title: '',
       ),
@@ -98,8 +97,10 @@ class OtherProfileView extends GetView<OtherProfileController> {
                                 : null,
                         backgroundImage: controller
                                 .authProfilePic.value.isNotEmpty
-                            ? NetworkImage(
-                                "http://ubermensch.studio/travel_stories/profileimages/${controller.authProfilePic}")
+                            ? NetworkImage(controller.authProfilePic.value
+                                    .contains('https')
+                                ? controller.authProfilePic.value
+                                : "http://ubermensch.studio/travel_stories/profileimages/${controller.authProfilePic.value}")
                             : null),
                   ),
                 ],

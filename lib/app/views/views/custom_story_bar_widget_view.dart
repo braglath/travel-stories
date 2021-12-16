@@ -122,8 +122,10 @@ class CustomStoryBarWidgetView extends GetView {
                                     ? ColorResourcesLight.mainLIGHTColor
                                     : ColorResourcesDark.mainDARKColor,
                             backgroundImage: authorProfilePic.isNotEmpty
-                                ? NetworkImage(
-                                    "http://ubermensch.studio/travel_stories/profileimages/$authorProfilePic")
+                                ? NetworkImage(authorProfilePic
+                                        .contains('https')
+                                    ? authorProfilePic
+                                    : "http://ubermensch.studio/travel_stories/profileimages/${authorProfilePic}")
                                 : null,
                           ),
                         )

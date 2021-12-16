@@ -52,14 +52,14 @@ class UserDetails {
   String readUserCaptionfromBox() => _userCaptionBox.read(_userCaptionKey);
   String readUserIDfromBox() => _userIDBox.read(_userIDkey);
 
-  deleteUserDetailsfromBox() {
-    _userNameBox.remove(_userNamekey);
-    _userPhoneorEmailBox.remove(_userPhoneorEmailkey);
-    _userPasswordBox.remove(_userPasswordkey);
-    _userFavBox.remove(_userFavkey);
-    _userProfilePicBox.remove(_userProfilePickey);
-    _userCaptionBox.remove(_userCaptionKey);
-    _userIDBox.remove(_userIDkey);
+  void deleteUserDetailsfromBox() {
+    _userNameBox.erase();
+    _userPhoneorEmailBox.erase();
+    _userPasswordBox.erase();
+    _userFavBox.erase();
+    _userProfilePicBox.erase();
+    _userCaptionBox.erase();
+    _userIDBox.erase();
     UserLoginLogout().userLoggedIn(false);
   }
 

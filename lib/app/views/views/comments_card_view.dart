@@ -60,23 +60,23 @@ class CommentesCardView {
             comment.toString(),
             style: context.theme.textTheme.headline4,
           ),
-          trailing: Stack(
-            alignment: AlignmentDirectional.bottomEnd,
-            children: [
-              FaIcon(
-                liked == 0
-                    ? FontAwesomeIcons.heart
-                    : FontAwesomeIcons.solidHeart,
-                color: ThemeService().theme == ThemeMode.light
-                    ? ColorResourcesLight.mainLIGHTColor
-                    : ColorResourcesDark.mainDARKColor,
-                size: liked == 0 ? 20 : 35,
-              ),
-              liked == 0
-                  ? SizedBox.shrink()
-                  : likedProfilePic(commentaterProfilePic),
-            ],
-          ),
+          // trailing: Stack(
+          //   alignment: AlignmentDirectional.bottomEnd,
+          //   children: [
+          //     FaIcon(
+          //       liked == 0
+          //           ? FontAwesomeIcons.heart
+          //           : FontAwesomeIcons.solidHeart,
+          //       color: ThemeService().theme == ThemeMode.light
+          //           ? ColorResourcesLight.mainLIGHTColor
+          //           : ColorResourcesDark.mainDARKColor,
+          //       size: liked == 0 ? 20 : 35,
+          //     ),
+          //     liked == 0
+          //         ? SizedBox.shrink()
+          //         : likedProfilePic(commentaterProfilePic),
+          //   ],
+          // ),
         ),
       ),
     );

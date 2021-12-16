@@ -19,8 +19,10 @@ class PostStoryController extends GetxController {
   //TODO: Implement PostStoryController
   final currentStep = 0.obs;
   final count = 0.obs;
+  final profilePicture = UserDetails().readUserProfilePicfromBox();
   RxString dropdownVal = 'Pick a category'.obs;
   RxBool isloading = false.obs;
+
   // ? to get the current date
   var now = DateTime.now();
   var formatter = DateFormat('yyyy-MM-dd');
@@ -220,11 +222,10 @@ class PostStoryController extends GetxController {
                                 : ThemeService().theme == ThemeMode.light
                                     ? ColorResourcesLight.mainLIGHTColor
                                     : ColorResourcesDark.mainDARKColor,
-                            backgroundImage: UserDetails()
-                                    .readUserProfilePicfromBox()
-                                    .isNotEmpty
-                                ? NetworkImage(
-                                    "http://ubermensch.studio/travel_stories/profileimages/${UserDetails().readUserProfilePicfromBox()}")
+                            backgroundImage: profilePicture.isNotEmpty
+                                ? NetworkImage(profilePicture.contains('https')
+                                    ? profilePicture
+                                    : "http://ubermensch.studio/travel_stories/profileimages/${profilePicture}")
                                 : null,
                           )
                         ],
