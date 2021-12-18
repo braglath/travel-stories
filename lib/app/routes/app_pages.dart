@@ -40,6 +40,8 @@ import 'package:travel_diaries/app/modules/signup/bindings/signup_binding.dart';
 import 'package:travel_diaries/app/modules/signup/views/signup_view.dart';
 import 'package:travel_diaries/app/modules/submit_story/bindings/submit_story_binding.dart';
 import 'package:travel_diaries/app/modules/submit_story/views/submit_story_view.dart';
+import 'package:travel_diaries/app/modules/theme_selection/bindings/theme_selection_binding.dart';
+import 'package:travel_diaries/app/modules/theme_selection/views/theme_selection_view.dart';
 import 'package:travel_diaries/app/modules/top_stories/bindings/top_stories_binding.dart';
 import 'package:travel_diaries/app/modules/top_stories/views/top_stories_view.dart';
 import 'package:travel_diaries/app/views/views/introductio_screens_view.dart';
@@ -51,16 +53,16 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const NEWUSER = Routes.INTRODUCTION;
+  static const NEWUSER = Routes.THEME_SELECTION;
   static const OLDUSER = Routes.NAVIGATION_DRAWER;
 
   static final routes = [
     GetPage(
         name: _Paths.INTRODUCTION,
         page: () => IntroductioScreensView(),
-        transition: Transition.leftToRight,
-        transitionDuration: Duration(milliseconds: 600),
-        curve: Curves.easeInOutCubic
+        transition: Transition.downToUp,
+        transitionDuration: Duration(seconds: 1),
+        curve: Curves.fastOutSlowIn
 
         // binding: HomeBinding(),
         ),
@@ -190,5 +192,12 @@ class AppPages {
       page: () => NavigationDrawerView(),
       binding: NavigationDrawerBinding(),
     ),
+    GetPage(
+        name: _Paths.THEME_SELECTION,
+        page: () => ThemeSelectionView(),
+        binding: ThemeSelectionBinding(),
+        transition: Transition.fadeIn,
+        transitionDuration: Duration(milliseconds: 600),
+        curve: Curves.fastOutSlowIn),
   ];
 }

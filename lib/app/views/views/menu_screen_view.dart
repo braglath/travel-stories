@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
@@ -18,6 +19,7 @@ class MenuScreenView extends GetView {
       Get.put<NavigationDrawerController>(NavigationDrawerController());
   final controller3 =
       Get.put<AppBarController>(AppBarController(), tag: 'appbarcontroller');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -371,6 +371,7 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
         );
       });
 
+
   //     Widget bottomNavTab(context) {
   //   return PersistentTabView(
   //     context,

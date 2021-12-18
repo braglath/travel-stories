@@ -157,11 +157,14 @@ class MyStoriesView extends GetView<MyStoriesController> {
                         title: 'Do you want to permanently delete this story?',
                         textConfirm: 'Yes',
                         textCancel: 'No',
-                        onpressedConfirm: () => controller.removeStory(
-                            id: _controller.id,
-                            personid: _controller.personid,
-                            personname: _controller.personname,
-                            storiesIndex: _controller),
+                        onpressedConfirm: () {
+                          controller.removeStory(
+                              id: _controller.id,
+                              personid: _controller.personid,
+                              personname: _controller.personname,
+                              storiesIndex: _controller);
+                          Get.back();
+                        },
                         onpressedCancel: () => Get.back(),
                         contentWidget: SizedBox.shrink(),
                       ).showDialogue(),

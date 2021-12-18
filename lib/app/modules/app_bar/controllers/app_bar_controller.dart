@@ -23,6 +23,6 @@ class AppBarController extends GetxController {
   void onClose() {}
   void increment() => count.value++;
   void drawerOpened() {
-      isDrawerOpened.value = !isDrawerOpened.value;
+    isDrawerOpened.value = !isDrawerOpened.value;
   }
 }

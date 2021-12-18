@@ -31,6 +31,7 @@ class NavigationDrawerView extends GetView<NavigationDrawerController> {
       style: DrawerStyle.Style1,
       borderRadius: 24.0,
       showShadow: true,
+      disableGesture: false,
       angle: -2.0,
       backgroundColor: ThemeService().theme == ThemeMode.light
           ? ColorResourcesLight.mainLIGHTSplashColor

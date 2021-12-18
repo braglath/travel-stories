@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
 import 'package:travel_diaries/app/data/Services/api_services.dart';
+import 'package:travel_diaries/app/data/Services/notification.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
@@ -14,6 +15,7 @@ import 'package:travel_diaries/app/modules/post_story/views/post_story_view.dart
 import 'package:travel_diaries/app/modules/submit_story/controllers/submit_story_controller.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 class PostStoryController extends GetxController {
   //TODO: Implement PostStoryController
@@ -56,6 +58,7 @@ class PostStoryController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    tz.initializeTimeZones();
   }
 
   @override
@@ -352,6 +355,11 @@ class PostStoryController extends GetxController {
         isloading.value = false;
         CustomSnackbar(title: 'Success', message: 'Story added successfully')
             .showSuccess();
+        NotificationService().showNotification(
+            1,
+            "${UserDetails().readUserNamefromBox()}, has posted a story",
+            _titleController.text,
+            5);
         currentStep.value = 0;
         _titleController.clear();
         dropdownVal.value = 'Pick a category';
