@@ -82,7 +82,15 @@ class PostStoryController extends GetxController {
     if (isLastStep) {
       print('is last step $isLastStep');
       isloading.value = true;
-      addStory();
+      if (_titleController.text.isEmpty ||
+          _bodyController.text.isEmpty ||
+          dropdownVal.value.isEmpty) {
+        CustomSnackbar(title: 'Warning', message: 'Details are empty')
+            .showWarning();
+        isloading.value = false;
+      } else {
+        addStory();
+      }
     } else {
       currentStep.value += 1;
     }

@@ -207,7 +207,7 @@ class OtherProfileView extends GetView<OtherProfileController> {
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
                   child: Text(
-                    'Recent stories by ${controller.authName.value}',
+                    'Recent stories from ${controller.authName.value}',
                     style: Theme.of(context)
                         .textTheme
                         .headline4

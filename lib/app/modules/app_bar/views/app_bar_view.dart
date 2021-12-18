@@ -51,13 +51,14 @@ class AppBarView extends GetView<AppBarController>
                   .contains('/navigation-drawer')
               ? Obx(() {
                   return IconButton(
+                      splashRadius: 15,
                       onPressed: () {
                         controller2.drawerController.toggle!();
                         controller.drawerOpened();
                       },
                       icon: FaIcon(
                         controller.isDrawerOpened.isFalse
-                            ? FontAwesomeIcons.bars
+                            ? FontAwesomeIcons.stream
                             : FontAwesomeIcons.minus,
                         size: 18,
                         color: ThemeService().theme == ThemeMode.light
