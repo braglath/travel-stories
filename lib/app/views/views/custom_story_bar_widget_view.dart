@@ -79,13 +79,16 @@ class CustomStoryBarWidgetView extends GetView {
                         children: [
                           FaIcon(
                             FontAwesomeIcons.solidHeart,
-                            color: ModalRoute.of(context)!
-                                    .settings
-                                    .name!
-                                    .contains('/fave-stories')
-                                ? ThemeService().theme == ThemeMode.light
-                                    ? ColorResourcesLight.mainLIGHTColor
-                                    : ColorResourcesDark.mainDARKColor
+                            color: ModalRoute.of(context)!.settings.name != null
+                                ? ModalRoute.of(context)!
+                                        .settings
+                                        .name!
+                                        .contains('/fave-stories')
+                                    ? ThemeService().theme == ThemeMode.light
+                                        ? ColorResourcesLight.mainLIGHTColor
+                                        : ColorResourcesDark.mainDARKColor
+                                    : ColorResourcesLight.mainTextBODYColor
+                                        .withOpacity(0.5)
                                 : ColorResourcesLight.mainTextBODYColor
                                     .withOpacity(0.5),
                             size: 15,

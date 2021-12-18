@@ -18,6 +18,8 @@ class SubmitStoryController extends GetxController {
   final scrollController = ScrollController().obs;
   var shouldAutoscroll = false.obs;
   DateTime timeBackButtonPressed = DateTime.now();
+  // final animatedHeight = 0.obs;
+  // final isLarge = false.obs;
 
   List<String> travelmodes =
       ['All', 'Cycle', 'Bike', 'Car', 'Bus', 'Train', 'Flight'].obs;
@@ -49,6 +51,16 @@ class SubmitStoryController extends GetxController {
   void onClose() {
     scrollController.value.removeListener(_scrollListener);
   }
+
+  // void animateHeight() {
+  //   if (isLarge.isFalse) {
+  //     animatedHeight.value = 400;
+  //     isLarge.value = true;
+  //   } else {
+  //     animatedHeight.value = 0;
+  //     isLarge.value = false;
+  //   }
+  // }
 
   Future<bool> pressBackAgainToExit() async {
     final difference = DateTime.now().difference(timeBackButtonPressed);

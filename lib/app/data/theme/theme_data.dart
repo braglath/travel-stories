@@ -28,6 +28,7 @@ class Themes {
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: ColorResourcesLight.mainLIGHTColor, elevation: 4),
+
     appBarTheme: const AppBarTheme(
       centerTitle: true,
       titleTextStyle: TextStyle(
