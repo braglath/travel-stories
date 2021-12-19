@@ -59,6 +59,42 @@ class NotificationService {
     );
   }
 
+  Future<void> scheduledNotification() async {
+    print('hello');
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        1,
+        'New stories',
+        'Checkout these new stories',
+        _scheduleDaily(
+            Time(20)), //?this provides notification at 8pm
+        const NotificationDetails(
+          android: AndroidNotificationDetails('main_channel', 'Main Channel',
+              importance: Importance.max,
+              priority: Priority.max,
+              icon: '@mipmap/launcher_icon'),
+          iOS: IOSNotificationDetails(
+            sound: 'default.wav',
+            presentAlert: true,
+            presentBadge: true,
+            presentSound: true,
+          ),
+        ),
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        androidAllowWhileIdle: true,
+        matchDateTimeComponents: DateTimeComponents.time);
+  }
+
+  static tz.TZDateTime _scheduleDaily(Time time) {
+    final now = tz.TZDateTime.now(tz.local);
+    final scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day,
+        time.hour, time.minute, time.second);
+
+    return scheduledDate.isBefore(now)
+        ? scheduledDate.add(Duration(days: 1))
+        : scheduledDate;
+  }
+
   Future<void> cancelAllNotifications() async {
     await flutterLocalNotificationsPlugin.cancelAll();
   }

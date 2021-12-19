@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:travel_diaries/app/data/theme/theme_service.dart';
 
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
@@ -24,12 +25,16 @@ class IntroductioScreensView extends GetView {
               titleTextStyle: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: ColorResourcesLight.mainLIGHTColor,
+                color: ThemeService().theme == ThemeMode.light
+                    ? ColorResourcesLight.mainTextHEADINGColor
+                    : ColorResourcesDark.mainDARKTEXTICONcolor,
               ),
               bodyTextStyle: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: ColorResourcesLight.mainLIGHTColor,
+                color: ThemeService().theme == ThemeMode.light
+                    ? ColorResourcesLight.mainTextHEADINGColor
+                    : ColorResourcesDark.mainDARKTEXTICONcolor,
               )),
           image: Container(
               child: Image.asset('images/intro2.png', fit: BoxFit.cover)),
@@ -41,41 +46,46 @@ class IntroductioScreensView extends GetView {
               titleTextStyle: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: ColorResourcesLight.mainLIGHTColor,
+                color: ThemeService().theme == ThemeMode.light
+                    ? ColorResourcesLight.mainTextHEADINGColor
+                    : ColorResourcesDark.mainDARKTEXTICONcolor,
               ),
               bodyTextStyle: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: ColorResourcesLight.mainLIGHTColor,
+                color: ThemeService().theme == ThemeMode.light
+                    ? ColorResourcesLight.mainTextHEADINGColor
+                    : ColorResourcesDark.mainDARKTEXTICONcolor,
               )),
-          image: Container(
-              child: Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: ListView.builder(
-                      // itemExtent: 100,
-                      physics: BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: travelmodes.length,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (
-                        context,
-                        index,
-                      ) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: ChoiceChip(
-                            selected: true,
-                            labelPadding: EdgeInsets.symmetric(horizontal: 5.0),
-                            avatar: Icon(
-                              travelIcons[index],
-                              color: Colors.white,
-                            ),
-                            label: Text(
-                              travelmodes[index],
-                            ),
-                          ),
-                        );
-                      }))),
+          image: Padding(
+              padding: const EdgeInsets.only(top: 40.0),
+              child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 0,
+                      crossAxisSpacing: 0,
+                      mainAxisExtent: 100,
+                      childAspectRatio: 1),
+                  // itemExtent: 100,
+                  shrinkWrap: true,
+                  itemCount: travelmodes.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (
+                    context,
+                    index,
+                  ) {
+                    return ChoiceChip(
+                      selected: true,
+                      labelPadding: EdgeInsets.symmetric(horizontal: 5.0),
+                      avatar: Icon(
+                        travelIcons[index],
+                        color: Colors.white,
+                      ),
+                      label: Text(
+                        travelmodes[index],
+                      ),
+                    );
+                  })),
           title: '',
           body: 'No matter what your travel mode is',
         ),
@@ -84,12 +94,16 @@ class IntroductioScreensView extends GetView {
               titleTextStyle: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: ColorResourcesLight.mainLIGHTColor,
+                color: ThemeService().theme == ThemeMode.light
+                    ? ColorResourcesLight.mainTextHEADINGColor
+                    : ColorResourcesDark.mainDARKTEXTICONcolor,
               ),
               bodyTextStyle: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: ColorResourcesLight.mainLIGHTColor,
+                color: ThemeService().theme == ThemeMode.light
+                    ? ColorResourcesLight.mainTextHEADINGColor
+                    : ColorResourcesDark.mainDARKTEXTICONcolor,
               )),
           image: Container(
               child: Image.asset('images/introfinal.png', fit: BoxFit.cover)),
@@ -97,42 +111,62 @@ class IntroductioScreensView extends GetView {
           body: 'Social Media for travellers and real life travel incidents',
         ),
       ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: IntroductionScreen(
+      globalBackgroundColor: ThemeService().theme == ThemeMode.light
+          ? ColorResourcesLight.mainLIGHTScaffoldBG
+          : ColorResourcesDark.mainDARKScaffoldBG,
       animationDuration: 500,
       dotsDecorator: DotsDecorator(
         size: const Size.square(10.0),
         activeSize: const Size(20.0, 10.0),
         activeShape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-        activeColor: ColorResourcesLight.mainLIGHTColor,
+        activeColor: ThemeService().theme == ThemeMode.light
+            ? ThemeService().theme == ThemeMode.light
+                ? ColorResourcesLight.mainLIGHTColor
+                : ColorResourcesDark.mainDARKColor
+            : ColorResourcesDark.mainDARKColor,
       ),
       dotsFlex: 2,
       done: Text(
         'Done',
         style: context.theme.textTheme.headline3?.copyWith(
-          color: ColorResourcesLight.mainLIGHTColor,
+          color: ThemeService().theme == ThemeMode.light
+              ? ColorResourcesLight.mainTextHEADINGColor
+              : ColorResourcesDark.mainDARKTEXTICONcolor,
         ),
       ),
       onDone: () {
         Get.offAllNamed(Routes.HOME);
       },
-      skipColor: ColorResourcesLight.mainLIGHTColor,
-      nextColor: ColorResourcesLight.mainLIGHTColor,
-      doneColor: ColorResourcesLight.mainLIGHTColor,
+      skipColor: ThemeService().theme == ThemeMode.light
+          ? ColorResourcesLight.mainTextHEADINGColor
+          : ColorResourcesDark.mainDARKTEXTICONcolor,
+      nextColor: ThemeService().theme == ThemeMode.light
+          ? ColorResourcesLight.mainTextHEADINGColor
+          : ColorResourcesDark.mainDARKTEXTICONcolor,
+      doneColor: ThemeService().theme == ThemeMode.light
+          ? ColorResourcesLight.mainTextHEADINGColor
+          : ColorResourcesDark.mainDARKTEXTICONcolor,
       next: Text(
         'next',
         style: context.theme.textTheme.headline3?.copyWith(
-          color: ColorResourcesLight.mainLIGHTColor,
+          color: ThemeService().theme == ThemeMode.light
+              ? ColorResourcesLight.mainTextHEADINGColor
+              : ColorResourcesDark.mainDARKTEXTICONcolor,
         ),
       ),
       showNextButton: true,
       skip: Text(
         'skip',
         style: context.theme.textTheme.headline3?.copyWith(
-          color: ColorResourcesLight.mainLIGHTColor,
+          color: ThemeService().theme == ThemeMode.light
+              ? ColorResourcesLight.mainTextHEADINGColor
+              : ColorResourcesDark.mainDARKTEXTICONcolor,
         ),
       ),
       showSkipButton: true,

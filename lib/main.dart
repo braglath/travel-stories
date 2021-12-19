@@ -12,6 +12,7 @@ import 'app/routes/app_pages.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   NotificationService().initNotification();
+  NotificationService().scheduledNotification();
   await Firebase.initializeApp();
   // HomeBinding().dependencies();
   await GetStorage.init();

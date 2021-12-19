@@ -22,10 +22,21 @@ class ThemeSelectionView extends GetView<ThemeSelectionController> {
               SizedBox(
                 height: 50,
               ),
-              Text(
-                'Pick theme mode',
-                style: Theme.of(context).textTheme.headline2,
-              ),
+              RichText(
+                text: TextSpan(
+                  text: 'Pick the',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline3
+                      ?.copyWith(color: ColorResourcesDark.mainDARKScaffoldBG),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: 'me mode',
+                        style: Theme.of(context).textTheme.headline3?.copyWith(
+                            color: ColorResourcesLight.mainLIGHTScaffoldBG)),
+                  ],
+                ),
+              )
             ],
           ),
         ],
@@ -54,7 +65,10 @@ class ThemeSelectionView extends GetView<ThemeSelectionController> {
               duration: Duration(milliseconds: 800),
               child: Text(
                 'Light',
-                style: Theme.of(context).textTheme.headline3,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline3
+                    ?.copyWith(color: ColorResourcesLight.mainTextHEADINGColor),
               ),
             ),
             Container(
