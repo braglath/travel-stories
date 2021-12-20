@@ -19,8 +19,7 @@ class ChatRoomView extends GetView<ChatRoomController> {
         leading: IconButton(
           splashRadius: 15,
           icon: Icon(Icons.chevron_left_outlined),
-          onPressed: () =>
-              Get.offAllNamed(Routes.NAVIGATION_DRAWER),
+          onPressed: () => Get.offAllNamed(Routes.NAVIGATION_DRAWER),
         ),
       ),
       body: FirstCharPage(),

@@ -34,6 +34,8 @@ import 'package:travel_diaries/app/modules/other_profile/bindings/other_profile_
 import 'package:travel_diaries/app/modules/other_profile/views/other_profile_view.dart';
 import 'package:travel_diaries/app/modules/post_story/bindings/post_story_binding.dart';
 import 'package:travel_diaries/app/modules/post_story/views/post_story_view.dart';
+import 'package:travel_diaries/app/modules/privacy_policy/bindings/privacy_policy_binding.dart';
+import 'package:travel_diaries/app/modules/privacy_policy/views/privacy_policy_view.dart';
 import 'package:travel_diaries/app/modules/profile/bindings/profile_binding.dart';
 import 'package:travel_diaries/app/modules/profile/views/profile_view.dart';
 import 'package:travel_diaries/app/modules/signup/bindings/signup_binding.dart';
@@ -199,5 +201,10 @@ class AppPages {
         transition: Transition.fadeIn,
         transitionDuration: Duration(milliseconds: 600),
         curve: Curves.fastOutSlowIn),
+    GetPage(
+      name: _Paths.PRIVACY_POLICY,
+      page: () => PrivacyPolicyView(),
+      binding: PrivacyPolicyBinding(),
+    ),
   ];
 }

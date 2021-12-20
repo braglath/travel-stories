@@ -29,6 +29,7 @@ abstract class Routes {
   static const LOADING_CHAT_ROOM = _Paths.LOADING_CHAT_ROOM;
   static const NAVIGATION_DRAWER = _Paths.NAVIGATION_DRAWER;
   static const THEME_SELECTION = _Paths.THEME_SELECTION;
+  static const PRIVACY_POLICY = _Paths.PRIVACY_POLICY;
 }
 
 abstract class _Paths {
@@ -55,4 +56,5 @@ abstract class _Paths {
   static const LOADING_CHAT_ROOM = '/loading-chat-room';
   static const NAVIGATION_DRAWER = '/navigation-drawer';
   static const THEME_SELECTION = '/theme-selection';
+  static const PRIVACY_POLICY = '/privacy-policy';
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+
 import 'package:travel_diaries/app/data/Services/logout_user_service.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
@@ -11,6 +13,7 @@ import 'package:travel_diaries/app/modules/fave_stories/controllers/fave_stories
 import 'package:travel_diaries/app/modules/my_stories/controllers/my_stories_controller.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 import 'package:travel_diaries/app/views/views/custom_counter.dart';
+
 import '../controllers/profile_controller.dart';
 
 class MenuTile {
@@ -52,6 +55,11 @@ class ProfileView extends GetView<ProfileController> {
               ? FontAwesomeIcons.lightbulb
               : FontAwesomeIcons.moon,
           () => ThemeService().switchTheme()),
+      MenuTile(
+          'Privacy policy',
+          'Checkout our privacy policy',
+          FontAwesomeIcons.userShield,
+          () => Get.toNamed(Routes.PRIVACY_POLICY)),
       MenuTile(
           'Logout', 'Logout and restart the app', FontAwesomeIcons.signOutAlt,
           () {
@@ -187,11 +195,11 @@ class ProfileView extends GetView<ProfileController> {
           ],
         ),
         Container(
-          height: MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.height + 150,
           child: GridView.builder(
               itemCount: _menu.length,
               shrinkWrap: true,
-              physics: ClampingScrollPhysics(),
+              physics: NeverScrollableScrollPhysics(),
               padding: EdgeInsets.all(8.0),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   childAspectRatio: 1.6,

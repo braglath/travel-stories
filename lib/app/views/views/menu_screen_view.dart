@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:get/get.dart';
+
 import 'package:travel_diaries/app/data/Services/logout_user_service.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
@@ -178,6 +179,25 @@ class MenuScreenView extends GetView {
               ),
               onTap: () => ThemeService().switchTheme(),
             ),
+            ListTile(
+                leading: FaIcon(
+                  FontAwesomeIcons.userShield,
+                  size: 20,
+                  color: ThemeService().theme == ThemeMode.light
+                      ? ColorResourcesLight.mainLIGHTColor2
+                      : ColorResourcesDark.mainDARKColor2,
+                ),
+                title: Text(
+                  'Privacy policy',
+                  style: TextStyle(
+                    color: ThemeService().theme == ThemeMode.light
+                        ? ColorResourcesLight.mainTextHEADINGColor
+                        : ColorResourcesDark.mainDARKTEXTICONcolor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+                onTap: () => Get.toNamed(Routes.PRIVACY_POLICY)),
             ListTile(
                 leading: Icon(
                   Icons.logout,

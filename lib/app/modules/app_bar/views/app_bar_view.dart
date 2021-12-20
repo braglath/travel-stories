@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
@@ -119,7 +119,8 @@ class AppBarView extends GetView<AppBarController>
                   .settings
                   .name!
                   .contains('/other-profile') ||
-              ModalRoute.of(context)!.settings.name!.contains('/chat-room')
+              ModalRoute.of(context)!.settings.name!.contains('/chat-room') ||
+              ModalRoute.of(context)!.settings.name!.contains('/privacy-policy')
           ? null
           : <Widget>[
               _profileImage(context),

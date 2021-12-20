@@ -1,6 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 class NotificationService {
   static final NotificationService _notificationService =
@@ -65,8 +65,7 @@ class NotificationService {
         1,
         'New stories',
         'Checkout these new stories',
-        _scheduleDaily(
-            Time(20)), //?this provides notification at 8pm
+        _scheduleDaily(Time(20)), //?this provides notification at 8pm
         const NotificationDetails(
           android: AndroidNotificationDetails('main_channel', 'Main Channel',
               importance: Importance.max,

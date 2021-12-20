@@ -254,8 +254,7 @@ class SignupController extends GetxController {
                     onTap1: () => pickImage(ImageSource.camera),
                     onTap2: () => pickImage(ImageSource.gallery),
                   ).show(),
-              onpressedCancel: () =>
-                  Get.offAllNamed(Routes.NAVIGATION_DRAWER),
+              onpressedCancel: () => Get.offAllNamed(Routes.NAVIGATION_DRAWER),
               contentWidget: dialogueContent())
           .showDialogue();
     } else {

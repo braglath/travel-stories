@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 import 'package:travel_diaries/app/data/Services/api_services.dart';
 import 'package:travel_diaries/app/data/Services/notification.dart';
@@ -15,7 +16,6 @@ import 'package:travel_diaries/app/modules/post_story/views/post_story_view.dart
 import 'package:travel_diaries/app/modules/submit_story/controllers/submit_story_controller.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
-import 'package:timezone/data/latest.dart' as tz;
 
 class PostStoryController extends GetxController {
   //TODO: Implement PostStoryController
