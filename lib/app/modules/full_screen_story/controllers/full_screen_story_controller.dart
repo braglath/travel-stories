@@ -1,9 +1,16 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/widgets.dart';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'package:travel_diaries/app/data/Models/comments_model.dart';
 import 'package:travel_diaries/app/data/Services/api_services.dart';
@@ -30,6 +37,8 @@ class FullScreenStoryController extends GetxController {
   GlobalKey<FormState> commentkey = GlobalKey<FormState>();
   TextEditingController commentController = TextEditingController();
 
+  final ScreenshotController screenshotController = ScreenshotController();
+
   @override
   void onInit() {
     super.onInit();
@@ -45,6 +54,41 @@ class FullScreenStoryController extends GetxController {
 
   @override
   void onClose() {}
+
+  void takeScreenshot() async {
+    isLoading.value = true;
+    final image = await screenshotController.capture();
+    if (image == null) {
+      isLoading.value = false;
+      return;
+    } else {
+      print('screenshot taken');
+      await saveAndShare(image);
+    }
+  }
+
+  Future saveAndShare(Uint8List bytes) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final image = File('${directory.path}/travel_stories.png');
+    image.writeAsBytesSync(bytes);
+    final text =
+        '_Travel Stories - Share your travel incidents to the world_\n\n*Download the app now from google play store*';
+    await Share.shareFiles([image.path], text: text);
+    isLoading.value = false;
+  }
+
+  Future<String> saveImage(Uint8List bytes) async {
+    await [Permission.storage].request();
+    final time = DateTime.now()
+        .toIso8601String()
+        .replaceAll('.', '_')
+        .replaceAll(':', '_');
+    final name = 'screenshot_$time';
+    print('screenshot image saved');
+    final result = await ImageGallerySaver.saveImage(bytes, name: name);
+    print('screenshot file path - ${result['filePath']}');
+    return result['filePath'];
+  }
 
   void animateContainer() {
     if (isLarge.value == false) {

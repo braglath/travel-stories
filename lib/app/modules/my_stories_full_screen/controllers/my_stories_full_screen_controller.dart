@@ -1,9 +1,14 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'package:travel_diaries/app/data/Models/comments_model.dart';
 import 'package:travel_diaries/app/data/Services/api_services.dart';
@@ -22,6 +27,8 @@ class MyStoriesFullScreenController extends GetxController {
   var comments = <CommentsModel>[].obs;
   GlobalKey<FormState> commentkey = GlobalKey<FormState>();
   TextEditingController commentController = TextEditingController();
+  final ScreenshotController screenshotController = ScreenshotController();
+
   @override
   void onInit() {
     super.onInit();
@@ -36,6 +43,28 @@ class MyStoriesFullScreenController extends GetxController {
   @override
   void onClose() {}
   void increment() => count.value++;
+
+  void takeScreenshot() async {
+    isLoading.value = true;
+    final image = await screenshotController.capture();
+    if (image == null) {
+      isLoading.value = false;
+      return;
+    } else {
+      print('screenshot taken');
+      await saveAndShare(image);
+    }
+  }
+
+  Future saveAndShare(Uint8List bytes) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final image = File('${directory.path}/travel_stories.png');
+    image.writeAsBytesSync(bytes);
+    final text =
+        '_Travel Stories - Share your travel incidents to the world_\n\n*Download the app now from google play store*';
+    await Share.shareFiles([image.path], text: text);
+    isLoading.value = false;
+  }
 
   void animateContainer() {
     if (isLarge.value == false) {

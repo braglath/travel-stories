@@ -4,12 +4,13 @@
         <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
     </queries>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.READ_EXTERNAL.STORAGE"/>
+    <uses-permission android:name="android.premission.READ_EXTERNAL.STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
    <application
-        android:label="travel_diaries"
+        android:label="Travel Stories - Share your travel incidents to the world"
+        android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/launcher_icon">
         
    

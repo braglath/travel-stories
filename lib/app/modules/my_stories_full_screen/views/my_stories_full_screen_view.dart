@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:screenshot/screenshot.dart';
 
 import 'package:travel_diaries/app/data/Models/my_stories_model.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
@@ -76,206 +77,263 @@ class MyStoriesFullScreenView extends GetView<MyStoriesFullScreenController> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: ThemeService().theme == ThemeMode.light
-                          ? ColorResourcesLight.mainLIGHTAPPBARcolor
-                          : ColorResourcesDark.mainDARKAPPBARcolor,
-                    ),
-                    child: ListTile(
-                      // isThreeLine: true,
-                      trailing: Container(
-                        padding: EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                            color: Colors.grey.shade300.withOpacity(0.4),
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.all(Radius.circular(6))),
-                        child: Obx(
-                          () {
-                            return Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                FaIcon(
-                                  FontAwesomeIcons.solidHeart,
-                                  size: 15,
-                                  color: controller.isLiked.isFalse
-                                      ? null
-                                      : ThemeService().theme == ThemeMode.light
-                                          ? ColorResourcesLight.mainLIGHTColor
-                                          : ColorResourcesDark.mainDARKColor,
-                                ),
-                                Text(
-                                  controller.count.toString(),
-                                  style: context.theme.textTheme.caption,
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      ),
-
-                      leading: Stack(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor:
-                                ThemeService().theme == ThemeMode.light
-                                    ? ColorResourcesLight.mainLIGHTColor
-                                    : ColorResourcesDark.mainDARKColor,
-                            radius: 25,
-                            child: CircleAvatar(
-                                radius: 22,
-                                child: authorprofilepic.isEmpty
-                                    ? Icon(
-                                        Icons.person,
-                                        color: Colors.white,
-                                      )
-                                    : null,
-                                backgroundColor:
-                                    ThemeService().theme == ThemeMode.light
-                                        ? ColorResourcesLight.mainLIGHTColor
-                                        : ColorResourcesDark.mainDARKColor,
-                                backgroundImage: NetworkImage(
-                                    "http://ubermensch.studio/travel_stories/profileimages/$authorprofilepic")),
-                          )
-                        ],
-                      ),
-                      title: Text(
-                        storytitle,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          color: ThemeService().theme == ThemeMode.light
-                              ? ColorResourcesLight.mainTextHEADINGColor
-                              : ColorResourcesDark.mainDARKTEXTICONcolor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      subtitle: IntrinsicHeight(
-                          child: Row(
-                        children: [
-                          Text(
-                            storycategory,
-                            style: context.theme.textTheme.caption
-                                ?.copyWith(fontSize: 12),
-                          ),
-                          Container(
-                            height: 12,
-                            child: VerticalDivider(
-                              thickness: 1,
-                            ),
-                          ),
-                          Text(
-                            authorName.length > 12
-                                ? authorName.replaceFirst(" ", "\n")
-                                : authorName,
-                            textAlign: TextAlign.center,
-                            style: context.theme.textTheme.caption
-                                ?.copyWith(fontSize: 12),
-                          ),
-                          Container(
-                            height: 12,
-                            child: VerticalDivider(
-                              thickness: 1,
-                            ),
-                          ),
-                          Text(
-                            storydate.toString().trim(),
-                            style: context.theme.textTheme.caption
-                                ?.copyWith(fontSize: 12),
-                          ),
-                        ],
-                      )),
-                      onTap: () => {},
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: ThemeService().theme == ThemeMode.light
-                          ? ColorResourcesLight.mainLIGHTAPPBARcolor
-                          : ColorResourcesDark.mainDARKAPPBARcolor,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          top: 20.0, left: 12, right: 12, bottom: 12),
-                      child: Text(
-                        storybody,
-                        style: TextStyle(
-                          color: ThemeService().theme == ThemeMode.light
-                              ? ColorResourcesLight.mainTextHEADINGColor
-                              : ColorResourcesDark.mainDARKTEXTICONcolor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: ThemeService().theme == ThemeMode.light
-                          ? ColorResourcesLight.mainLIGHTAPPBARcolor
-                          : ColorResourcesDark.mainDARKAPPBARcolor,
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.end,
+                  Obx(() {
+                    return Stack(
                       children: [
-                        Obx(() {
-                          return Row(
+                        Screenshot(
+                          controller: controller.screenshotController,
+                          child: Column(
                             mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              IconButton(
-                                  onPressed: () =>
-                                      controller.animateContainer(),
-                                  padding: EdgeInsets.zero,
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(4),
+                                      topRight: Radius.circular(4)),
                                   color: ThemeService().theme == ThemeMode.light
-                                      ? ColorResourcesLight.mainLIGHTColor
-                                      : ColorResourcesDark.mainDARKColor,
-                                  splashRadius: 12,
-                                  iconSize: 20,
-                                  icon: FaIcon(controller.isLarge.isFalse
-                                      ? FontAwesomeIcons.commentAlt
-                                      : FontAwesomeIcons.solidCommentAlt)),
-                              Obx(() {
-                                return Text(
-                                  controller.comments.length.toString(),
-                                  style: context.theme.textTheme.caption,
-                                );
-                              }),
-                            ],
-                          );
-                        }),
-                        IconButton(
-                            padding: EdgeInsets.zero,
-                            color: ThemeService().theme == ThemeMode.light
-                                ? ColorResourcesLight.mainLIGHTColor
-                                : ColorResourcesDark.mainDARKColor,
-                            splashRadius: 12,
-                            iconSize: 20,
-                            onPressed: () => Get.toNamed(Routes.EDIT_MY_STORIES,
-                                    arguments: {
-                                      "title": storytitle,
-                                      "category": storycategory,
-                                      "body": storybody,
-                                      "id": storyid
+                                      ? ColorResourcesLight.mainLIGHTAPPBARcolor
+                                      : ColorResourcesDark.mainDARKAPPBARcolor,
+                                ),
+                                child: ListTile(
+                                  // isThreeLine: true,
+                                  trailing: Container(
+                                    padding: EdgeInsets.all(4),
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey.shade300
+                                            .withOpacity(0.4),
+                                        shape: BoxShape.rectangle,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(6))),
+                                    child: Obx(
+                                      () {
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            FaIcon(
+                                              FontAwesomeIcons.solidHeart,
+                                              size: 15,
+                                              color: controller.isLiked.isFalse
+                                                  ? null
+                                                  : ThemeService().theme ==
+                                                          ThemeMode.light
+                                                      ? ColorResourcesLight
+                                                          .mainLIGHTColor
+                                                      : ColorResourcesDark
+                                                          .mainDARKColor,
+                                            ),
+                                            Text(
+                                              controller.count.toString(),
+                                              style: context
+                                                  .theme.textTheme.caption,
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  ),
+
+                                  leading: Stack(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundColor: ThemeService().theme ==
+                                                ThemeMode.light
+                                            ? ColorResourcesLight.mainLIGHTColor
+                                            : ColorResourcesDark.mainDARKColor,
+                                        radius: 25,
+                                        child: CircleAvatar(
+                                            radius: 22,
+                                            child: authorprofilepic.isEmpty
+                                                ? Icon(
+                                                    Icons.person,
+                                                    color: Colors.white,
+                                                  )
+                                                : null,
+                                            backgroundColor:
+                                                ThemeService().theme ==
+                                                        ThemeMode.light
+                                                    ? ColorResourcesLight
+                                                        .mainLIGHTColor
+                                                    : ColorResourcesDark
+                                                        .mainDARKColor,
+                                            backgroundImage: NetworkImage(
+                                                "http://ubermensch.studio/travel_stories/profileimages/$authorprofilepic")),
+                                      )
+                                    ],
+                                  ),
+                                  title: Text(
+                                    storytitle,
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      color: ThemeService().theme ==
+                                              ThemeMode.light
+                                          ? ColorResourcesLight
+                                              .mainTextHEADINGColor
+                                          : ColorResourcesDark
+                                              .mainDARKTEXTICONcolor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  subtitle: IntrinsicHeight(
+                                      child: Row(
+                                    children: [
+                                      Text(
+                                        storycategory,
+                                        style: context.theme.textTheme.caption
+                                            ?.copyWith(fontSize: 12),
+                                      ),
+                                      Container(
+                                        height: 12,
+                                        child: VerticalDivider(
+                                          thickness: 1,
+                                        ),
+                                      ),
+                                      Text(
+                                        authorName.length > 12
+                                            ? authorName.replaceFirst(" ", "\n")
+                                            : authorName,
+                                        textAlign: TextAlign.center,
+                                        style: context.theme.textTheme.caption
+                                            ?.copyWith(fontSize: 12),
+                                      ),
+                                      Container(
+                                        height: 12,
+                                        child: VerticalDivider(
+                                          thickness: 1,
+                                        ),
+                                      ),
+                                      Text(
+                                        storydate.toString().trim(),
+                                        style: context.theme.textTheme.caption
+                                            ?.copyWith(fontSize: 12),
+                                      ),
+                                    ],
+                                  )),
+                                  onTap: () => {},
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                  color: ThemeService().theme == ThemeMode.light
+                                      ? ColorResourcesLight.mainLIGHTAPPBARcolor
+                                      : ColorResourcesDark.mainDARKAPPBARcolor,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 20.0,
+                                      left: 12,
+                                      right: 12,
+                                      bottom: 12),
+                                  child: Text(
+                                    storybody,
+                                    style: TextStyle(
+                                      color: ThemeService().theme ==
+                                              ThemeMode.light
+                                          ? ColorResourcesLight
+                                              .mainTextHEADINGColor
+                                          : ColorResourcesDark
+                                              .mainDARKTEXTICONcolor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(4),
+                                      bottomRight: Radius.circular(4)),
+                                  color: ThemeService().theme == ThemeMode.light
+                                      ? ColorResourcesLight.mainLIGHTAPPBARcolor
+                                      : ColorResourcesDark.mainDARKAPPBARcolor,
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Obx(() {
+                                      return Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          IconButton(
+                                              onPressed: () =>
+                                                  controller.animateContainer(),
+                                              padding: EdgeInsets.zero,
+                                              color: ThemeService().theme ==
+                                                      ThemeMode.light
+                                                  ? ColorResourcesLight
+                                                      .mainLIGHTColor
+                                                  : ColorResourcesDark
+                                                      .mainDARKColor,
+                                              splashRadius: 12,
+                                              iconSize: 20,
+                                              icon: FaIcon(controller
+                                                      .isLarge.isFalse
+                                                  ? FontAwesomeIcons.commentAlt
+                                                  : FontAwesomeIcons
+                                                      .solidCommentAlt)),
+                                          Obx(() {
+                                            return Text(
+                                              controller.comments.length
+                                                  .toString(),
+                                              style: context
+                                                  .theme.textTheme.caption,
+                                            );
+                                          }),
+                                        ],
+                                      );
                                     }),
-                            icon: FaIcon(FontAwesomeIcons.edit)),
-                        IconButton(
-                            padding: EdgeInsets.zero,
-                            color: ThemeService().theme == ThemeMode.light
-                                ? ColorResourcesLight.mainLIGHTColor
-                                : ColorResourcesDark.mainDARKColor,
-                            iconSize: 20,
-                            splashRadius: 12,
-                            onPressed: () {},
-                            icon: FaIcon(FontAwesomeIcons.shareAlt)),
+                                    IconButton(
+                                        padding: EdgeInsets.zero,
+                                        color: ThemeService().theme ==
+                                                ThemeMode.light
+                                            ? ColorResourcesLight.mainLIGHTColor
+                                            : ColorResourcesDark.mainDARKColor,
+                                        splashRadius: 12,
+                                        iconSize: 20,
+                                        onPressed: () => Get.toNamed(
+                                                Routes.EDIT_MY_STORIES,
+                                                arguments: {
+                                                  "title": storytitle,
+                                                  "category": storycategory,
+                                                  "body": storybody,
+                                                  "id": storyid
+                                                }),
+                                        icon: FaIcon(FontAwesomeIcons.edit)),
+                                    IconButton(
+                                        padding: EdgeInsets.zero,
+                                        color: ThemeService().theme ==
+                                                ThemeMode.light
+                                            ? ColorResourcesLight.mainLIGHTColor
+                                            : ColorResourcesDark.mainDARKColor,
+                                        iconSize: 20,
+                                        splashRadius: 12,
+                                        onPressed: () =>
+                                            controller.takeScreenshot(),
+                                        icon:
+                                            FaIcon(FontAwesomeIcons.shareAlt)),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        controller.isLoading.isTrue
+                            ? Center(
+                                child: CircularProgressIndicator(
+                                backgroundColor:
+                                    ColorResourcesLight.mainLIGHTAPPBARcolor,
+                                color: ColorResourcesLight.mainLIGHTColor,
+                              ))
+                            : SizedBox.shrink()
                       ],
-                    ),
-                  ),
+                    );
+                  }),
                   Container(
                     // height: 345,
                     // color: Colors.black,
