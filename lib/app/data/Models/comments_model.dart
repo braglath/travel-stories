@@ -35,26 +35,26 @@ class CommentsModel {
   DateTime datecommented;
 
   factory CommentsModel.fromJson(Map<String, dynamic> json) => CommentsModel(
-        id: json["id"],
-        commenterid: json["commenterid"],
-        commentername: json["commentername"],
-        commenterprofilepic: json["commenterprofilepic"],
-        comment: json["comment"],
-        storyid: json["storyid"],
-        storytitle: json["storytitle"],
-        isliked: json["isliked"],
-        datecommented: DateTime.parse(json["datecommented"]),
+        id: json['id'],
+        commenterid: json['commenterid'],
+        commentername: json['commentername'],
+        commenterprofilepic: json['commenterprofilepic'],
+        comment: json['comment'],
+        storyid: json['storyid'],
+        storytitle: json['storytitle'],
+        isliked: json['isliked'],
+        datecommented: DateTime.parse(json['datecommented']),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "commenterid": commenterid,
-        "commentername": commentername,
-        "commenterprofilepic": commenterprofilepic,
-        "comment": comment,
-        "storyid": storyid,
-        "storytitle": storytitle,
-        "isliked": isliked,
-        "datecommented": datecommented.toIso8601String(),
+        'id': id,
+        'commenterid': commenterid,
+        'commentername': commentername,
+        'commenterprofilepic': commenterprofilepic,
+        'comment': comment,
+        'storyid': storyid,
+        'storytitle': storytitle,
+        'isliked': isliked,
+        'datecommented': datecommented.toIso8601String(),
       };
 }

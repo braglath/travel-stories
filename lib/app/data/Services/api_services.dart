@@ -6,7 +6,6 @@ import 'package:travel_diaries/app/data/Models/my_stories_model.dart';
 import 'package:travel_diaries/app/data/Models/stories_model.dart';
 import 'package:travel_diaries/app/data/Models/top_stories_model.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
-import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 
 class APIservices {
   static var client = http.Client();
@@ -14,7 +13,7 @@ class APIservices {
     print(category);
     var url = 'http://ubermensch.studio/travel_stories/getstories.php';
     var data = {
-      "category": category,
+      'category': category,
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
@@ -31,7 +30,7 @@ class APIservices {
   static Future<List<FavStoriesModel>> fetchFavStories() async {
     var url = 'http://ubermensch.studio/travel_stories/fetchfavstories.php';
     var data = {
-      "likedpersonid": UserDetails().readUserIDfromBox(),
+      'likedpersonid': UserDetails().readUserIDfromBox(),
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
@@ -48,8 +47,8 @@ class APIservices {
   static Future<List<MyStoriesModel>> fetchMyStories() async {
     var url = 'http://ubermensch.studio/travel_stories/getmystories.php';
     var data = {
-      "personid": UserDetails().readUserIDfromBox(),
-      "personname": UserDetails().readUserNamefromBox(),
+      'personid': UserDetails().readUserIDfromBox(),
+      'personname': UserDetails().readUserNamefromBox(),
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
@@ -83,8 +82,8 @@ class APIservices {
       {required storyid, required storytitle}) async {
     final url = 'http://ubermensch.studio/travel_stories/getcomments.php';
     var data = {
-      "storyid": storyid,
-      "storytitle": storytitle,
+      'storyid': storyid,
+      'storytitle': storytitle,
     };
     var response = await client.post(Uri.parse(url), body: data);
     print(response.body);
@@ -104,7 +103,7 @@ class APIservices {
       {required storytitle}) async {
     final url = 'http://ubermensch.studio/travel_stories/myfavcomments.php';
     var data = {
-      "storytitle": storytitle,
+      'storytitle': storytitle,
     };
     var response = await client.post(Uri.parse(url), body: data);
     print(response.body);

@@ -34,24 +34,24 @@ class AuthorDetailsModel {
 
   factory AuthorDetailsModel.fromJson(Map<String, dynamic> json) =>
       AuthorDetailsModel(
-        id: json["id"],
-        name: json["name"],
-        phoneoremail: json["phoneoremail"],
-        password: json["password"],
-        fav: json["fav"],
-        caption: json["caption"],
-        profilepicture: json["profilepicture"],
-        datecreated: DateTime.parse(json["datecreated"]),
+        id: json['id'],
+        name: json['name'],
+        phoneoremail: json['phoneoremail'],
+        password: json['password'],
+        fav: json['fav'],
+        caption: json['caption'],
+        profilepicture: json['profilepicture'],
+        datecreated: DateTime.parse(json['datecreated']),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "phoneoremail": phoneoremail,
-        "password": password,
-        "fav": fav,
-        "caption": caption,
-        "profilepicture": profilepicture,
-        "datecreated": datecreated.toIso8601String(),
+        'id': id,
+        'name': name,
+        'phoneoremail': phoneoremail,
+        'password': password,
+        'fav': fav,
+        'caption': caption,
+        'profilepicture': profilepicture,
+        'datecreated': datecreated.toIso8601String(),
       };
 }

@@ -19,7 +19,7 @@ void main() async {
 
   runApp(
     GetMaterialApp(
-      title: "Travel Stories",
+      title: 'Travel Stories',
       initialRoute: UserLoginLogout().checkisUserLoggedIn() == false
           ? AppPages.NEWUSER
           : AppPages.OLDUSER,

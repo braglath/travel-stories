@@ -21,7 +21,7 @@ class UserDetails {
 
   // ? write user details
 
-  saveUserNametoBox(String userName) =>
+  Future<void> saveUserNametoBox(String userName) =>
       _userNameBox.write(_userNamekey, userName);
 
   saveUserPhoneorEmailtoBox(String userPhoneorEmail) =>

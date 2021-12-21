@@ -35,27 +35,27 @@ class MyStoriesModel {
   DateTime dateadded;
 
   factory MyStoriesModel.fromJson(Map<String, dynamic> json) => MyStoriesModel(
-        id: json["id"],
-        title: json["title"],
-        category: json["category"],
-        body: json["body"],
-        likes: json["likes"],
-        personid: json["personid"],
-        personname: json["personname"],
-        personprofilepic: json["personprofilepic"],
-        dateadded: DateTime.parse(json["dateadded"]),
+        id: json['id'],
+        title: json['title'],
+        category: json['category'],
+        body: json['body'],
+        likes: json['likes'],
+        personid: json['personid'],
+        personname: json['personname'],
+        personprofilepic: json['personprofilepic'],
+        dateadded: DateTime.parse(json['dateadded']),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "title": title,
-        "category": category,
-        "body": body,
-        "likes": likes,
-        "personid": personid,
-        "personname": personname,
-        "personprofilepic": personprofilepic,
-        "dateadded":
+        'id': id,
+        'title': title,
+        'category': category,
+        'body': body,
+        'likes': likes,
+        'personid': personid,
+        'personname': personname,
+        'personprofilepic': personprofilepic,
+        'dateadded':
             "${dateadded.year.toString().padLeft(4, '0')}-${dateadded.month.toString().padLeft(2, '0')}-${dateadded.day.toString().padLeft(2, '0')}",
       };
 }

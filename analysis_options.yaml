@@ -1,4 +1,26 @@
 include: package:lints/recommended.yaml
+
+analyzer:
+  exclude: [build/**]
+  language:
+    strict-raw-types: true
+  strong-mode:
+    # implicit-casts: false
+    # implicit-dynamic: false
+    # implicit-casts: false
+  errors:
+    todo: ignore
+
 linter:
   rules:
-    
+    - always_declare_return_types
+    - cancel_subscriptions
+    - close_sinks
+    - comment_references
+    - one_member_abstracts
+    - only_throw_errors
+    - package_api_docs
+    - prefer_final_in_for_each
+    - prefer_single_quotes
+    - avoid_shadowing_type_parameters: false
+    - await_only_futures: true

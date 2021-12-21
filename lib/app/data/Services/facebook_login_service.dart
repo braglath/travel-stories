@@ -5,7 +5,7 @@ import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 
 class FacebookLogin {
-  Future loginwithFacebook() async {
+  Future<dynamic> loginwithFacebook() async {
     try {
       final facebookLoginResult = await FacebookAuth.instance.login();
       final userData = await FacebookAuth.instance.getUserData();
@@ -15,7 +15,6 @@ class FacebookLogin {
       UserLoginLogout().facebookUserLoggedIn(true);
       return userData;
     } on FirebaseAuthException catch (e) {
-      var title = '';
       switch (e.code) {
         case 'account-exists-with-different-credential':
           CustomSnackbar(
