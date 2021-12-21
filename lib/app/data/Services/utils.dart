@@ -1,7 +1,10 @@
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 
 class Utils {

@@ -155,6 +155,7 @@ class MenuScreenView extends GetView {
                   fontSize: 15,
                 ),
               ),
+              onTap: () => Get.toNamed(Routes.CHANGE_LANGUAGE, arguments: true),
             ),
             ListTile(
               leading: Icon(

@@ -1,5 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
+
 import 'package:travel_diaries/app/data/Services/utils.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 
@@ -41,7 +42,7 @@ class NotificationService {
         UserDetails().readUserProfilePicfromBox(), 'profileImage');
     final styleInformation = BigPictureStyleInformation(
       FilePathAndroidBitmap(
-          ''), //? this is for the big image below notification
+          largeIconPath), //? this is for the big image below notification
       largeIcon: FilePathAndroidBitmap(largeIconPath),
     );
     await flutterLocalNotificationsPlugin.zonedSchedule(

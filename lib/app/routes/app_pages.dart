@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 
 import 'package:travel_diaries/app/modules/app_bar/bindings/app_bar_binding.dart';
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
-import 'package:travel_diaries/app/modules/chat_room/bindings/chat_room_binding.dart';
-import 'package:travel_diaries/app/modules/chat_room/views/chat_room_view.dart';
+import 'package:travel_diaries/app/modules/change_language/bindings/change_language_binding.dart';
+import 'package:travel_diaries/app/modules/change_language/views/change_language_view.dart';
 import 'package:travel_diaries/app/modules/contact_us/bindings/contact_us_binding.dart';
 import 'package:travel_diaries/app/modules/contact_us/views/contact_us_view.dart';
 import 'package:travel_diaries/app/modules/edit_my_stories/bindings/edit_my_stories_binding.dart';
@@ -20,14 +20,10 @@ import 'package:travel_diaries/app/modules/full_screen_story/bindings/full_scree
 import 'package:travel_diaries/app/modules/full_screen_story/views/full_screen_story_view.dart';
 import 'package:travel_diaries/app/modules/home/bindings/home_binding.dart';
 import 'package:travel_diaries/app/modules/home/views/home_view.dart';
-import 'package:travel_diaries/app/modules/loading_chat_room/bindings/loading_chat_room_binding.dart';
-import 'package:travel_diaries/app/modules/loading_chat_room/views/loading_chat_room_view.dart';
 import 'package:travel_diaries/app/modules/my_stories/bindings/my_stories_binding.dart';
 import 'package:travel_diaries/app/modules/my_stories/views/my_stories_view.dart';
 import 'package:travel_diaries/app/modules/my_stories_full_screen/bindings/my_stories_full_screen_binding.dart';
 import 'package:travel_diaries/app/modules/my_stories_full_screen/views/my_stories_full_screen_view.dart';
-import 'package:travel_diaries/app/modules/my_tabs/bindings/my_tabs_binding.dart';
-import 'package:travel_diaries/app/modules/my_tabs/views/my_tabs_view.dart';
 import 'package:travel_diaries/app/modules/navigation_drawer/bindings/navigation_drawer_binding.dart';
 import 'package:travel_diaries/app/modules/navigation_drawer/views/navigation_drawer_view.dart';
 import 'package:travel_diaries/app/modules/other_profile/bindings/other_profile_binding.dart';
@@ -55,7 +51,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const NEWUSER = Routes.THEME_SELECTION;
+  static const NEWUSER = Routes.CHANGE_LANGUAGE;
   static const OLDUSER = Routes.NAVIGATION_DRAWER;
 
   static final routes = [
@@ -173,23 +169,6 @@ class AppPages {
       binding: OtherProfileBinding(),
     ),
     GetPage(
-      name: _Paths.MY_TABS,
-      page: () => MyTabsView(),
-      binding: MyTabsBinding(),
-    ),
-    GetPage(
-        name: _Paths.CHAT_ROOM,
-        page: () => ChatRoomView(),
-        binding: ChatRoomBinding(),
-        transition: Transition.fade,
-        transitionDuration: Duration(milliseconds: 600)),
-    GetPage(
-        name: _Paths.LOADING_CHAT_ROOM,
-        page: () => LoadingChatRoomView(),
-        binding: LoadingChatRoomBinding(),
-        transition: Transition.fadeIn,
-        transitionDuration: Duration(seconds: 1)),
-    GetPage(
       name: _Paths.NAVIGATION_DRAWER,
       page: () => NavigationDrawerView(),
       binding: NavigationDrawerBinding(),
@@ -206,5 +185,14 @@ class AppPages {
       page: () => PrivacyPolicyView(),
       binding: PrivacyPolicyBinding(),
     ),
+    GetPage(
+        name: _Paths.CHANGE_LANGUAGE,
+        page: () => ChangeLanguageView(
+              onSubmit: null,
+            ),
+        binding: ChangeLanguageBinding(),
+        transition: Transition.fadeIn,
+        transitionDuration: Duration(milliseconds: 600),
+        curve: Curves.fastOutSlowIn),
   ];
 }

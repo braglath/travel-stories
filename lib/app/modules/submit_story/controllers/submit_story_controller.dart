@@ -1,10 +1,13 @@
 import 'dart:convert';
-import 'package:firebase_messaging/firebase_messaging.dart';
+
 import 'package:flutter/material.dart';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
 import 'package:travel_diaries/app/data/Models/stories_model.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';

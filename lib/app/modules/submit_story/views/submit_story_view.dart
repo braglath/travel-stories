@@ -63,30 +63,6 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
                 height: 20,
               ),
               FadedScaleAnimation(
-                Stack(
-                  alignment: Alignment.topRight,
-                  children: [
-                    FloatingActionButton(
-                      heroTag: null,
-                      mini: true,
-                      tooltip: 'chat room',
-                      child: FaIcon(
-                        FontAwesomeIcons.comment,
-                        color: ColorResourcesLight.mainLIGHTAPPBARcolor,
-                      ),
-                      onPressed: () => Get.toNamed(Routes.LOADING_CHAT_ROOM),
-                    ),
-                    CircleAvatar(
-                      radius: 8,
-                      backgroundColor: Colors.red,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              FadedScaleAnimation(
                 _floatingActionButton(context, FontAwesomeIcons.plus, 'Post',
                     () => Get.toNamed(Routes.POST_STORY)),
               ),

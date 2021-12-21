@@ -44,8 +44,8 @@ class ProfileView extends GetView<ProfileController> {
           FontAwesomeIcons.book, () => Get.toNamed(Routes.MY_STORIES)),
       MenuTile('Favorites', 'Stories which you liked', FontAwesomeIcons.heart,
           () => Get.toNamed(Routes.FAVE_STORIES)),
-      MenuTile(
-          'Localization', 'Set app language', FontAwesomeIcons.globe, () {}),
+      MenuTile('Localization', 'Set app language', FontAwesomeIcons.globe,
+          () => Get.toNamed(Routes.CHANGE_LANGUAGE, arguments: true)),
       MenuTile('Contact us', 'Submit your query', Icons.email,
           () => Get.toNamed(Routes.CONTACT_US)),
       MenuTile(

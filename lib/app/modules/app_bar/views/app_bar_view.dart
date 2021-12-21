@@ -120,7 +120,14 @@ class AppBarView extends GetView<AppBarController>
                   .name!
                   .contains('/other-profile') ||
               ModalRoute.of(context)!.settings.name!.contains('/chat-room') ||
-              ModalRoute.of(context)!.settings.name!.contains('/privacy-policy')
+              ModalRoute.of(context)!
+                  .settings
+                  .name!
+                  .contains('/privacy-policy') ||
+              ModalRoute.of(context)!
+                  .settings
+                  .name!
+                  .contains('/change-language')
           ? null
           : <Widget>[
               _profileImage(context),
