@@ -1,5 +1,7 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:travel_diaries/app/data/Services/utils.dart';
+import 'package:travel_diaries/app/data/storage/user_details.dart';
 
 class NotificationService {
   static final NotificationService _notificationService =
@@ -35,15 +37,24 @@ class NotificationService {
 
   Future<void> showNotification(
       int id, String title, String body, int seconds) async {
+    final largeIconPath = await Utils.downloadFile(
+        UserDetails().readUserProfilePicfromBox(), 'profileImage');
+    final styleInformation = BigPictureStyleInformation(
+      FilePathAndroidBitmap(
+          ''), //? this is for the big image below notification
+      largeIcon: FilePathAndroidBitmap(largeIconPath),
+    );
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       title,
       body,
       tz.TZDateTime.now(tz.local).add(Duration(seconds: seconds)),
-      const NotificationDetails(
+      NotificationDetails(
         android: AndroidNotificationDetails('main_channel', 'Main Channel',
             importance: Importance.max,
             priority: Priority.max,
+            playSound: true,
+            styleInformation: styleInformation,
             icon: '@mipmap/launcher_icon'),
         iOS: IOSNotificationDetails(
           sound: 'default.wav',

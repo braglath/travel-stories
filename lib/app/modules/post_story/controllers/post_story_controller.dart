@@ -358,14 +358,14 @@ class PostStoryController extends GetxController {
                   'The title of this story already exists! Kindly change the title')
           .showWarning();
     } else {
-      if (details.toString().contains("true")) {
+      if (details.toString().contains('true')) {
         print('story added');
         isloading.value = false;
         CustomSnackbar(title: 'Success', message: 'Story added successfully')
             .showSuccess();
         NotificationService().showNotification(
             1,
-            "${UserDetails().readUserNamefromBox()}, has posted a story",
+            '${UserDetails().readUserNamefromBox()}, has posted a story',
             _titleController.text,
             5);
         currentStep.value = 0;

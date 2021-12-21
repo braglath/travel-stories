@@ -1,13 +1,16 @@
 import 'dart:convert';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:travel_diaries/app/data/Models/stories_model.dart';
+import 'package:travel_diaries/app/data/storage/user_details.dart';
+import 'package:travel_diaries/app/data/utils/color_resources.dart';
+import 'package:travel_diaries/app/views/views/custom_dialogue_view.dart';
 import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
+import 'package:travel_diaries/main.dart';
 
 class SubmitStoryController extends GetxController {
   final defaultChoiceIndex = 0.obs;
@@ -39,6 +42,36 @@ class SubmitStoryController extends GetxController {
   void onInit() {
     fetchStories(travelmodes[defaultChoiceIndex.value]);
     scrollController.value.addListener(_scrollListener);
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+                android: AndroidNotificationDetails(channel.id, channel.name,
+                    color: ColorResourcesLight.mainLIGHTColor,
+                    playSound: true,
+                    enableLights: true,
+                    enableVibration: true,
+                    priority: Priority.high,
+                    icon: '@mipmap/launcher_icon')));
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('A new onMessageOpenedApp event was published');
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        CustomSnackbar(
+                title: 'Success',
+                message: 'Welcome back, ${UserDetails().readUserNamefromBox()}')
+            .showSuccess();
+      }
+    });
     super.onInit();
   }
 
@@ -51,16 +84,6 @@ class SubmitStoryController extends GetxController {
   void onClose() {
     scrollController.value.removeListener(_scrollListener);
   }
-
-  // void animateHeight() {
-  //   if (isLarge.isFalse) {
-  //     animatedHeight.value = 400;
-  //     isLarge.value = true;
-  //   } else {
-  //     animatedHeight.value = 0;
-  //     isLarge.value = false;
-  //   }
-  // }
 
   Future<bool> pressBackAgainToExit() async {
     final difference = DateTime.now().difference(timeBackButtonPressed);
