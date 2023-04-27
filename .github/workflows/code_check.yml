@@ -16,7 +16,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v1
+          # The flutter action needs java so include it
+      - uses: actions/setup-java@v1
+        with:
+         java-version: '12.x'
+      # Include the flutter action
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'  
+    # Get flutter packages
 
       # Note: This workflow uses the latest stable version of the Dart SDK.
       # You can specify other versions if desired, see documentation here:
@@ -25,16 +34,16 @@ jobs:
       - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
 
       - name: Install dependencies
-        run: dart pub get
+        run: flutter pub get
 
       - name: Auto quickfix lints
         run: dart fix --apply
         
       - name: Analyze code
-        run: dart analyze
+        run: flutter analyze
 
       - name: Format code
         run: dart format --set-exit-if-changed lib
 
       - name: Run tests
-        run: dart test
+        run: flutter test
