@@ -6,26 +6,27 @@
 name: Dart
 
 on:
-  push:
-    branches: [ "main" ]
+  # push:
+  #   branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
-  build:
+  code_quality:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses:
+          actions/checkout@v1
           # The flutter action needs java so include it
       - uses: actions/setup-java@v1
         with:
-         java-version: '12.x'
+          java-version: "12.x"
       # Include the flutter action
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'stable'  
-    # Get flutter packages
+          channel: "stable"
+      # Get flutter packages
 
       # Note: This workflow uses the latest stable version of the Dart SDK.
       # You can specify other versions if desired, see documentation here:
@@ -36,9 +37,9 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Auto quickfix lints
+      - name: Auto quick-fix on lint errors
         run: dart fix --apply
-        
+
       - name: Analyze code
         run: flutter analyze
 
