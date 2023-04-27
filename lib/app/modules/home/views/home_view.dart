@@ -34,7 +34,7 @@ class HomeView extends GetView<HomeController> {
                         padding: const EdgeInsets.all(12.0),
                         child: Text(
                           'Login',
-                          style: context.theme.textTheme.headline1,
+                          style: context.theme.textTheme.displayLarge,
                         ),
                       ),
                       Hero(
@@ -69,7 +69,7 @@ class HomeView extends GetView<HomeController> {
                                       child: Text(
                                         'Login',
                                         style:
-                                            context.theme.textTheme.headline6,
+                                            context.theme.textTheme.titleLarge,
                                       ),
                                     ),
                                   ),
@@ -87,11 +87,12 @@ class HomeView extends GetView<HomeController> {
                             child: RichText(
                               text: TextSpan(
                                 text: 'Dont have an account? ',
-                                style: context.theme.textTheme.headline4,
+                                style: context.theme.textTheme.headlineMedium,
                                 children: <TextSpan>[
                                   TextSpan(
                                       text: 'Sign up',
-                                      style: context.theme.textTheme.headline4
+                                      style: context
+                                          .theme.textTheme.headlineMedium
                                           ?.copyWith(
                                         color:
                                             ColorResourcesLight.mainLIGHTColor,
@@ -111,7 +112,7 @@ class HomeView extends GetView<HomeController> {
                           Container(
                             margin: EdgeInsets.symmetric(horizontal: 5),
                             child: Text('Other options',
-                                style: context.theme.textTheme.headline4
+                                style: context.theme.textTheme.headlineMedium
                                     ?.copyWith(fontSize: 15)),
                           ),
                           Expanded(child: Divider()),
@@ -138,11 +139,12 @@ class HomeView extends GetView<HomeController> {
                             child: RichText(
                               text: TextSpan(
                                 text: 'Test the app! ',
-                                style: context.theme.textTheme.headline4,
+                                style: context.theme.textTheme.headlineMedium,
                                 children: <TextSpan>[
                                   TextSpan(
                                       text: 'Go anonymous',
-                                      style: context.theme.textTheme.headline4
+                                      style: context
+                                          .theme.textTheme.headlineMedium
                                           ?.copyWith(
                                         color:
                                             ColorResourcesLight.mainLIGHTColor,
@@ -186,7 +188,7 @@ class HomeView extends GetView<HomeController> {
             ),
             Text(
               'Facebook',
-              style: context.theme.textTheme.headline4?.copyWith(
+              style: context.theme.textTheme.headlineMedium?.copyWith(
                   color: ColorResourcesLight.mainLIGHTAPPBARcolor,
                   fontSize: 15),
             )
@@ -209,7 +211,7 @@ class HomeView extends GetView<HomeController> {
             ),
             Text(
               'Google',
-              style: context.theme.textTheme.headline4?.copyWith(
+              style: context.theme.textTheme.headlineMedium?.copyWith(
                   color: ColorResourcesLight.mainLIGHTAPPBARcolor,
                   fontSize: 15),
             )
@@ -227,7 +229,9 @@ class HomeView extends GetView<HomeController> {
         onSaved: (value) {
           controller.name.value = value!;
         },
-        validator: (value) {},
+        validator: (value) {
+          return null;
+        },
         decoration: InputDecoration(
           prefixIcon: Icon(
             Icons.person,
@@ -250,6 +254,8 @@ class HomeView extends GetView<HomeController> {
               controller.password.value = value!;
             },
             validator: (value) {
+              return null;
+
               // return controller.validatePassword(value!);
             },
             obscureText: controller.obscured.value,

@@ -27,11 +27,6 @@ class FaveStoriesController extends GetxController {
   }
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {
     scrollController.value.removeListener(_scrollListener);
   }
@@ -114,19 +109,19 @@ class FaveStoriesController extends GetxController {
     required FavStoriesModel storiesIndex,
   }) async {
     var url = 'http://ubermensch.studio/travel_stories/removefavstories.php';
-    var uri = Uri.parse(url);
+    // var uri = Uri.parse(url);
     var data = {
-      "title": title,
-      "authorid": authorid,
-      "likedpersonid": likedpersonid,
-      "likedpersonname": likedpersonname
+      'title': title,
+      'authorid': authorid,
+      'likedpersonid': likedpersonid,
+      'likedpersonname': likedpersonname
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
     print(jsonEncode(data));
     var details = json.decode(json.encode(res.body));
 
-    if (details.toString().contains("Story deleted successfully")) {
+    if (details.toString().contains('Story deleted successfully')) {
       // todo change stories table in sql
       Get.back();
       updateStoriesAfterLikes(
@@ -161,10 +156,10 @@ class FaveStoriesController extends GetxController {
   }) async {
     var url = 'http://ubermensch.studio/travel_stories/updatestorieslikes.php';
     var data = {
-      "likes": likes,
-      "personid": authorID,
-      "personname": authorName,
-      "title": title
+      'likes': likes,
+      'personid': authorID,
+      'personname': authorName,
+      'title': title
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);

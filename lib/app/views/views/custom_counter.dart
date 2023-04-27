@@ -20,7 +20,7 @@ class _CustomCounterState extends State<CustomCounter> {
       builder: (BuildContext context, double _val, Widget? child) {
         return Text(
           _val.toInt().toString(),
-          style: context.theme.textTheme.headline2,
+          style: context.theme.textTheme.displayMedium,
           textAlign: TextAlign.center,
         );
       },

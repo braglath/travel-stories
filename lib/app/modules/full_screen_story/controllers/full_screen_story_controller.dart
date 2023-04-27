@@ -15,8 +15,6 @@ import 'package:share_plus/share_plus.dart';
 import 'package:travel_diaries/app/data/Models/comments_model.dart';
 import 'package:travel_diaries/app/data/Services/api_services.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
-import 'package:travel_diaries/app/routes/app_pages.dart';
-import 'package:travel_diaries/app/views/views/custom_dialogue_view.dart';
 import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 
 class FullScreenStoryController extends GetxController {
@@ -40,13 +38,6 @@ class FullScreenStoryController extends GetxController {
   final ScreenshotController screenshotController = ScreenshotController();
 
   @override
-  void onInit() {
-    super.onInit();
-    // todo check weather the user is saved this activity
-    // todo check if the user has commented already
-  }
-
-  @override
   void onReady() {
     super.onReady();
     getComments();
@@ -67,7 +58,7 @@ class FullScreenStoryController extends GetxController {
     }
   }
 
-  Future saveAndShare(Uint8List bytes) async {
+  Future<void> saveAndShare(Uint8List bytes) async {
     final directory = await getApplicationDocumentsDirectory();
     final image = File('${directory.path}/travel_stories.png');
     image.writeAsBytesSync(bytes);
@@ -120,19 +111,19 @@ class FullScreenStoryController extends GetxController {
   void postComments() async {
     var url = 'http://ubermensch.studio/travel_stories/postcomments.php';
     var data = {
-      "commenterid": UserDetails().readUserIDfromBox(),
-      "commentername": UserDetails().readUserNamefromBox(),
-      "commenterprofilepic": UserDetails().readUserProfilePicfromBox(),
-      "comment": comment.toString(),
-      "storyid": storyID.toString(),
-      "storytitle": storyTitle.toString(),
+      'commenterid': UserDetails().readUserIDfromBox(),
+      'commentername': UserDetails().readUserNamefromBox(),
+      'commenterprofilepic': UserDetails().readUserProfilePicfromBox(),
+      'comment': comment.toString(),
+      'storyid': storyID.toString(),
+      'storytitle': storyTitle.toString(),
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
     print(jsonEncode(data));
     var details = json.decode(json.encode(res.body));
 
-    if (details.toString().contains("already commented")) {
+    if (details.toString().contains('already commented')) {
       print('already commented');
 
       height.value = 0;
@@ -144,7 +135,7 @@ class FullScreenStoryController extends GetxController {
               message: 'You have already commented for this story')
           .showWarning();
     } else {
-      if (details.toString().contains("true")) {
+      if (details.toString().contains('true')) {
         print('comment posted');
         getComments();
         await APIservices.getComments(
@@ -160,7 +151,7 @@ class FullScreenStoryController extends GetxController {
                 title: 'Posted',
                 message: 'Your comment has been successfully posted')
             .showSuccess();
-      } else if (details.toString().contains("false")) {
+      } else if (details.toString().contains('false')) {
         print('check connection');
         CustomSnackbar(
                 title: 'Warning', message: 'Check your internet connection')
@@ -233,25 +224,25 @@ class FullScreenStoryController extends GetxController {
     required String date,
   }) async {
     var url = 'http://ubermensch.studio/travel_stories/addfavstories.php';
-    var uri = Uri.parse(url);
+    // var uri = Uri.parse(url);
     var data = {
-      "authorid": authorid,
-      "authorname": authorname,
-      "authorprofilepic": authorprofilepic,
-      "likedpersonname": likedpersonname,
-      "likedpersonid": likedpersonid,
-      "title": title,
-      "category": category,
-      "body": body,
-      "likes": count.value.toString(),
-      "date": date
+      'authorid': authorid,
+      'authorname': authorname,
+      'authorprofilepic': authorprofilepic,
+      'likedpersonname': likedpersonname,
+      'likedpersonid': likedpersonid,
+      'title': title,
+      'category': category,
+      'body': body,
+      'likes': count.value.toString(),
+      'date': date
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
     print(jsonEncode(data));
     var details = json.decode(json.encode(res.body));
 
-    if (details.toString().contains("error")) {
+    if (details.toString().contains('error')) {
       print('already liked');
 
       count.value = count.value - 1;
@@ -261,7 +252,7 @@ class FullScreenStoryController extends GetxController {
               message: 'This story is already in your favorites list')
           .showWarning();
     } else {
-      if (details.toString().contains("true")) {
+      if (details.toString().contains('true')) {
         print('saved to fav');
         // todo change stories table in sql
         updateStoriesAfterLikes(
@@ -274,7 +265,7 @@ class FullScreenStoryController extends GetxController {
                 message:
                     'This story has been successfully saved to your favorites list')
             .showSuccess();
-      } else if (details.toString().contains("false")) {
+      } else if (details.toString().contains('false')) {
         print('check connection');
         count.value = count.value - 1;
         isLiked.value = false;
@@ -293,19 +284,19 @@ class FullScreenStoryController extends GetxController {
       required String likedpersonname,
       required String authorName}) async {
     var url = 'http://ubermensch.studio/travel_stories/removefavstories.php';
-    var uri = Uri.parse(url);
+    // var uri = Uri.parse(url);
     var data = {
-      "title": title,
-      "authorid": authorid,
-      "likedpersonid": likedpersonid,
-      "likedpersonname": likedpersonname
+      'title': title,
+      'authorid': authorid,
+      'likedpersonid': likedpersonid,
+      'likedpersonname': likedpersonname
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
     print(jsonEncode(data));
     var details = json.decode(json.encode(res.body));
 
-    if (details.toString().contains("Story deleted successfully")) {
+    if (details.toString().contains('Story deleted successfully')) {
       // todo change stories table in sql
       updateStoriesAfterLikes(
           authorID: authorid,
@@ -337,17 +328,17 @@ class FullScreenStoryController extends GetxController {
   }) async {
     var url = 'http://ubermensch.studio/travel_stories/checklikedstories.php';
     var data = {
-      "title": title,
-      "authorid": authorid,
-      "likedpersonid": likedpersonid,
-      "likedpersonname": likedpersonname
+      'title': title,
+      'authorid': authorid,
+      'likedpersonid': likedpersonid,
+      'likedpersonname': likedpersonname
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
     print(jsonEncode(data));
     var details = json.decode(json.encode(res.body));
 
-    if (details.toString().contains("true")) {
+    if (details.toString().contains('true')) {
       print('already liked');
       isLiked.value = true;
     } else {
@@ -365,10 +356,10 @@ class FullScreenStoryController extends GetxController {
   }) async {
     var url = 'http://ubermensch.studio/travel_stories/updatestorieslikes.php';
     var data = {
-      "likes": likes,
-      "personid": authorID,
-      "personname": authorName,
-      "title": title
+      'likes': likes,
+      'personid': authorID,
+      'personname': authorName,
+      'title': title
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);

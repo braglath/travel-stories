@@ -19,10 +19,10 @@ class EditProfileController extends GetxController {
       emailController,
       passwordController,
       captionController;
-  var name;
-  var email;
-  var password;
-  var caption;
+  String name = '';
+  String email = '';
+  String password = '';
+  String caption = '';
   var profileImage = ''.obs;
   XFile? photo;
   final defaultChoiceIndex = 0.obs;
@@ -52,11 +52,6 @@ class EditProfileController extends GetxController {
   }
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {
     nameController.dispose();
     emailController.dispose();
@@ -78,7 +73,7 @@ class EditProfileController extends GetxController {
     }
   }
 
-  Future pickImage(ImageSource source) async {
+  Future<void> pickImage(ImageSource source) async {
     isLoading.value = true;
     try {
       final ImagePicker _picker = ImagePicker();
@@ -107,14 +102,14 @@ class EditProfileController extends GetxController {
     }
   }
 
-  Future uploadProfileImageToDB() async {
+  Future<void> uploadProfileImageToDB() async {
     final uri = Uri.parse(
-        "http://ubermensch.studio/travel_stories/addprofileimage.php");
+        'http://ubermensch.studio/travel_stories/addprofileimage.php');
     var request = http.MultipartRequest('POST', uri);
     request.fields['name'] = UserDetails().readUserNamefromBox();
     request.fields['id'] = UserDetails().readUserIDfromBox();
     var path = photo?.path;
-    var pic = await http.MultipartFile.fromPath("image", path.toString());
+    var pic = await http.MultipartFile.fromPath('image', path.toString());
     request.files.add(pic);
     var response = await request.send();
     if (response.statusCode == 200) {
@@ -127,14 +122,14 @@ class EditProfileController extends GetxController {
     }
   }
 
-  Future saveProfilePicToStories() async {
+  Future<void> saveProfilePicToStories() async {
     final uri = Uri.parse(
-        "http://ubermensch.studio/travel_stories/storiesprofilepic.php");
+        'http://ubermensch.studio/travel_stories/storiesprofilepic.php');
     var request = http.MultipartRequest('POST', uri);
     request.fields['personname'] = UserDetails().readUserNamefromBox();
     request.fields['personid'] = UserDetails().readUserIDfromBox();
     var path = photo?.path;
-    var pic = await http.MultipartFile.fromPath("image", path.toString());
+    var pic = await http.MultipartFile.fromPath('image', path.toString());
     request.files.add(pic);
     var response = await request.send();
     if (response.statusCode == 200) {
@@ -149,19 +144,19 @@ class EditProfileController extends GetxController {
 
   void getUserDetails() async {
     var url = 'http://ubermensch.studio/travel_stories/login.php';
-    var uri = Uri.parse(url);
+    // var uri = Uri.parse(url);
     var data = {
-      "name": UserDetails().readUserNamefromBox(),
-      "password": UserDetails().readUserPasswordfromBox(),
+      'name': UserDetails().readUserNamefromBox(),
+      'password': UserDetails().readUserPasswordfromBox(),
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
     if (res.statusCode == 200) {
       isLoading.value = false;
       print('till here 3');
-      final List list = json.decode(res.body);
+      final List<dynamic> list = json.decode(res.body);
       print(list);
-      UserDetails().saveUserNametoBox(list[0]['name']);
+      UserDetails().saveUserNameToBox(list[0]['name']);
       UserDetails().saveUserPhoneorEmailtoBox(list[0]['phoneoremail']);
       UserDetails().saveUserPasswordtoBox(list[0]['password']);
       UserDetails().saveUserFavtoBox(list[0]['fav']);
@@ -171,7 +166,7 @@ class EditProfileController extends GetxController {
       profileImage.value = UserDetails().readUserProfilePicfromBox();
       Get.back();
 
-      CustomSnackbar(title: 'Success', message: "Profile image updated")
+      CustomSnackbar(title: 'Success', message: 'Profile image updated')
           .showSuccess();
     } else {
       isLoading.value = false;
@@ -183,14 +178,14 @@ class EditProfileController extends GetxController {
   void saveUserDetails() async {
     isLoading.value = true;
     var url = 'http://ubermensch.studio/travel_stories/editusers.php';
-    var uri = Uri.parse(url);
+    // var uri = Uri.parse(url);
     var data = {
-      "id": UserDetails().readUserIDfromBox(),
-      "name": nameController.text,
-      "phoneoremail": emailController.text,
-      "password": passwordController.text,
-      "fav": travelmodes[defaultChoiceIndex.value],
-      "caption": captionController.text
+      'id': UserDetails().readUserIDfromBox(),
+      'name': nameController.text,
+      'phoneoremail': emailController.text,
+      'password': passwordController.text,
+      'fav': travelmodes[defaultChoiceIndex.value],
+      'caption': captionController.text
     };
     print(data);
     http.Response res = await http.post(Uri.parse(url), body: data);
@@ -202,12 +197,12 @@ class EditProfileController extends GetxController {
     }
   }
 
-  Future saveUserDetailsToStories() async {
+  Future<void> saveUserDetailsToStories() async {
     isLoading.value = true;
     var url = 'http://ubermensch.studio/travel_stories/storiesuserdetails.php';
     var data = {
-      "personid": UserDetails().readUserIDfromBox(),
-      "personname": nameController.text,
+      'personid': UserDetails().readUserIDfromBox(),
+      'personname': nameController.text,
     };
     print(data);
     http.Response res = await http.post(Uri.parse(url), body: data);
@@ -221,19 +216,19 @@ class EditProfileController extends GetxController {
 
   void getUserDetails2(String name, String password) async {
     var url = 'http://ubermensch.studio/travel_stories/login.php';
-    var uri = Uri.parse(url);
+    // var uri = Uri.parse(url);
     var data = {
-      "name": name,
-      "password": password,
+      'name': name,
+      'password': password,
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
     if (res.statusCode == 200) {
       isLoading.value = false;
       print('till here 3');
-      final List list = json.decode(res.body);
+      final List<dynamic> list = json.decode(res.body);
       print(list);
-      UserDetails().saveUserNametoBox(list[0]['name']);
+      UserDetails().saveUserNameToBox(list[0]['name']);
       UserDetails().saveUserPhoneorEmailtoBox(list[0]['phoneoremail']);
       UserDetails().saveUserPasswordtoBox(list[0]['password']);
       UserDetails().saveUserFavtoBox(list[0]['fav']);
@@ -243,7 +238,7 @@ class EditProfileController extends GetxController {
       profileImage.value = UserDetails().readUserProfilePicfromBox();
       Get.back();
 
-      CustomSnackbar(title: 'Success', message: "Profile updated successfully")
+      CustomSnackbar(title: 'Success', message: 'Profile updated successfully')
           .showSuccess();
     } else {
       isLoading.value = false;

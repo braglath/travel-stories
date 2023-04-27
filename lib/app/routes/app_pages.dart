@@ -87,7 +87,7 @@ class AppPages {
         // transition: Transition.rightToLeftWithFade,
         // transitionDuration: Duration(milliseconds: 600),
         // curve: Curves.fastOutSlowIn
-        children: <GetPage>[
+        children: <GetPage<dynamic>>[
           GetPage(
             name: _Paths.FAVE_STORIES,
             page: () => FaveStoriesView(),

@@ -10,7 +10,6 @@ import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 import 'package:travel_diaries/app/views/views/custom_dialogue_view.dart';
-import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 import 'package:travel_diaries/app/views/views/custom_story_bar_widget_view.dart';
 
 import '../controllers/fave_stories_controller.dart';
@@ -144,28 +143,28 @@ class FaveStoriesView extends GetView<FaveStoriesController> {
               storyId: _controller.id,
               listTileOnTap: () =>
                   Get.toNamed(Routes.FAV_FULL_SCREEN, arguments: [
-                {"authorname": _controller.authorname},
-                {"authorprofilepic": _controller.authorprofilepic},
-                {"authorid": _controller.authorid},
-                {"storytitle": _controller.title},
-                {"storycategory": _controller.category},
-                {"storybody": _controller.body},
-                {"storylikes": _controller.likes},
-                {"storyid": _controller.id},
-                {"storydate": _controller.date.toString()}
+                {'authorname': _controller.authorname},
+                {'authorprofilepic': _controller.authorprofilepic},
+                {'authorid': _controller.authorid},
+                {'storytitle': _controller.title},
+                {'storycategory': _controller.category},
+                {'storybody': _controller.body},
+                {'storylikes': _controller.likes},
+                {'storyid': _controller.id},
+                {'storydate': _controller.date.toString()}
               ]),
               storyBody: _controller.body,
               readmoreOnTap: () =>
                   Get.toNamed(Routes.FAV_FULL_SCREEN, arguments: [
-                {"authorname": _controller.authorname},
-                {"authorprofilepic": _controller.authorprofilepic},
-                {"authorid": _controller.authorid},
-                {"storytitle": _controller.title},
-                {"storycategory": _controller.category},
-                {"storybody": _controller.body},
-                {"storylikes": _controller.likes},
-                {"storyid": _controller.id},
-                {"storydate": _controller.date.toString()}
+                {'authorname': _controller.authorname},
+                {'authorprofilepic': _controller.authorprofilepic},
+                {'authorid': _controller.authorid},
+                {'storytitle': _controller.title},
+                {'storycategory': _controller.category},
+                {'storybody': _controller.body},
+                {'storylikes': _controller.likes},
+                {'storyid': _controller.id},
+                {'storydate': _controller.date.toString()}
               ]),
             ),
             FadedScaleAnimation(

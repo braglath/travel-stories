@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -10,7 +8,6 @@ import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/edit_my_stories/views/edit_my_stories_view.dart';
-import 'package:travel_diaries/app/modules/post_story/views/post_story_view.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 
@@ -48,16 +45,6 @@ class EditMyStoriesController extends GetxController {
             title: Text('Confirm'),
             content: stepperThree()),
       ].obs;
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   @override
   void onClose() {}
@@ -125,7 +112,9 @@ class EditMyStoriesController extends GetxController {
             expands: true,
             controller: titleController,
             // autovalidate: true,
-            validator: (val) {},
+            validator: (val) {
+              return null;
+            },
             decoration: InputDecoration(
               labelText: title,
             )),
@@ -166,7 +155,9 @@ class EditMyStoriesController extends GetxController {
             keyboardType: TextInputType.multiline,
             textInputAction: TextInputAction.newline,
             // autovalidate: true,
-            validator: (val) {},
+            validator: (val) {
+              return null;
+            },
             decoration: InputDecoration(
               labelText: title,
             )),
@@ -222,7 +213,7 @@ class EditMyStoriesController extends GetxController {
                                     .readUserProfilePicfromBox()
                                     .isNotEmpty
                                 ? NetworkImage(
-                                    "http://ubermensch.studio/travel_stories/profileimages/${UserDetails().readUserProfilePicfromBox()}")
+                                    'http://ubermensch.studio/travel_stories/profileimages/${UserDetails().readUserProfilePicfromBox()}')
                                 : null,
                           )
                         ],
@@ -273,7 +264,7 @@ class EditMyStoriesController extends GetxController {
   void editMyStory({required oldtitle, required id}) async {
     print('body - ${bodyController.text}');
     var url = 'http://ubermensch.studio/travel_stories/editmystory.php';
-    var uri = Uri.parse(url);
+    // var uri = Uri.parse(url);
     var data = {
       'personid': UserDetails().readUserIDfromBox(),
       'personname': UserDetails().readUserNamefromBox(),

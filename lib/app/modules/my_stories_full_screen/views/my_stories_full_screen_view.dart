@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:screenshot/screenshot.dart';
 
-import 'package:travel_diaries/app/data/Models/my_stories_model.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
@@ -125,7 +124,7 @@ class MyStoriesFullScreenView extends GetView<MyStoriesFullScreenController> {
                                             Text(
                                               controller.count.toString(),
                                               style: context
-                                                  .theme.textTheme.caption,
+                                                  .theme.textTheme.bodySmall,
                                             ),
                                           ],
                                         );
@@ -157,7 +156,7 @@ class MyStoriesFullScreenView extends GetView<MyStoriesFullScreenController> {
                                                     : ColorResourcesDark
                                                         .mainDARKColor,
                                             backgroundImage: NetworkImage(
-                                                "http://ubermensch.studio/travel_stories/profileimages/$authorprofilepic")),
+                                                'http://ubermensch.studio/travel_stories/profileimages/$authorprofilepic')),
                                       )
                                     ],
                                   ),
@@ -180,7 +179,7 @@ class MyStoriesFullScreenView extends GetView<MyStoriesFullScreenController> {
                                     children: [
                                       Text(
                                         storycategory,
-                                        style: context.theme.textTheme.caption
+                                        style: context.theme.textTheme.bodySmall
                                             ?.copyWith(fontSize: 12),
                                       ),
                                       Container(
@@ -191,10 +190,10 @@ class MyStoriesFullScreenView extends GetView<MyStoriesFullScreenController> {
                                       ),
                                       Text(
                                         authorName.length > 12
-                                            ? authorName.replaceFirst(" ", "\n")
+                                            ? authorName.replaceFirst(' ', '\n')
                                             : authorName,
                                         textAlign: TextAlign.center,
-                                        style: context.theme.textTheme.caption
+                                        style: context.theme.textTheme.bodySmall
                                             ?.copyWith(fontSize: 12),
                                       ),
                                       Container(
@@ -205,7 +204,7 @@ class MyStoriesFullScreenView extends GetView<MyStoriesFullScreenController> {
                                       ),
                                       Text(
                                         storydate.toString().trim(),
-                                        style: context.theme.textTheme.caption
+                                        style: context.theme.textTheme.bodySmall
                                             ?.copyWith(fontSize: 12),
                                       ),
                                     ],
@@ -282,7 +281,7 @@ class MyStoriesFullScreenView extends GetView<MyStoriesFullScreenController> {
                                               controller.comments.length
                                                   .toString(),
                                               style: context
-                                                  .theme.textTheme.caption,
+                                                  .theme.textTheme.bodySmall,
                                             );
                                           }),
                                         ],
@@ -299,10 +298,10 @@ class MyStoriesFullScreenView extends GetView<MyStoriesFullScreenController> {
                                         onPressed: () => Get.toNamed(
                                                 Routes.EDIT_MY_STORIES,
                                                 arguments: {
-                                                  "title": storytitle,
-                                                  "category": storycategory,
-                                                  "body": storybody,
-                                                  "id": storyid
+                                                  'title': storytitle,
+                                                  'category': storycategory,
+                                                  'body': storybody,
+                                                  'id': storyid
                                                 }),
                                         icon: FaIcon(FontAwesomeIcons.edit)),
                                     IconButton(
@@ -342,7 +341,7 @@ class MyStoriesFullScreenView extends GetView<MyStoriesFullScreenController> {
                       children: [
                         Text(
                           'Comments',
-                          style: context.theme.textTheme.caption,
+                          style: context.theme.textTheme.bodySmall,
                         ),
                         Obx(
                           () => IconButton(
@@ -390,8 +389,8 @@ class MyStoriesFullScreenView extends GetView<MyStoriesFullScreenController> {
                                           controller.validateComment(value!),
                                       decoration: InputDecoration(
                                           labelText: 'Your comment',
-                                          labelStyle:
-                                              context.theme.textTheme.caption),
+                                          labelStyle: context
+                                              .theme.textTheme.bodySmall),
                                     ),
                                   )
                                 : SizedBox.shrink(),

@@ -14,7 +14,7 @@ import 'package:travel_diaries/app/views/views/menu_screen_view.dart';
 import '../controllers/navigation_drawer_controller.dart';
 
 class NavigationDrawerView extends GetView<NavigationDrawerController> {
-  @override
+  // @override
   final controller2 = Get.put<SubmitStoryController>(SubmitStoryController(),
       tag: 'submitstorycontroller');
   final controller3 =

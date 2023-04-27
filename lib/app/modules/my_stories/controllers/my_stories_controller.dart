@@ -24,11 +24,6 @@ class MyStoriesController extends GetxController {
   }
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {
     scrollController.value.removeListener(_scrollListener);
   }
@@ -84,18 +79,18 @@ class MyStoriesController extends GetxController {
       required personname,
       required MyStoriesModel storiesIndex}) async {
     var url = 'http://ubermensch.studio/travel_stories/removemystories.php';
-    var uri = Uri.parse(url);
+    // var uri = Uri.parse(url);
     var data = {
-      "id": id,
-      "personid": personid,
-      "personname": personname,
+      'id': id,
+      'personid': personid,
+      'personname': personname,
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
     print(jsonEncode(data));
     var details = json.decode(json.encode(res.body));
 
-    if (details.toString().contains("Story deleted successfully")) {
+    if (details.toString().contains('Story deleted successfully')) {
       // todo change stories table in sql
       print('success');
       story.remove(storiesIndex);

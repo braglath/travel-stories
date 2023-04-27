@@ -145,7 +145,7 @@ class ProfileView extends GetView<ProfileController> {
                                                 .profilePicture.value
                                                 .contains('https')
                                             ? controller.profilePicture.value
-                                            : "http://ubermensch.studio/travel_stories/profileimages/${controller.profilePicture.value}")
+                                            : 'http://ubermensch.studio/travel_stories/profileimages/${controller.profilePicture.value}')
                                         : null),
                               ),
                             ],
@@ -165,14 +165,14 @@ class ProfileView extends GetView<ProfileController> {
                 TextSpan(
                     text: UserDetails().readUserNamefromBox().length > 18
                         ? "${UserDetails().readUserNamefromBox().replaceAll(" ", "\n")} \n"
-                        : "${UserDetails().readUserNamefromBox()} \n",
-                    style: context.theme.textTheme.headline3),
+                        : '${UserDetails().readUserNamefromBox()} \n',
+                    style: context.theme.textTheme.displaySmall),
                 TextSpan(
                     text: '${UserDetails().readUserPhoneorEmailfromBox()}\n',
-                    style: context.theme.textTheme.headline4),
+                    style: context.theme.textTheme.headlineMedium),
                 TextSpan(
-                    text: '${UserDetails().readUserCaptionfromBox()}',
-                    style: context.theme.textTheme.caption),
+                    text: UserDetails().readUserCaptionfromBox(),
+                    style: context.theme.textTheme.bodySmall),
               ],
             ),
           ),
@@ -241,7 +241,8 @@ class ProfileView extends GetView<ProfileController> {
                           children: [
                             FadedScaleAnimation(
                               Text(_menu[index].title!,
-                                  style: context.theme.textTheme.headline4),
+                                  style:
+                                      context.theme.textTheme.headlineMedium),
                               durationInMilliseconds: 400,
                             ),
                             SizedBox(
@@ -253,7 +254,7 @@ class ProfileView extends GetView<ProfileController> {
                               children: [
                                 Text(
                                   _menu[index].subtitle!,
-                                  style: context.theme.textTheme.caption,
+                                  style: context.theme.textTheme.bodySmall,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 Icon(
@@ -280,7 +281,7 @@ class ProfileView extends GetView<ProfileController> {
                                   mystoryController.story.length.toString(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline4
+                                      .headlineMedium
                                       ?.copyWith(
                                           color: ColorResourcesLight
                                               .mainLIGHTScaffoldBG),
@@ -300,7 +301,7 @@ class ProfileView extends GetView<ProfileController> {
                                           .toString(),
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline4
+                                          .headlineMedium
                                           ?.copyWith(
                                               color: ColorResourcesLight
                                                   .mainLIGHTScaffoldBG),
@@ -343,7 +344,7 @@ class ProfileView extends GetView<ProfileController> {
             ),
             title: Text(
               'Stories posted',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
               textAlign: TextAlign.center,
             ),
             subtitle: Obx(() {
@@ -376,7 +377,7 @@ class ProfileView extends GetView<ProfileController> {
             ),
             title: Text(
               'Total likes',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
               textAlign: TextAlign.center,
             ),
             subtitle: Obx(() {

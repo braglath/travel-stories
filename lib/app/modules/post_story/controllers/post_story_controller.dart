@@ -7,13 +7,11 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
-import 'package:travel_diaries/app/data/Services/api_services.dart';
 import 'package:travel_diaries/app/data/Services/notification.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/post_story/views/post_story_view.dart';
-import 'package:travel_diaries/app/modules/submit_story/controllers/submit_story_controller.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 
@@ -59,11 +57,6 @@ class PostStoryController extends GetxController {
   void onInit() {
     super.onInit();
     tz.initializeTimeZones();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   @override
@@ -140,7 +133,9 @@ class PostStoryController extends GetxController {
             expands: true,
             controller: _titleController,
             // autovalidate: true,
-            validator: (val) {},
+            validator: (val) {
+              return null;
+            },
             decoration: InputDecoration(
               labelText: title,
             )),
@@ -181,7 +176,9 @@ class PostStoryController extends GetxController {
             keyboardType: TextInputType.multiline,
             textInputAction: TextInputAction.newline,
             // autovalidate: true,
-            validator: (val) {},
+            validator: (val) {
+              return null;
+            },
             decoration: InputDecoration(
               labelText: title,
             )),
@@ -189,7 +186,7 @@ class PostStoryController extends GetxController {
 
   Widget stepperThree() {
     var dateTime = DateTime.now();
-    var formatedDate = "${dateTime.day}-${dateTime.month}-${dateTime.year}";
+    var formatedDate = '${dateTime.day}-${dateTime.month}-${dateTime.year}';
     return SingleChildScrollView(
       reverse: true,
       child: Container(
@@ -239,7 +236,7 @@ class PostStoryController extends GetxController {
                           backgroundImage: profilePicture.isNotEmpty
                               ? NetworkImage(profilePicture.contains('https')
                                   ? profilePicture
-                                  : "http://ubermensch.studio/travel_stories/profileimages/${profilePicture}")
+                                  : 'http://ubermensch.studio/travel_stories/profileimages/$profilePicture')
                               : null,
                         )
                       ],
@@ -265,7 +262,7 @@ class PostStoryController extends GetxController {
                       children: [
                         Text(
                           dropdownVal.toString().length > 12
-                              ? dropdownVal.toString().replaceAll(" ", "\n")
+                              ? dropdownVal.toString().replaceAll(' ', '\n')
                               : dropdownVal.toString(),
                           style: TextStyle().copyWith(
                               color: Colors.grey.shade500,
@@ -282,7 +279,7 @@ class PostStoryController extends GetxController {
                           UserDetails().readUserNamefromBox().length > 12
                               ? UserDetails()
                                   .readUserNamefromBox()
-                                  .replaceFirst(" ", "\n")
+                                  .replaceFirst(' ', '\n')
                               : UserDetails().readUserNamefromBox(),
                           textAlign: TextAlign.center,
                           style: TextStyle().copyWith(
@@ -334,7 +331,7 @@ class PostStoryController extends GetxController {
   void addStory() async {
     print('body - ${_bodyController.text}');
     var url = 'http://ubermensch.studio/travel_stories/addstory.php';
-    var uri = Uri.parse(url);
+    // var uri = Uri.parse(url);
     var data = {
       'title': _titleController.text,
       'category': dropdownVal.value,
@@ -349,7 +346,7 @@ class PostStoryController extends GetxController {
     http.Response res = await http.post(Uri.parse(url), body: data);
     var details = json.decode(json.encode(res.body));
     print('details - $details');
-    if (details.toString().contains("titleexists")) {
+    if (details.toString().contains('titleexists')) {
       print('story title exists');
       isloading.value = false;
       CustomSnackbar(
@@ -373,7 +370,7 @@ class PostStoryController extends GetxController {
         dropdownVal.value = 'Pick a category';
         _bodyController.clear();
         Get.offAllNamed(Routes.NAVIGATION_DRAWER);
-      } else if (details.toString().contains("false")) {
+      } else if (details.toString().contains('false')) {
         print('story error');
         isloading.value = false;
         CustomSnackbar(

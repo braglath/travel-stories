@@ -23,16 +23,6 @@ class OtherProfileController extends GetxController {
 // ?
 
   @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {}
   void increment() => count.value++;
 
@@ -40,7 +30,7 @@ class OtherProfileController extends GetxController {
     isLoading.value = true;
 
     var url = 'http://ubermensch.studio/travel_stories/getauthordetails.php';
-    var data = {"id": id, "name": name};
+    var data = {'id': id, 'name': name};
 
     http.Response res = await http.post(Uri.parse(url), body: data);
     print(res.statusCode);
@@ -71,7 +61,7 @@ class OtherProfileController extends GetxController {
   Future<List<MyStoriesModel>> getStoriesPosted(personId, personName) async {
     isLoading.value = true;
     var url = 'http://ubermensch.studio/travel_stories/getmystories.php';
-    var data = {"personid": personId, "personname": personName};
+    var data = {'personid': personId, 'personname': personName};
 
     http.Response res = await http.post(Uri.parse(url), body: data);
     print(res.statusCode);
@@ -99,6 +89,6 @@ class OtherProfileController extends GetxController {
     for (var i = 0; i < storiesPosted.length; i++) {
       totallikes.value += int.parse(storiesPosted[i].likes);
     }
-    print("total likes : ${totallikes.value}");
+    print('total likes : ${totallikes.value}');
   }
 }

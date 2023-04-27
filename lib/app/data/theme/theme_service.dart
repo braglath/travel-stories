@@ -14,7 +14,7 @@ class ThemeService {
   bool _loadThemeFromBox() => _box.read(_key) ?? false;
 
   /// Save isDarkMode to local storage
-  saveThemeToBox(bool isDarkMode) => _box.write(_key, isDarkMode);
+  Future<void> saveThemeToBox(bool isDarkMode) => _box.write(_key, isDarkMode);
 
   /// Switch theme and save to local storage
   void switchTheme() {

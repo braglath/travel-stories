@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,7 +10,7 @@ import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
 import '../controllers/edit_my_stories_controller.dart';
 
 class EditMyStoriesView extends GetView<EditMyStoriesController> {
-  List<String> travelmodes = [
+  final List<String> travelmodes = [
     'Pick a category',
     'Cycle',
     'Bike',
@@ -21,7 +20,7 @@ class EditMyStoriesView extends GetView<EditMyStoriesController> {
     'Flight'
   ];
 
-  List<IconData> travelIcons = [
+  final List<IconData> travelIcons = [
     Icons.flutter_dash,
     Icons.directions_bike_sharp,
     Icons.motorcycle_rounded,
@@ -30,6 +29,7 @@ class EditMyStoriesView extends GetView<EditMyStoriesController> {
     FontAwesomeIcons.train,
     Icons.flight_takeoff,
   ];
+
   @override
   final controller = Get.find(tag: 'editmystoriescontroller');
   final args = Get.arguments;

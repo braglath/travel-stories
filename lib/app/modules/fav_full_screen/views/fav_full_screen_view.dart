@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:screenshot/screenshot.dart';
 
-import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
@@ -129,7 +128,7 @@ class FavFullScreenView extends GetView<FavFullScreenController> {
                                             ),
                                             Text(controller.count.toString(),
                                                 style: context
-                                                    .theme.textTheme.caption),
+                                                    .theme.textTheme.bodySmall),
                                           ],
                                         );
                                       },
@@ -170,7 +169,7 @@ class FavFullScreenView extends GetView<FavFullScreenController> {
                                                       : ColorResourcesDark
                                                           .mainDARKColor,
                                               backgroundImage: NetworkImage(
-                                                  "http://ubermensch.studio/travel_stories/profileimages/$authorprofilepic")),
+                                                  'http://ubermensch.studio/travel_stories/profileimages/$authorprofilepic')),
                                         )
                                       ],
                                     ),
@@ -194,7 +193,7 @@ class FavFullScreenView extends GetView<FavFullScreenController> {
                                     children: [
                                       Text(
                                         storycategory,
-                                        style: context.theme.textTheme.caption
+                                        style: context.theme.textTheme.bodySmall
                                             ?.copyWith(fontSize: 12),
                                       ),
                                       Container(
@@ -205,10 +204,10 @@ class FavFullScreenView extends GetView<FavFullScreenController> {
                                       ),
                                       Text(
                                         authorName.length > 12
-                                            ? authorName.replaceFirst(" ", "\n")
+                                            ? authorName.replaceFirst(' ', '\n')
                                             : authorName,
                                         textAlign: TextAlign.center,
-                                        style: context.theme.textTheme.caption
+                                        style: context.theme.textTheme.bodySmall
                                             ?.copyWith(fontSize: 12),
                                       ),
                                       Container(
@@ -219,7 +218,7 @@ class FavFullScreenView extends GetView<FavFullScreenController> {
                                       ),
                                       Text(
                                         storydate.toString().trim(),
-                                        style: context.theme.textTheme.caption
+                                        style: context.theme.textTheme.bodySmall
                                             ?.copyWith(fontSize: 12),
                                       ),
                                     ],
@@ -296,7 +295,7 @@ class FavFullScreenView extends GetView<FavFullScreenController> {
                                               controller.comments.length
                                                   .toString(),
                                               style: context
-                                                  .theme.textTheme.caption,
+                                                  .theme.textTheme.bodySmall,
                                             );
                                           }),
                                         ],
@@ -339,7 +338,7 @@ class FavFullScreenView extends GetView<FavFullScreenController> {
                       children: [
                         Text(
                           'Comments',
-                          style: context.theme.textTheme.caption,
+                          style: context.theme.textTheme.bodySmall,
                         ),
                         Obx(
                           () => IconButton(
@@ -387,8 +386,8 @@ class FavFullScreenView extends GetView<FavFullScreenController> {
                                           controller.validateComment(value!),
                                       decoration: InputDecoration(
                                           labelText: 'Your comment',
-                                          labelStyle:
-                                              context.theme.textTheme.caption),
+                                          labelStyle: context
+                                              .theme.textTheme.bodySmall),
                                     ),
                                   )
                                 : SizedBox.shrink(),

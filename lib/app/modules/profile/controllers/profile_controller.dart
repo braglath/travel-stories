@@ -72,8 +72,8 @@ class ProfileController extends GetxController {
     isLoading.value = true;
     var url = 'http://ubermensch.studio/travel_stories/getmystories.php';
     var data = {
-      "personid": UserDetails().readUserIDfromBox(),
-      "personname": UserDetails().readUserNamefromBox()
+      'personid': UserDetails().readUserIDfromBox(),
+      'personname': UserDetails().readUserNamefromBox()
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
@@ -102,6 +102,6 @@ class ProfileController extends GetxController {
     for (var i = 0; i < storiesPosted.length; i++) {
       totallikes.value += int.parse(storiesPosted[i].likes);
     }
-    print("total likes : ${totallikes.value}");
+    print('total likes : ${totallikes.value}');
   }
 }

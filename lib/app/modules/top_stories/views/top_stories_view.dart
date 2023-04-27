@@ -30,7 +30,7 @@ class TopStoriesView extends GetView<TopStoriesController> {
                     padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
                     child: Text(
                       'Top stories',
-                      style: context.theme.textTheme.headline4,
+                      style: context.theme.textTheme.headlineMedium,
                     ),
                   ),
                   CarouselSlider.builder(
@@ -56,7 +56,7 @@ class TopStoriesView extends GetView<TopStoriesController> {
                       var dateTime =
                           DateTime.parse(topStories.dateadded.toString());
                       var formate1 =
-                          "${dateTime.day}-${dateTime.month}-${dateTime.year}";
+                          '${dateTime.day}-${dateTime.month}-${dateTime.year}';
                       if (controller.topStories.isNotEmpty) {
                         return CustomStoryBarWidgetView(
                           profileOnTapped: () =>
@@ -79,28 +79,28 @@ class TopStoriesView extends GetView<TopStoriesController> {
                           storyId: topStories.id,
                           listTileOnTap: () =>
                               Get.toNamed(Routes.FULL_SCREEN_STORY, arguments: [
-                            {"authorname": topStories.personname},
-                            {"authorprofilepic": topStories.personprofilepic},
-                            {"authorid": topStories.personid},
-                            {"storytitle": topStories.title},
-                            {"storycategory": topStories.category},
-                            {"storybody": topStories.body},
-                            {"storylikes": topStories.likes},
-                            {"storyid": topStories.id},
-                            {"storydate": formate1.toString()}
+                            {'authorname': topStories.personname},
+                            {'authorprofilepic': topStories.personprofilepic},
+                            {'authorid': topStories.personid},
+                            {'storytitle': topStories.title},
+                            {'storycategory': topStories.category},
+                            {'storybody': topStories.body},
+                            {'storylikes': topStories.likes},
+                            {'storyid': topStories.id},
+                            {'storydate': formate1.toString()}
                           ]),
                           storyBody: topStories.body,
                           readmoreOnTap: () =>
                               Get.toNamed(Routes.FULL_SCREEN_STORY, arguments: [
-                            {"authorname": topStories.personname},
-                            {"authorprofilepic": topStories.personprofilepic},
-                            {"authorid": topStories.personid},
-                            {"storytitle": topStories.title},
-                            {"storycategory": topStories.category},
-                            {"storybody": topStories.body},
-                            {"storylikes": topStories.likes},
-                            {"storyid": topStories.id},
-                            {"storydate": formate1.toString()}
+                            {'authorname': topStories.personname},
+                            {'authorprofilepic': topStories.personprofilepic},
+                            {'authorid': topStories.personid},
+                            {'storytitle': topStories.title},
+                            {'storycategory': topStories.category},
+                            {'storybody': topStories.body},
+                            {'storylikes': topStories.likes},
+                            {'storyid': topStories.id},
+                            {'storydate': formate1.toString()}
                           ]),
                         );
                       } else {

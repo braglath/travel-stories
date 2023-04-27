@@ -39,7 +39,7 @@ class ChangeLanguageView extends GetView<ChangeLanguageController> {
               needAppBar == false
                   ? Text(
                       'Change language',
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme.of(context).textTheme.displayMedium,
                     )
                   : SizedBox.shrink(),
               SizedBox(
@@ -60,7 +60,7 @@ class ChangeLanguageView extends GetView<ChangeLanguageController> {
                       title: Text(_languages[index],
                           style: Theme.of(context)
                               .textTheme
-                              .headline4
+                              .headlineMedium
                               ?.copyWith(fontSize: 18)),
                     ),
                   ),
@@ -82,9 +82,12 @@ class ChangeLanguageView extends GetView<ChangeLanguageController> {
                       },
                       child: Text(
                         'Submit',
-                        style: Theme.of(context).textTheme.headline4?.copyWith(
-                            color: ColorResourcesDark.mainDARKTEXTICONcolor,
-                            fontSize: 20),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(
+                                color: ColorResourcesDark.mainDARKTEXTICONcolor,
+                                fontSize: 20),
                       )),
                 ),
               ),

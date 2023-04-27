@@ -8,7 +8,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:travel_diaries/app/data/Services/facebook_login_service.dart';
-import 'package:travel_diaries/app/data/Services/logout_user_service.dart';
 import 'package:travel_diaries/app/data/storage/user_check_login_logout.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
@@ -37,12 +36,6 @@ class HomeController extends GetxController {
     googleSign = GoogleSignIn();
     nameController = TextEditingController();
     passwordController = TextEditingController();
-  }
-
-  @override
-  void onReady() async {
-    super.onReady();
-    // ? using ever to keep looking for changes
   }
 
   @override
@@ -164,9 +157,9 @@ class HomeController extends GetxController {
   void loginGoogleUser() async {
     isLoading.value = true;
     var url = 'http://ubermensch.studio/travel_stories/logingoogleuser.php';
-    var uri = Uri.parse(url);
+    // var uri = Uri.parse(url);
     var data = {
-      "name": name.value,
+      'name': name.value,
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
@@ -175,14 +168,14 @@ class HomeController extends GetxController {
     if (res.statusCode == 200) {
       print('login status code - ${res.statusCode}');
 
-      if (details.toString().contains("Error")) {
+      if (details.toString().contains('Error')) {
         print('login main - Error');
         isLoading.value = false;
         CustomSnackbar(
                 title: 'Login error',
                 message: 'Mutiple users detected with the same name')
             .showWarning();
-      } else if (details.toString().contains("new user")) {
+      } else if (details.toString().contains('new user')) {
         print('new user');
         isLoading.value = false;
         CustomSnackbar(
@@ -190,7 +183,7 @@ class HomeController extends GetxController {
                 message: 'Credentials are new here! Sign up')
             .showWarning();
       } else {
-        final List list = json.decode(res.body);
+        final List<dynamic> list = json.decode(res.body);
         print('login user details list - $list');
 
         print('login main - Success');
@@ -223,10 +216,10 @@ class HomeController extends GetxController {
   void loginUser(String name, String password) async {
     isLoading.value = true;
     var url = 'http://ubermensch.studio/travel_stories/login.php';
-    var uri = Uri.parse(url);
+    // var uri = Uri.parse(url);
     var data = {
-      "name": name,
-      "password": password,
+      'name': name,
+      'password': password,
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
@@ -235,14 +228,14 @@ class HomeController extends GetxController {
     if (res.statusCode == 200) {
       print('login status code - ${res.statusCode}');
 
-      if (details.toString().contains("Error")) {
+      if (details.toString().contains('Error')) {
         print('login main - Error');
         isLoading.value = false;
         CustomSnackbar(
                 title: 'Login error',
                 message: 'Mutiple users detected with the same name')
             .showWarning();
-      } else if (details.toString().contains("new user")) {
+      } else if (details.toString().contains('new user')) {
         print('new user');
         isLoading.value = false;
         CustomSnackbar(
@@ -250,7 +243,7 @@ class HomeController extends GetxController {
                 message: 'Credentials are new here! Sign up')
             .showWarning();
       } else {
-        final List list = json.decode(res.body);
+        final List<dynamic> list = json.decode(res.body);
         print('login user details list - $list');
 
         print('login main - Success');

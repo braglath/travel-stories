@@ -36,11 +36,6 @@ class MyStoriesFullScreenController extends GetxController {
   }
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {}
   void increment() => count.value++;
 
@@ -56,7 +51,7 @@ class MyStoriesFullScreenController extends GetxController {
     }
   }
 
-  Future saveAndShare(Uint8List bytes) async {
+  Future<void> saveAndShare(Uint8List bytes) async {
     final directory = await getApplicationDocumentsDirectory();
     final image = File('${directory.path}/travel_stories.png');
     image.writeAsBytesSync(bytes);
@@ -96,26 +91,26 @@ class MyStoriesFullScreenController extends GetxController {
   void postComments() async {
     var url = 'http://ubermensch.studio/travel_stories/postcomments.php';
     var data = {
-      "commenterid": UserDetails().readUserIDfromBox(),
-      "commentername": UserDetails().readUserNamefromBox(),
-      "commenterprofilepic": UserDetails().readUserProfilePicfromBox(),
-      "comment": comment.toString(),
-      "storyid": storyID.toString(),
-      "storytitle": storyTitle.toString(),
+      'commenterid': UserDetails().readUserIDfromBox(),
+      'commentername': UserDetails().readUserNamefromBox(),
+      'commenterprofilepic': UserDetails().readUserProfilePicfromBox(),
+      'comment': comment.toString(),
+      'storyid': storyID.toString(),
+      'storytitle': storyTitle.toString(),
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
     print(jsonEncode(data));
     var details = json.decode(json.encode(res.body));
 
-    if (details.toString().contains("already commented")) {
+    if (details.toString().contains('already commented')) {
       print('already commented');
       CustomSnackbar(
               title: 'Warning',
               message: 'You have alrady commented for this story')
           .showWarning();
     } else {
-      if (details.toString().contains("true")) {
+      if (details.toString().contains('true')) {
         print('comment posted');
         getComments();
         // await APIservices.getComments(
@@ -127,7 +122,7 @@ class MyStoriesFullScreenController extends GetxController {
                 title: 'Posted',
                 message: 'Your comment has been successfully posted')
             .showSuccess();
-      } else if (details.toString().contains("false")) {
+      } else if (details.toString().contains('false')) {
         print('check connection');
         CustomSnackbar(
                 title: 'Warning', message: 'Check your internet connection')
@@ -150,17 +145,17 @@ class MyStoriesFullScreenController extends GetxController {
   }) async {
     var url = 'http://ubermensch.studio/travel_stories/checklikedstories.php';
     var data = {
-      "title": title,
-      "authorid": authorid,
-      "likedpersonid": likedpersonid,
-      "likedpersonname": likedpersonname
+      'title': title,
+      'authorid': authorid,
+      'likedpersonid': likedpersonid,
+      'likedpersonname': likedpersonname
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
     print(jsonEncode(data));
     var details = json.decode(json.encode(res.body));
 
-    if (details.toString().contains("true")) {
+    if (details.toString().contains('true')) {
       print('already liked');
       isLiked.value = true;
     } else {

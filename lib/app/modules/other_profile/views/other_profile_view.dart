@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -10,8 +9,6 @@ import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/top_to_bottom_animation.dart';
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
 import 'package:travel_diaries/app/modules/profile/controllers/profile_controller.dart';
-import 'package:travel_diaries/app/modules/submit_story/controllers/submit_story_controller.dart';
-import 'package:travel_diaries/app/modules/top_stories/views/top_stories_view.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 import 'package:travel_diaries/app/views/views/custom_counter.dart';
 import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
@@ -100,7 +97,7 @@ class OtherProfileView extends GetView<OtherProfileController> {
                             ? NetworkImage(controller.authProfilePic.value
                                     .contains('https')
                                 ? controller.authProfilePic.value
-                                : "http://ubermensch.studio/travel_stories/profileimages/${controller.authProfilePic.value}")
+                                : 'http://ubermensch.studio/travel_stories/profileimages/${controller.authProfilePic.value}')
                             : null),
                   ),
                 ],
@@ -114,11 +111,11 @@ class OtherProfileView extends GetView<OtherProfileController> {
       textAlign: TextAlign.center,
       text: TextSpan(
         text: '${controller.authName.value} \n',
-        style: Theme.of(context).textTheme.headline3,
+        style: Theme.of(context).textTheme.displaySmall,
         children: <TextSpan>[
           TextSpan(
               text: controller.authCaption.value,
-              style: Theme.of(context).textTheme.headline4),
+              style: Theme.of(context).textTheme.headlineMedium),
         ],
       ),
     );
@@ -150,7 +147,7 @@ class OtherProfileView extends GetView<OtherProfileController> {
             ),
             title: Text(
               'Stories posted',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
               textAlign: TextAlign.center,
             ),
             subtitle: CustomCounter(
@@ -181,7 +178,7 @@ class OtherProfileView extends GetView<OtherProfileController> {
             ),
             title: Text(
               'Total likes',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
               textAlign: TextAlign.center,
             ),
             subtitle: CustomCounter(
@@ -210,7 +207,7 @@ class OtherProfileView extends GetView<OtherProfileController> {
                     'Recent stories from ${controller.authName.value}',
                     style: Theme.of(context)
                         .textTheme
-                        .headline4
+                        .headlineMedium
                         ?.copyWith(fontSize: 15),
                   ),
                 ),
@@ -239,7 +236,7 @@ class OtherProfileView extends GetView<OtherProfileController> {
                     var dateTime =
                         DateTime.parse(recentStories.dateadded.toString());
                     var formate1 =
-                        "${dateTime.day}-${dateTime.month}-${dateTime.year}";
+                        '${dateTime.day}-${dateTime.month}-${dateTime.year}';
                     if (controller.storiesPosted.isNotEmpty) {
                       return CustomStoryBarWidgetView(
                         profileOnTapped: () => Get.toNamed(Routes.OTHER_PROFILE,
@@ -262,28 +259,28 @@ class OtherProfileView extends GetView<OtherProfileController> {
                         storyId: recentStories.id,
                         listTileOnTap: () =>
                             Get.toNamed(Routes.FULL_SCREEN_STORY, arguments: [
-                          {"authorname": recentStories.personname},
-                          {"authorprofilepic": recentStories.personprofilepic},
-                          {"authorid": recentStories.personid},
-                          {"storytitle": recentStories.title},
-                          {"storycategory": recentStories.category},
-                          {"storybody": recentStories.body},
-                          {"storylikes": recentStories.likes},
-                          {"storyid": recentStories.id},
-                          {"storydate": formate1.toString()}
+                          {'authorname': recentStories.personname},
+                          {'authorprofilepic': recentStories.personprofilepic},
+                          {'authorid': recentStories.personid},
+                          {'storytitle': recentStories.title},
+                          {'storycategory': recentStories.category},
+                          {'storybody': recentStories.body},
+                          {'storylikes': recentStories.likes},
+                          {'storyid': recentStories.id},
+                          {'storydate': formate1.toString()}
                         ]),
                         storyBody: recentStories.body,
                         readmoreOnTap: () =>
                             Get.toNamed(Routes.FULL_SCREEN_STORY, arguments: [
-                          {"authorname": recentStories.personname},
-                          {"authorprofilepic": recentStories.personprofilepic},
-                          {"authorid": recentStories.personid},
-                          {"storytitle": recentStories.title},
-                          {"storycategory": recentStories.category},
-                          {"storybody": recentStories.body},
-                          {"storylikes": recentStories.likes},
-                          {"storyid": recentStories.id},
-                          {"storydate": formate1.toString()}
+                          {'authorname': recentStories.personname},
+                          {'authorprofilepic': recentStories.personprofilepic},
+                          {'authorid': recentStories.personid},
+                          {'storytitle': recentStories.title},
+                          {'storycategory': recentStories.category},
+                          {'storybody': recentStories.body},
+                          {'storylikes': recentStories.likes},
+                          {'storyid': recentStories.id},
+                          {'storydate': formate1.toString()}
                         ]),
                       );
                     } else {

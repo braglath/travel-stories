@@ -7,7 +7,7 @@ import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
 
-class CustomStoryBarWidgetView extends GetView {
+class CustomStoryBarWidgetView extends StatelessWidget {
   final Function()? trailingOnTap;
   final String likes;
   final String authorProfilePic;
@@ -95,7 +95,7 @@ class CustomStoryBarWidgetView extends GetView {
                           ),
                           Text(
                             likes.isEmpty ? '0' : likes,
-                            style: context.theme.textTheme.caption,
+                            style: context.theme.textTheme.bodySmall,
                           ),
                         ],
                       ),
@@ -128,7 +128,7 @@ class CustomStoryBarWidgetView extends GetView {
                                 ? NetworkImage(authorProfilePic
                                         .contains('https')
                                     ? authorProfilePic
-                                    : "http://ubermensch.studio/travel_stories/profileimages/${authorProfilePic}")
+                                    : 'http://ubermensch.studio/travel_stories/profileimages/$authorProfilePic')
                                 : null,
                           ),
                         )
@@ -154,7 +154,7 @@ class CustomStoryBarWidgetView extends GetView {
                     children: [
                       Text(
                         storyCategory,
-                        style: context.theme.textTheme.caption
+                        style: context.theme.textTheme.bodySmall
                             ?.copyWith(fontSize: 12),
                       ),
                       Container(
@@ -165,10 +165,10 @@ class CustomStoryBarWidgetView extends GetView {
                       ),
                       Text(
                         authorName.length > 12
-                            ? authorName.replaceFirst(" ", "\n")
+                            ? authorName.replaceFirst(' ', '\n')
                             : authorName,
                         textAlign: TextAlign.center,
-                        style: context.theme.textTheme.caption
+                        style: context.theme.textTheme.bodySmall
                             ?.copyWith(fontSize: 12),
                       ),
                       Container(
@@ -179,7 +179,7 @@ class CustomStoryBarWidgetView extends GetView {
                       ),
                       Text(
                         storyDate.toString().trim(),
-                        style: context.theme.textTheme.caption
+                        style: context.theme.textTheme.bodySmall
                             ?.copyWith(fontSize: 12),
                       ),
                     ],

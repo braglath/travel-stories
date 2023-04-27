@@ -6,7 +6,6 @@ class Themes {
   //! LIGHT THEME DATA
   static final light = ThemeData.light().copyWith(
     scaffoldBackgroundColor: ColorResourcesLight.mainLIGHTScaffoldBG,
-    backgroundColor: ColorResourcesLight.mainLIGHTScaffoldBG,
     primaryColor: ColorResourcesLight.mainLIGHTColor,
     primaryColorLight: ColorResourcesLight.mainLIGHTColor,
     splashColor: ColorResourcesLight.mainLIGHTSplashColor,
@@ -78,33 +77,33 @@ class Themes {
     ),
 
     textTheme: TextTheme(
-      headline1: const TextStyle().copyWith(
+      displayLarge: const TextStyle().copyWith(
           fontWeight: FontWeight.bold,
           fontSize: 45,
           color: ColorResourcesLight.mainTextHEADINGColor,
           fontFamily: 'josefin_sans'),
-      headline2: const TextStyle().copyWith(
+      displayMedium: const TextStyle().copyWith(
           color: ColorResourcesLight.mainTextHEADINGColor,
           fontWeight: FontWeight.bold,
           fontSize: 35),
-      headline3: const TextStyle().copyWith(
+      displaySmall: const TextStyle().copyWith(
           color: ColorResourcesLight.mainTextHEADINGColor,
           fontWeight: FontWeight.bold,
           fontSize: 25),
-      headline4: const TextStyle().copyWith(
+      headlineMedium: const TextStyle().copyWith(
           color: ColorResourcesLight.mainTextHEADINGColor,
           fontWeight: FontWeight.bold,
           fontSize: 17),
-      caption: const TextStyle().copyWith(
+      bodySmall: const TextStyle().copyWith(
           color: Colors.grey.shade500,
           fontWeight: FontWeight.bold,
           fontSize: 15),
     ).apply(bodyColor: Colors.black, fontFamily: 'Noto_Sans'),
+    //  colorScheme: ColorScheme(background: ColorResourcesLight.mainLIGHTScaffoldBG),
   );
 
   //! DARK THEME DATA
   static final dark = ThemeData.dark().copyWith(
-    backgroundColor: ColorResourcesDark.mainDARKScaffoldBG,
     primaryColorDark: ColorResourcesDark.mainDARKColor,
     scaffoldBackgroundColor: ColorResourcesDark.mainDARKScaffoldBG,
     splashColor: ColorResourcesDark.mainDARKSplashColor,
@@ -181,27 +180,28 @@ class Themes {
     ),
 
     textTheme: TextTheme(
-      headline1: const TextStyle().copyWith(
+      displayLarge: const TextStyle().copyWith(
           color: ColorResourcesDark.mainDARKTEXTICONcolor,
           fontWeight: FontWeight.bold,
           fontFamily: 'josefin_sans',
           fontSize: 45),
-      headline2: const TextStyle().copyWith(
+      displayMedium: const TextStyle().copyWith(
           color: ColorResourcesDark.mainDARKTEXTICONcolor,
           fontWeight: FontWeight.bold,
           fontSize: 35),
-      headline3: const TextStyle().copyWith(
+      displaySmall: const TextStyle().copyWith(
           color: ColorResourcesDark.mainDARKTEXTICONcolor,
           fontWeight: FontWeight.bold,
           fontSize: 25),
-      headline4: const TextStyle().copyWith(
+      headlineMedium: const TextStyle().copyWith(
           color: ColorResourcesDark.mainDARKTEXTICONcolor,
           fontWeight: FontWeight.bold,
           fontSize: 17),
-      caption: const TextStyle().copyWith(
+      bodySmall: const TextStyle().copyWith(
           color: Colors.grey.shade300,
           fontWeight: FontWeight.bold,
           fontSize: 15),
     ).apply(bodyColor: Colors.black, fontFamily: 'Noto_Sans'),
+    //  colorScheme: ColorScheme(background: ColorResourcesDark.mainDARKScaffoldBG),
   );
 }

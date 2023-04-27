@@ -13,6 +13,7 @@ import '../controllers/app_bar_controller.dart';
 
 class AppBarView extends GetView<AppBarController>
     implements PreferredSizeWidget {
+  @override
   final Size preferredSize;
   final String title;
   final PreferredSizeWidget? bottom;
@@ -41,8 +42,8 @@ class AppBarView extends GetView<AppBarController>
       title: ToptoBottomAnimation(
           duration: Duration(milliseconds: 800),
           child: Text(title,
-              style:
-                  context.theme.textTheme.headline3?.copyWith(fontSize: 22))),
+              style: context.theme.textTheme.displaySmall
+                  ?.copyWith(fontSize: 22))),
       leading: ModalRoute.of(context)!.settings.name!.contains('/submit-story')
           ? null
           : ModalRoute.of(context)!
@@ -175,7 +176,7 @@ class AppBarView extends GetView<AppBarController>
                               ? NetworkImage(controller.profilePicture.value
                                       .contains('https')
                                   ? controller.profilePicture.value
-                                  : "http://ubermensch.studio/travel_stories/profileimages/${controller.profilePicture.value}")
+                                  : 'http://ubermensch.studio/travel_stories/profileimages/${controller.profilePicture.value}')
                               : null),
                     ),
                   ],

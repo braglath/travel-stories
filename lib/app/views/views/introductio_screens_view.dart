@@ -8,10 +8,17 @@ import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 
-class IntroductioScreensView extends GetView {
-  List<String> travelmodes = ['Cycle', 'Bike', 'Car', 'Bus', 'Train', 'Flight'];
+class IntroductioScreensView extends StatelessWidget {
+  final List<String> travelmodes = [
+    'Cycle',
+    'Bike',
+    'Car',
+    'Bus',
+    'Train',
+    'Flight'
+  ];
 
-  List<IconData> travelIcons = [
+  final List<IconData> travelIcons = [
     Icons.directions_bike_sharp,
     Icons.motorcycle_rounded,
     FontAwesomeIcons.car,
@@ -19,7 +26,7 @@ class IntroductioScreensView extends GetView {
     FontAwesomeIcons.train,
     Icons.flight_takeoff,
   ];
-  List<PageViewModel> introductionScreens() => [
+  List<PageViewModel> get introductionScreens => [
         PageViewModel(
           decoration: PageDecoration(
               titleTextStyle: TextStyle(
@@ -134,7 +141,7 @@ class IntroductioScreensView extends GetView {
       dotsFlex: 2,
       done: Text(
         'Done',
-        style: context.theme.textTheme.headline3?.copyWith(
+        style: context.theme.textTheme.displaySmall?.copyWith(
           color: ThemeService().theme == ThemeMode.light
               ? ColorResourcesLight.mainTextHEADINGColor
               : ColorResourcesDark.mainDARKTEXTICONcolor,
@@ -154,7 +161,7 @@ class IntroductioScreensView extends GetView {
           : ColorResourcesDark.mainDARKTEXTICONcolor,
       next: Text(
         'next',
-        style: context.theme.textTheme.headline3?.copyWith(
+        style: context.theme.textTheme.displaySmall?.copyWith(
           color: ThemeService().theme == ThemeMode.light
               ? ColorResourcesLight.mainTextHEADINGColor
               : ColorResourcesDark.mainDARKTEXTICONcolor,
@@ -163,14 +170,14 @@ class IntroductioScreensView extends GetView {
       showNextButton: true,
       skip: Text(
         'skip',
-        style: context.theme.textTheme.headline3?.copyWith(
+        style: context.theme.textTheme.displaySmall?.copyWith(
           color: ThemeService().theme == ThemeMode.light
               ? ColorResourcesLight.mainTextHEADINGColor
               : ColorResourcesDark.mainDARKTEXTICONcolor,
         ),
       ),
       showSkipButton: true,
-      pages: introductionScreens(),
+      pages: introductionScreens,
     ));
   }
 }

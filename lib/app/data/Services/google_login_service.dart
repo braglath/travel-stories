@@ -8,8 +8,9 @@ class GoogleLogin {
   GoogleSignIn googleSign = GoogleSignIn();
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  Future loginGoogleSignIn() async {
-    // todo inplement progress indicator first
+  Future<User?> loginGoogleSignIn() async {
+    // todo implement progress indicator first
+    User? user;
     GoogleSignInAccount? googleSignInAccount = await googleSign.signIn();
     if (googleSignInAccount == null) {
       //? user is null cancel the loading
@@ -23,8 +24,9 @@ class GoogleLogin {
           idToken: googleSignInAuthentication.idToken);
       await firebaseAuth.signInWithCredential(oAuthCredential);
       // ? now close the loding indicator
-      return firebaseAuth.currentUser;
+      user = firebaseAuth.currentUser;
     }
+    return user;
   }
 
   Future<bool> logoutFromGoogle() async {

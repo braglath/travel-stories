@@ -101,7 +101,7 @@ class EditProfileView extends GetView<EditProfileController> {
                       ),
                       Text(
                         'Pick one favorite mode of transport',
-                        style: context.theme.textTheme.headline4,
+                        style: context.theme.textTheme.headlineMedium,
                       ),
                       SizedBox(height: 50, child: customchips()),
                       SizedBox(
@@ -123,7 +123,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                 .showDialogue(),
                             child: Text(
                               'Confirm',
-                              style: context.theme.textTheme.headline6,
+                              style: context.theme.textTheme.titleLarge,
                             ),
                           ),
                         ),
@@ -191,7 +191,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                   ? NetworkImage(controller.profileImage.value
                                           .contains('https')
                                       ? controller.profileImage.value
-                                      : "http://ubermensch.studio/travel_stories/profileimages/${controller.profileImage.value}")
+                                      : 'http://ubermensch.studio/travel_stories/profileimages/${controller.profileImage.value}')
                                   : null),
                         ),
                       ],
@@ -208,7 +208,9 @@ class EditProfileView extends GetView<EditProfileController> {
           : ColorResourcesDark.mainDARKTEXTICONcolor,
       keyboardType: TextInputType.name,
       controller: controller.nameController,
-      validator: (val) {},
+      validator: (val) {
+        return null;
+      },
       decoration: InputDecoration(
         prefixIcon: Icon(
           Icons.person,
@@ -224,7 +226,9 @@ class EditProfileView extends GetView<EditProfileController> {
           : ColorResourcesDark.mainDARKTEXTICONcolor,
       keyboardType: TextInputType.emailAddress,
       controller: controller.emailController,
-      validator: (val) {},
+      validator: (val) {
+        return null;
+      },
       decoration: InputDecoration(
         prefixIcon: Icon(
           Icons.phone,
@@ -242,7 +246,9 @@ class EditProfileView extends GetView<EditProfileController> {
             keyboardType: TextInputType.visiblePassword,
             controller: controller.passwordController,
             obscureText: controller.obscured.value,
-            validator: (val) {},
+            validator: (val) {
+              return null;
+            },
             decoration: InputDecoration(
               prefixIcon: Icon(
                 Icons.lock,
@@ -279,7 +285,9 @@ class EditProfileView extends GetView<EditProfileController> {
       keyboardType: TextInputType.visiblePassword,
       controller: controller.captionController,
       maxLength: 90,
-      validator: (val) {},
+      validator: (val) {
+        return null;
+      },
       decoration: InputDecoration(
         prefixIcon: Icon(
           Icons.format_quote,
@@ -350,7 +358,7 @@ class EditProfileView extends GetView<EditProfileController> {
                           ? NetworkImage(controller.profileImage.value
                                   .contains('https')
                               ? controller.profileImage.value
-                              : "http://ubermensch.studio/travel_stories/profileimages/${controller.profileImage.value}")
+                              : 'http://ubermensch.studio/travel_stories/profileimages/${controller.profileImage.value}')
                           : null),
                 ),
               ],
@@ -366,21 +374,21 @@ class EditProfileView extends GetView<EditProfileController> {
                 TextSpan(
                     text: controller.nameController.text.length > 18
                         ? "${controller.nameController.text.replaceAll(" ", "\n")} \n"
-                        : "${controller.nameController.text} \n",
-                    style: Theme.of(context).textTheme.headline3),
+                        : '${controller.nameController.text} \n',
+                    style: Theme.of(context).textTheme.displaySmall),
                 TextSpan(
                     text: '${controller.emailController.text}\n',
-                    style: Theme.of(context).textTheme.headline4),
+                    style: Theme.of(context).textTheme.headlineMedium),
                 TextSpan(
                     text: '${controller.passwordController.text}\n',
-                    style: Theme.of(context).textTheme.headline4),
+                    style: Theme.of(context).textTheme.headlineMedium),
                 TextSpan(
                     text: '${controller.captionController.text}\n',
-                    style: Theme.of(context).textTheme.caption),
+                    style: Theme.of(context).textTheme.bodySmall),
                 TextSpan(
                     text:
                         '${controller.travelmodes[controller.defaultChoiceIndex.value]}\n',
-                    style: Theme.of(context).textTheme.caption),
+                    style: Theme.of(context).textTheme.bodySmall),
               ],
             ),
           ),

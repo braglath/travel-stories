@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -24,8 +23,8 @@ import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 class SignupController extends GetxController {
   var password = ''.obs;
   var passwordStrength = 0.0.obs;
-  RegExp numRegExpress = RegExp(r".*[0-9].*");
-  RegExp letterRegExpress = RegExp(r".*[A-Za-z].*");
+  RegExp numRegExpress = RegExp(r'.*[0-9].*');
+  RegExp letterRegExpress = RegExp(r'.*[A-Za-z].*');
 
   late GoogleSignIn googleSign;
   var isSignIn = false.obs;
@@ -63,7 +62,7 @@ class SignupController extends GetxController {
   void onReady() async {
     // ? using ever to keep looking for changes
     ever(isSignIn, handleAuthStateChanged);
-    isSignIn.value = await firebaseAuth.currentUser != null;
+    isSignIn.value = firebaseAuth.currentUser != null;
     firebaseAuth.authStateChanges().listen((event) {
       // ? this event will contain the firebase user
       isSignIn.value = event != null;
@@ -91,6 +90,7 @@ class SignupController extends GetxController {
     var googleUserData = await GoogleLogin()
         .loginGoogleSignIn()
         .whenComplete(() => isLoading.value = false);
+    if (googleUserData == null) return;
     name.value = googleUserData.displayName.toString();
     email.value = googleUserData.email.toString();
     profilePic.value = googleUserData.photoURL.toString();
@@ -156,20 +156,20 @@ class SignupController extends GetxController {
   void signupUser(
       String name, String phoneoremail, String caption, String password) async {
     var url = 'http://ubermensch.studio/travel_stories/signup.php';
-    var uri = Uri.parse(url);
+    // var uri = Uri.parse(url);
     var data = {
-      "name": name,
-      "phoneoremail": phoneoremail,
-      "password": password,
-      "fav": travelmodes[defaultChoiceIndex.value],
-      "caption": caption,
-      "profilepicture": profilePic.value
+      'name': name,
+      'phoneoremail': phoneoremail,
+      'password': password,
+      'fav': travelmodes[defaultChoiceIndex.value],
+      'caption': caption,
+      'profilepicture': profilePic.value
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
     var details = json.decode(json.encode(res.body));
     if (res.statusCode == 200) {
-      if (details.toString().contains("error")) {
+      if (details.toString().contains('error')) {
         CustomSnackbar(
                 title: 'User exists',
                 message: 'Account already exists! Login now!')
@@ -177,12 +177,12 @@ class SignupController extends GetxController {
         logoutGoogleSingIn();
         isLoading.value = false;
       }
-      if (details.toString().contains("true")) {
+      if (details.toString().contains('true')) {
         // todo show dialogue box
         loginUser(name, password);
         print('true');
       }
-      if (details.toString().contains("false")) {
+      if (details.toString().contains('false')) {
         CustomSnackbar(
                 title: 'Warning', message: 'Check your internet connection')
             .showWarning();
@@ -198,19 +198,19 @@ class SignupController extends GetxController {
   void loginUser(String name, String password) async {
     var url = 'http://ubermensch.studio/travel_stories/login.php';
     var data = {
-      "name": name,
-      "password": password,
+      'name': name,
+      'password': password,
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
-    var details = json.decode(json.encode(res.body));
+    // var details = json.decode(json.encode(res.body));
 
     if (res.statusCode == 200) {
-      final List list = json.decode(res.body);
+      final List<dynamic> list = json.decode(res.body);
       isLoading.value = false;
       print('login main - Success');
       print('login list - $list');
-      UserDetails().saveUserNametoBox(
+      UserDetails().saveUserNameToBox(
         list[0]['name'],
       );
       UserDetails().saveUserPhoneorEmailtoBox(
@@ -263,7 +263,7 @@ class SignupController extends GetxController {
     }
   }
 
-  Future pickImage(ImageSource source) async {
+  Future<void> pickImage(ImageSource source) async {
     try {
       final ImagePicker _picker = ImagePicker();
       photo = await _picker.pickImage(source: source);
@@ -283,9 +283,9 @@ class SignupController extends GetxController {
     }
   }
 
-  Future uploadProfileImageToDB() async {
+  Future<void> uploadProfileImageToDB() async {
     final uri = Uri.parse(
-        "http://ubermensch.studio/travel_stories/addprofileimage.php");
+        'http://ubermensch.studio/travel_stories/addprofileimage.php');
     var request = http.MultipartRequest('POST', uri);
     print(UserDetails().readUserNamefromBox());
     print(UserDetails().readUserIDfromBox());
@@ -293,7 +293,7 @@ class SignupController extends GetxController {
     request.fields['name'] = UserDetails().readUserNamefromBox();
     request.fields['id'] = UserDetails().readUserIDfromBox();
     var path = photo?.path;
-    var pic = await http.MultipartFile.fromPath("image", path.toString());
+    var pic = await http.MultipartFile.fromPath('image', path.toString());
     request.files.add(pic);
     var response = await request.send();
     if (response.statusCode == 200) {
@@ -308,18 +308,18 @@ class SignupController extends GetxController {
   void getUserDetails(String name, String password) async {
     print('get user details $name, $password');
     var url = 'http://ubermensch.studio/travel_stories/login.php';
-    var uri = Uri.parse(url);
+    // var uri = Uri.parse(url);
     var data = {
-      "name": name,
-      "password": password,
+      'name': name,
+      'password': password,
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
-    var details = json.decode(json.encode(res.body));
+    // var details = json.decode(json.encode(res.body));
     print('json get user details ${jsonDecode(res.body)}');
 
     if (res.statusCode == 200) {
-      final List list = json.decode(res.body);
+      final List<dynamic> list = json.decode(res.body);
       isLoading.value = false;
       print('login main - Success');
       UserDetails().saveUserDetailstoBox(

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
@@ -11,8 +9,8 @@ class CommentesCardView {
   Widget showCustomComments(BuildContext context, commentaterName, comment,
       commentaterProfilePic, isLiked, dateTime) {
     var datetime = DateTime.parse(dateTime.toString());
-    var formatedDate = "${datetime.day}-${datetime.month}-${datetime.year}";
-    var liked = int.parse(isLiked);
+    var formatedDate = '${datetime.day}-${datetime.month}-${datetime.year}';
+    // var liked = int.parse(isLiked);
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Card(
@@ -42,26 +40,26 @@ class CommentesCardView {
                             .toString()
                             .contains('https')
                         ? commentaterProfilePic.toString()
-                        : "http://ubermensch.studio/travel_stories/profileimages/$commentaterProfilePic")),
+                        : 'http://ubermensch.studio/travel_stories/profileimages/$commentaterProfilePic')),
               )
             ],
           ),
           title: RichText(
             text: TextSpan(
               text: '$commentaterName |',
-              style: context.theme.textTheme.caption?.copyWith(fontSize: 15),
+              style: context.theme.textTheme.bodySmall?.copyWith(fontSize: 15),
               children: <TextSpan>[
                 TextSpan(
                   text: ' $formatedDate',
                   style:
-                      context.theme.textTheme.caption?.copyWith(fontSize: 12),
+                      context.theme.textTheme.bodySmall?.copyWith(fontSize: 12),
                 ),
               ],
             ),
           ),
           subtitle: Text(
             comment.toString(),
-            style: context.theme.textTheme.headline4,
+            style: context.theme.textTheme.headlineMedium,
           ),
           // trailing: Stack(
           //   alignment: AlignmentDirectional.bottomEnd,
@@ -105,7 +103,7 @@ class CommentesCardView {
                   ? ColorResourcesLight.mainLIGHTColor
                   : ColorResourcesDark.mainDARKColor,
               backgroundImage: NetworkImage(
-                  "http://ubermensch.studio/travel_stories/profileimages/$commentaterProfilePic")),
+                  'http://ubermensch.studio/travel_stories/profileimages/$commentaterProfilePic')),
         )
       ],
     );

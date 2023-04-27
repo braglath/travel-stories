@@ -133,7 +133,9 @@ class ContactUsView extends GetView<ContactUsController> {
             keyboardType: TextInputType.multiline,
             textInputAction: TextInputAction.newline,
             controller: _subjectController,
-            validator: (val) {},
+            validator: (val) {
+              return null;
+            },
             minLines: null,
             maxLines: null,
             expands: true,

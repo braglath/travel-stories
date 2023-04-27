@@ -11,11 +11,6 @@ class TopStoriesController extends GetxController {
   final isLoading = false.obs;
 
   @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
   void onReady() {
     super.onReady();
     getTopStories();

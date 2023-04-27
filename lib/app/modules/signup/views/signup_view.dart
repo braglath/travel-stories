@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
-import 'package:travel_diaries/app/views/views/custom_bottom_sheet_view.dart';
 
 import '../controllers/signup_controller.dart';
 
@@ -42,7 +40,7 @@ class SignupView extends GetView<SignupController> {
                       padding: const EdgeInsets.all(12.0),
                       child: Text(
                         'Sign up',
-                        style: context.theme.textTheme.headline1,
+                        style: context.theme.textTheme.displayLarge,
                       ),
                     ),
                     Hero(
@@ -103,7 +101,7 @@ class SignupView extends GetView<SignupController> {
                         ),
                         Text(
                           'Pick one favorite mode of transport',
-                          style: context.theme.textTheme.headline4,
+                          style: context.theme.textTheme.headlineMedium,
                         ),
                         SizedBox(height: 50, child: customchips()),
                         SizedBox(height: 20),
@@ -119,7 +117,7 @@ class SignupView extends GetView<SignupController> {
                                       _passwordController.text),
                               child: Text(
                                 'Sign up',
-                                style: context.theme.textTheme.headline6,
+                                style: context.theme.textTheme.titleLarge,
                               ),
                             ),
                           ),
@@ -133,7 +131,7 @@ class SignupView extends GetView<SignupController> {
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 5),
                           child: Text('Other options',
-                              style: context.theme.textTheme.headline4
+                              style: context.theme.textTheme.headlineMedium
                                   ?.copyWith(fontSize: 15)),
                         ),
                         Expanded(child: Divider()),
@@ -160,11 +158,12 @@ class SignupView extends GetView<SignupController> {
                           child: RichText(
                             text: TextSpan(
                               text: 'Have an account? ',
-                              style: context.theme.textTheme.headline4,
+                              style: context.theme.textTheme.headlineMedium,
                               children: <TextSpan>[
                                 TextSpan(
                                     text: 'Login',
-                                    style: context.theme.textTheme.headline4
+                                    style: context
+                                        .theme.textTheme.headlineMedium
                                         ?.copyWith(
                                       color: ThemeService().theme ==
                                               ThemeMode.light
@@ -209,7 +208,7 @@ class SignupView extends GetView<SignupController> {
             ),
             Text(
               'Google',
-              style: context.theme.textTheme.headline4?.copyWith(
+              style: context.theme.textTheme.headlineMedium?.copyWith(
                   color: ColorResourcesLight.mainLIGHTAPPBARcolor,
                   fontSize: 15),
             )
@@ -232,7 +231,7 @@ class SignupView extends GetView<SignupController> {
             ),
             Text(
               'Facebook',
-              style: context.theme.textTheme.headline4?.copyWith(
+              style: context.theme.textTheme.headlineMedium?.copyWith(
                   color: ColorResourcesLight.mainLIGHTAPPBARcolor,
                   fontSize: 15),
             )
@@ -273,7 +272,9 @@ class SignupView extends GetView<SignupController> {
             : ColorResourcesDark.mainDARKTEXTICONcolor,
         keyboardType: TextInputType.emailAddress,
         controller: _phonenumberController,
-        validator: (val) {},
+        validator: (val) {
+          return null;
+        },
         decoration: InputDecoration(
           prefixIcon: Icon(
             Icons.phone,
@@ -374,7 +375,9 @@ class SignupView extends GetView<SignupController> {
       keyboardType: TextInputType.visiblePassword,
       controller: _captionController,
       maxLength: 90,
-      validator: (val) {},
+      validator: (val) {
+        return null;
+      },
       decoration: InputDecoration(
         prefixIcon: Icon(
           Icons.format_quote,

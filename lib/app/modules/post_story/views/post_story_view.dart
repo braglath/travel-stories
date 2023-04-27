@@ -10,7 +10,7 @@ import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
 import '../controllers/post_story_controller.dart';
 
 class PostStoryView extends GetView<PostStoryController> {
-  List<String> travelmodes = [
+  final List<String> travelmodes = [
     'Pick a category',
     'Cycle',
     'Bike',
@@ -20,7 +20,7 @@ class PostStoryView extends GetView<PostStoryController> {
     'Flight'
   ];
 
-  List<IconData> travelIcons = [
+  final List<IconData> travelIcons = [
     Icons.flutter_dash,
     Icons.directions_bike_sharp,
     Icons.motorcycle_rounded,

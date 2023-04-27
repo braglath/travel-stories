@@ -11,7 +11,6 @@ import 'package:http/http.dart' as http;
 import 'package:travel_diaries/app/data/Models/stories_model.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
-import 'package:travel_diaries/app/views/views/custom_dialogue_view.dart';
 import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 import 'package:travel_diaries/main.dart';
 
@@ -79,11 +78,6 @@ class SubmitStoryController extends GetxController {
   }
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {
     scrollController.value.removeListener(_scrollListener);
   }
@@ -139,7 +133,7 @@ class SubmitStoryController extends GetxController {
     print(category);
     var url = 'http://ubermensch.studio/travel_stories/getstories.php';
     var data = {
-      "category": category,
+      'category': category,
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
@@ -149,7 +143,7 @@ class SubmitStoryController extends GetxController {
       print(jsonString);
       final totalmodel = storiesModelFromJson(jsonString);
       story.assignAll(totalmodel);
-      List jsonResponse = json.decode(res.body);
+      final List<dynamic> jsonResponse = json.decode(res.body);
       return jsonResponse.map((e) => StoriesModel.fromJson(e)).toList();
     } else {
       return [];

@@ -21,24 +21,26 @@ class UserDetails {
 
   // ? write user details
 
-  Future<void> saveUserNametoBox(String userName) =>
+  Future<void> saveUserNameToBox(String userName) =>
       _userNameBox.write(_userNamekey, userName);
 
-  saveUserPhoneorEmailtoBox(String userPhoneorEmail) =>
+  Future<void> saveUserPhoneorEmailtoBox(String userPhoneorEmail) =>
       _userPhoneorEmailBox.write(_userPhoneorEmailkey, userPhoneorEmail);
 
-  saveUserPasswordtoBox(String userPassword) =>
+  Future<void> saveUserPasswordtoBox(String userPassword) =>
       _userPasswordBox.write(_userPasswordkey, userPassword);
 
-  saveUserFavtoBox(String userFav) => _userFavBox.write(_userFavkey, userFav);
+  Future<void> saveUserFavtoBox(String userFav) =>
+      _userFavBox.write(_userFavkey, userFav);
 
-  saveUserProfilePictoBox(String userProfilePic) =>
+  Future<void> saveUserProfilePictoBox(String userProfilePic) =>
       _userProfilePicBox.write(_userProfilePickey, userProfilePic);
 
-  saveUserCaptiontoBox(String userCaption) =>
+  Future<void> saveUserCaptiontoBox(String userCaption) =>
       _userCaptionBox.write(_userCaptionKey, userCaption);
 
-  saveUserIDtoBox(String userID) => _userIDBox.write(_userIDkey, userID);
+  Future<void> saveUserIDtoBox(String userID) =>
+      _userIDBox.write(_userIDkey, userID);
 
   // ? read user details
 
@@ -63,7 +65,7 @@ class UserDetails {
     UserLoginLogout().userLoggedIn(false);
   }
 
-  saveUserDetailstoBox(
+  void saveUserDetailstoBox(
       {required String name,
       required String phoneoremail,
       required String password,
@@ -71,7 +73,7 @@ class UserDetails {
       required String profilepic,
       required String caption,
       required String id}) {
-    saveUserNametoBox(name);
+    saveUserNameToBox(name);
     saveUserPhoneorEmailtoBox(phoneoremail);
     saveUserPasswordtoBox(password);
     saveUserFavtoBox(fav);

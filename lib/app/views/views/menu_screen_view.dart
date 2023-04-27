@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
@@ -14,8 +13,8 @@ import 'package:travel_diaries/app/modules/app_bar/controllers/app_bar_controlle
 import 'package:travel_diaries/app/modules/navigation_drawer/controllers/navigation_drawer_controller.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
 
-class MenuScreenView extends GetView {
-  @override
+class MenuScreenView extends StatelessWidget {
+  // @override
   final controller2 =
       Get.put<NavigationDrawerController>(NavigationDrawerController());
   final controller3 =
@@ -250,7 +249,7 @@ class MenuScreenView extends GetView {
                           .readUserProfilePicfromBox()
                           .contains('https')
                       ? UserDetails().readUserProfilePicfromBox()
-                      : "http://ubermensch.studio/travel_stories/profileimages/${UserDetails().readUserProfilePicfromBox()}")
+                      : 'http://ubermensch.studio/travel_stories/profileimages/${UserDetails().readUserProfilePicfromBox()}')
                   : null),
         ],
       ),

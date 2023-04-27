@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-import 'package:travel_diaries/app/data/storage/user_details.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
 import 'package:travel_diaries/app/data/utils/color_resources.dart';
 import 'package:travel_diaries/app/modules/animations/faded_scale_animation.dart';
 import 'package:travel_diaries/app/modules/app_bar/views/app_bar_view.dart';
 import 'package:travel_diaries/app/routes/app_pages.dart';
-import 'package:travel_diaries/app/views/views/custom_bottom_sheet_view.dart';
 import 'package:travel_diaries/app/views/views/custom_dialogue_view.dart';
 import 'package:travel_diaries/app/views/views/custom_story_bar_widget_view.dart';
 
@@ -105,7 +103,7 @@ class MyStoriesView extends GetView<MyStoriesController> {
   Widget listviewMainWidget(i) => Obx(() {
         final _controller = controller.story[i];
         var dateTime = DateTime.parse(_controller.dateadded.toString());
-        var formatedDate = "${dateTime.day}-${dateTime.month}-${dateTime.year}";
+        var formatedDate = '${dateTime.day}-${dateTime.month}-${dateTime.year}';
         return Stack(
           children: [
             CustomStoryBarWidgetView(
@@ -125,28 +123,28 @@ class MyStoriesView extends GetView<MyStoriesController> {
               storyId: _controller.id,
               listTileOnTap: () =>
                   Get.toNamed(Routes.MY_STORIES_FULL_SCREEN, arguments: [
-                {"authorname": _controller.personname},
-                {"authorprofilepic": _controller.personprofilepic},
-                {"authorid": _controller.id},
-                {"storytitle": _controller.title},
-                {"storycategory": _controller.category},
-                {"storybody": _controller.body},
-                {"storylikes": _controller.likes},
-                {"storyid": _controller.id},
-                {"storydate": formatedDate}
+                {'authorname': _controller.personname},
+                {'authorprofilepic': _controller.personprofilepic},
+                {'authorid': _controller.id},
+                {'storytitle': _controller.title},
+                {'storycategory': _controller.category},
+                {'storybody': _controller.body},
+                {'storylikes': _controller.likes},
+                {'storyid': _controller.id},
+                {'storydate': formatedDate}
               ]),
               storyBody: _controller.body,
               readmoreOnTap: () =>
                   Get.toNamed(Routes.MY_STORIES_FULL_SCREEN, arguments: [
-                {"authorname": _controller.personname},
-                {"authorprofilepic": _controller.personprofilepic},
-                {"authorid": _controller.id},
-                {"storytitle": _controller.title},
-                {"storycategory": _controller.category},
-                {"storybody": _controller.body},
-                {"storylikes": _controller.likes},
-                {"storyid": _controller.id},
-                {"storydate": formatedDate}
+                {'authorname': _controller.personname},
+                {'authorprofilepic': _controller.personprofilepic},
+                {'authorid': _controller.id},
+                {'storytitle': _controller.title},
+                {'storycategory': _controller.category},
+                {'storybody': _controller.body},
+                {'storylikes': _controller.likes},
+                {'storyid': _controller.id},
+                {'storydate': formatedDate}
               ]),
             ),
             FadedScaleAnimation(

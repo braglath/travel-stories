@@ -13,8 +13,6 @@ import 'package:share_plus/share_plus.dart';
 import 'package:travel_diaries/app/data/Models/comments_model.dart';
 import 'package:travel_diaries/app/data/Services/api_services.dart';
 import 'package:travel_diaries/app/data/storage/user_details.dart';
-import 'package:travel_diaries/app/modules/fave_stories/views/fave_stories_view.dart';
-import 'package:travel_diaries/app/routes/app_pages.dart';
 import 'package:travel_diaries/app/views/views/custom_snackbar_view.dart';
 
 class FavFullScreenController extends GetxController {
@@ -40,11 +38,6 @@ class FavFullScreenController extends GetxController {
   }
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {}
 
   void takeScreenshot() async {
@@ -59,7 +52,7 @@ class FavFullScreenController extends GetxController {
     }
   }
 
-  Future saveAndShare(Uint8List bytes) async {
+  Future<void> saveAndShare(Uint8List bytes) async {
     final directory = await getApplicationDocumentsDirectory();
     final image = File('${directory.path}/travel_stories.png');
     image.writeAsBytesSync(bytes);
@@ -99,26 +92,26 @@ class FavFullScreenController extends GetxController {
   void postComments() async {
     var url = 'http://ubermensch.studio/travel_stories/postcomments.php';
     var data = {
-      "commenterid": UserDetails().readUserIDfromBox(),
-      "commentername": UserDetails().readUserNamefromBox(),
-      "commenterprofilepic": UserDetails().readUserProfilePicfromBox(),
-      "comment": comment.toString(),
-      "storyid": storyID.toString(),
-      "storytitle": storyTitle.toString(),
+      'commenterid': UserDetails().readUserIDfromBox(),
+      'commentername': UserDetails().readUserNamefromBox(),
+      'commenterprofilepic': UserDetails().readUserProfilePicfromBox(),
+      'comment': comment.toString(),
+      'storyid': storyID.toString(),
+      'storytitle': storyTitle.toString(),
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
     print(jsonEncode(data));
     var details = json.decode(json.encode(res.body));
 
-    if (details.toString().contains("already commented")) {
+    if (details.toString().contains('already commented')) {
       print('already commented');
       CustomSnackbar(
               title: 'Warning',
               message: 'You have alrady commented for this story')
           .showWarning();
     } else {
-      if (details.toString().contains("true")) {
+      if (details.toString().contains('true')) {
         print('comment posted');
         getComments();
         // await APIservices.getComments(
@@ -130,7 +123,7 @@ class FavFullScreenController extends GetxController {
                 title: 'Posted',
                 message: 'Your comment has been successfully posted')
             .showSuccess();
-      } else if (details.toString().contains("false")) {
+      } else if (details.toString().contains('false')) {
         print('check connection');
         CustomSnackbar(
                 title: 'Warning', message: 'Check your internet connection')
@@ -174,19 +167,19 @@ class FavFullScreenController extends GetxController {
       required String likedpersonname,
       required String authorName}) async {
     var url = 'http://ubermensch.studio/travel_stories/removefavstories.php';
-    var uri = Uri.parse(url);
+    // var uri = Uri.parse(url);
     var data = {
-      "title": title,
-      "authorid": authorid,
-      "likedpersonid": likedpersonid,
-      "likedpersonname": likedpersonname
+      'title': title,
+      'authorid': authorid,
+      'likedpersonid': likedpersonid,
+      'likedpersonname': likedpersonname
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);
     print(jsonEncode(data));
     var details = json.decode(json.encode(res.body));
 
-    if (details.toString().contains("Story deleted successfully")) {
+    if (details.toString().contains('Story deleted successfully')) {
       // todo change stories table in sql
       Get.back();
       updateStoriesAfterLikes(
@@ -219,10 +212,10 @@ class FavFullScreenController extends GetxController {
   }) async {
     var url = 'http://ubermensch.studio/travel_stories/updatestorieslikes.php';
     var data = {
-      "likes": likes,
-      "personid": authorID,
-      "personname": authorName,
-      "title": title
+      'likes': likes,
+      'personid': authorID,
+      'personname': authorName,
+      'title': title
     };
 
     http.Response res = await http.post(Uri.parse(url), body: data);

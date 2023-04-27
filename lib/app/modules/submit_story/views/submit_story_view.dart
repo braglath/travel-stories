@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/sockets/src/socket_notifier.dart';
 
 import 'package:travel_diaries/app/data/Models/stories_model.dart';
 import 'package:travel_diaries/app/data/theme/theme_service.dart';
@@ -19,7 +18,7 @@ import '../controllers/submit_story_controller.dart';
 
 class SubmitStoryView extends GetView<SubmitStoryController> {
   final TextEditingController textController = TextEditingController();
-  DateTime timeBackButtonPressed = DateTime.now();
+  final DateTime timeBackButtonPressed = DateTime.now();
   // final PersistentTabController _controller =
   //   PersistentTabController(initialIndex: 0);
   @override
@@ -122,7 +121,7 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
                                           Text('Search stories',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .caption
+                                                  .bodySmall
                                                   ?.copyWith(fontSize: 28)),
                                           IconButton(
                                               splashRadius: 15,
@@ -146,8 +145,8 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
                                           top: 12.0, bottom: 4),
                                       child: Text(
                                         'Recent stories',
-                                        style:
-                                            context.theme.textTheme.headline4,
+                                        style: context
+                                            .theme.textTheme.headlineMedium,
                                       ),
                                     ),
                                     Obx(() {
@@ -198,7 +197,7 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
         itemBuilder: (context, index) {
           var dateTime =
               DateTime.parse(controller.story[index].dateadded.toString());
-          var formate1 = "${dateTime.day}-${dateTime.month}-${dateTime.year}";
+          var formate1 = '${dateTime.day}-${dateTime.month}-${dateTime.year}';
           var story = controller.story[index];
           print(controller.story[index].personprofilepic);
 
@@ -222,28 +221,28 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
             storyId: story.id,
             listTileOnTap: () =>
                 Get.toNamed(Routes.FULL_SCREEN_STORY, arguments: [
-              {"authorname": controller.story[index].personname},
-              {"authorprofilepic": controller.story[index].personprofilepic},
-              {"authorid": controller.story[index].personid},
-              {"storytitle": controller.story[index].title},
-              {"storycategory": controller.story[index].category},
-              {"storybody": controller.story[index].body},
-              {"storylikes": controller.story[index].likes},
-              {"storyid": controller.story[index].id},
-              {"storydate": formate1.toString()}
+              {'authorname': controller.story[index].personname},
+              {'authorprofilepic': controller.story[index].personprofilepic},
+              {'authorid': controller.story[index].personid},
+              {'storytitle': controller.story[index].title},
+              {'storycategory': controller.story[index].category},
+              {'storybody': controller.story[index].body},
+              {'storylikes': controller.story[index].likes},
+              {'storyid': controller.story[index].id},
+              {'storydate': formate1.toString()}
             ]),
             storyBody: story.body,
             readmoreOnTap: () =>
                 Get.toNamed(Routes.FULL_SCREEN_STORY, arguments: [
-              {"authorname": controller.story[index].personname},
-              {"authorprofilepic": controller.story[index].personprofilepic},
-              {"authorid": controller.story[index].personid},
-              {"storytitle": controller.story[index].title},
-              {"storycategory": controller.story[index].category},
-              {"storybody": controller.story[index].body},
-              {"storylikes": controller.story[index].likes},
-              {"storyid": controller.story[index].id},
-              {"storydate": formate1.toString()}
+              {'authorname': controller.story[index].personname},
+              {'authorprofilepic': controller.story[index].personprofilepic},
+              {'authorid': controller.story[index].personid},
+              {'storytitle': controller.story[index].title},
+              {'storycategory': controller.story[index].category},
+              {'storybody': controller.story[index].body},
+              {'storylikes': controller.story[index].likes},
+              {'storyid': controller.story[index].id},
+              {'storydate': formate1.toString()}
             ]),
           );
         },
@@ -262,7 +261,7 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
           title,
           style: Theme.of(context)
               .textTheme
-              .subtitle1
+              .titleMedium
               ?.copyWith(color: Colors.white),
         ),
       );
@@ -382,8 +381,8 @@ class SubmitStoryView extends GetView<SubmitStoryController> {
   // }
 }
 
-class CustomSearchDelegate extends SearchDelegate {
-  @override
+class CustomSearchDelegate extends SearchDelegate<dynamic> {
+  // @override
   final controller = Get.put<SubmitStoryController>(SubmitStoryController(),
       tag: 'submitstorycontroller');
   @override
@@ -424,7 +423,7 @@ class CustomSearchDelegate extends SearchDelegate {
   Widget buildResults(BuildContext context) {
     // ? for the result
     List<StoriesModel> matchQuery = <StoriesModel>[];
-    for (var title in controller.story) {
+    for (final title in controller.story) {
       if (title.title.toString().toLowerCase().contains(query.toLowerCase())) {
         matchQuery.add(title);
       }
@@ -434,7 +433,7 @@ class CustomSearchDelegate extends SearchDelegate {
         itemBuilder: (context, index) {
           var result = matchQuery[index];
           var dateTime = DateTime.parse(result.dateadded.toString());
-          var formate1 = "${dateTime.day}-${dateTime.month}-${dateTime.year}";
+          var formate1 = '${dateTime.day}-${dateTime.month}-${dateTime.year}';
           return CustomStoryBarWidgetView(
             profileOnTapped: () => Get.toNamed(Routes.OTHER_PROFILE,
                 arguments: {
@@ -455,28 +454,28 @@ class CustomSearchDelegate extends SearchDelegate {
             storyId: result.id,
             listTileOnTap: () =>
                 Get.toNamed(Routes.FULL_SCREEN_STORY, arguments: [
-              {"authorname": result.personname},
-              {"authorprofilepic": result.personprofilepic},
-              {"authorid": result.personid},
-              {"storytitle": result.title},
-              {"storycategory": result.category},
-              {"storybody": result.body},
-              {"storylikes": result.likes},
-              {"storyid": result.id},
-              {"storydate": formate1.toString()}
+              {'authorname': result.personname},
+              {'authorprofilepic': result.personprofilepic},
+              {'authorid': result.personid},
+              {'storytitle': result.title},
+              {'storycategory': result.category},
+              {'storybody': result.body},
+              {'storylikes': result.likes},
+              {'storyid': result.id},
+              {'storydate': formate1.toString()}
             ]),
             storyBody: result.body,
             readmoreOnTap: () =>
                 Get.toNamed(Routes.FULL_SCREEN_STORY, arguments: [
-              {"authorname": result.personname},
-              {"authorprofilepic": result.personprofilepic},
-              {"authorid": result.personid},
-              {"storytitle": result.title},
-              {"storycategory": result.category},
-              {"storybody": result.body},
-              {"storylikes": result.likes},
-              {"storyid": result.id},
-              {"storydate": formate1.toString()}
+              {'authorname': result.personname},
+              {'authorprofilepic': result.personprofilepic},
+              {'authorid': result.personid},
+              {'storytitle': result.title},
+              {'storycategory': result.category},
+              {'storybody': result.body},
+              {'storylikes': result.likes},
+              {'storyid': result.id},
+              {'storydate': formate1.toString()}
             ]),
           );
         });
@@ -485,7 +484,7 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     List<StoriesModel> matchQuery = <StoriesModel>[];
-    for (var title in controller.story) {
+    for (final title in controller.story) {
       if (title.title.toString().toLowerCase().contains(query.toLowerCase())) {
         matchQuery.add(title);
       }
@@ -495,7 +494,7 @@ class CustomSearchDelegate extends SearchDelegate {
         itemBuilder: (context, index) {
           var result = matchQuery[index];
           var dateTime = DateTime.parse(result.dateadded.toString());
-          var formate1 = "${dateTime.day}-${dateTime.month}-${dateTime.year}";
+          var formate1 = '${dateTime.day}-${dateTime.month}-${dateTime.year}';
           return CustomStoryBarWidgetView(
             profileOnTapped: () => Get.toNamed(Routes.OTHER_PROFILE,
                 arguments: {
@@ -516,28 +515,28 @@ class CustomSearchDelegate extends SearchDelegate {
             storyId: result.id,
             listTileOnTap: () =>
                 Get.toNamed(Routes.FULL_SCREEN_STORY, arguments: [
-              {"authorname": result.personname},
-              {"authorprofilepic": result.personprofilepic},
-              {"authorid": result.personid},
-              {"storytitle": result.title},
-              {"storycategory": result.category},
-              {"storybody": result.body},
-              {"storylikes": result.likes},
-              {"storyid": result.id},
-              {"storydate": formate1.toString()}
+              {'authorname': result.personname},
+              {'authorprofilepic': result.personprofilepic},
+              {'authorid': result.personid},
+              {'storytitle': result.title},
+              {'storycategory': result.category},
+              {'storybody': result.body},
+              {'storylikes': result.likes},
+              {'storyid': result.id},
+              {'storydate': formate1.toString()}
             ]),
             storyBody: result.body,
             readmoreOnTap: () =>
                 Get.toNamed(Routes.FULL_SCREEN_STORY, arguments: [
-              {"authorname": result.personname},
-              {"authorprofilepic": result.personprofilepic},
-              {"authorid": result.personid},
-              {"storytitle": result.title},
-              {"storycategory": result.category},
-              {"storybody": result.body},
-              {"storylikes": result.likes},
-              {"storyid": result.id},
-              {"storydate": formate1.toString()}
+              {'authorname': result.personname},
+              {'authorprofilepic': result.personprofilepic},
+              {'authorid': result.personid},
+              {'storytitle': result.title},
+              {'storycategory': result.category},
+              {'storybody': result.body},
+              {'storylikes': result.likes},
+              {'storyid': result.id},
+              {'storydate': formate1.toString()}
             ]),
           );
         });
