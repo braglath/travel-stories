@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+//
 
 class LocalString extends Translations {
   @override
