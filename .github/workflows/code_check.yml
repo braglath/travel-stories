@@ -24,8 +24,8 @@ jobs:
       # - uses: dart-lang/setup-dart@v1
       - uses: dart-lang/setup-dart@v1
 
-      - name: Install dependencies
-        run: dart pub get
+#       - name: Install dependencies
+#         run: dart pub get
 
       - name: Auto quickfix lints
         run: dart fix --apply
